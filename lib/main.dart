@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
-import 'contracts/contracts_belesah.dart';
-import 'contracts/contracts_price.dart';
-import 'enum/enum_beleash.dart';
-import 'logic/logic_jumbo.dart';
-import 'logic/logic_mi.dart';
-import 'logic/logic_mini.dart';
-import 'logic/logic_price.dart';
+import 'dart/contracts/contracts_belesah.dart';
+import 'dart/contracts/contracts_price.dart';
+import 'dart/enum/enum_beleash.dart';
+import 'dart/logic/logic_jumbo.dart';
+import 'dart/logic/logic_mi.dart';
+import 'dart/logic/logic_mini.dart';
+import 'dart/logic/logic_price.dart';
 
 void main() {
   runApp(const BelesahApp());
