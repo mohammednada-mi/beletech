@@ -1,6 +1,6 @@
 import '../enum/enum_beleash.dart';
 import '../contracts/contracts_price.dart';
-import '../logic/logic_mi.dart';
+import 'logic_mi.dart';
 
 class LogicPrice implements ContractsPrice {
   final LogicBelesahMi logicBelesahMi = LogicBelesahMi();
