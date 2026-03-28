@@ -153,7 +153,7 @@ class _HomeScreenState extends State<HomeScreen>
 طول الخيط الصغير: ${belesahThreadSmall.toStringAsFixed(3)} م
 عدد الخيوط: $numThread
 عدد الثقوب (Punching): ${punching.toStringAsFixed(1)}
-طول السلك المطلوب: ${wire.toStringAsFixed(3)} م
+طول السلك المطلوب: ${wire.toStringAsFixed(0)} م
 ''';
     });
   }
