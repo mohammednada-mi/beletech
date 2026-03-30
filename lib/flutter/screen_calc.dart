@@ -6,8 +6,16 @@ class ScreenCalc extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('ScreenCalc')),
-      body: const Center(child: Text('ScreenCalc')),
+      appBar: AppBar(title: const Text('بليسيه')),
+      body: SafeArea(
+        child: SingleChildScrollView(
+          padding: EdgeInsets.all(16.0),
+          child: Column(children: [
+          
+
+        ],),
+        ),
+      ),
     );
   }
 }
