@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 
 import 'dart/contracts/contracts_belesah.dart';
@@ -7,6 +8,7 @@ import 'dart/logic/logic_jumbo.dart';
 import 'dart/logic/logic_mi.dart';
 import 'dart/logic/logic_mini.dart';
 import 'dart/logic/logic_price.dart';
+import 'dart/logic/save_file.dart';
 
 void main() {
   runApp(const BelesahApp());
@@ -42,52 +44,64 @@ class _HomeScreenState extends State<HomeScreen>
   BelesahSizeType _selectedSizeType = BelesahSizeType.mi;
   TypeOfBelesah _selectedBelesahType = TypeOfBelesah.singleSashwire;
   Wiresize _selectedWireSize = Wiresize.wire18m;
-  TypeOfSash _selectedSashType = TypeOfSash.singleSash;
-
-  final TextEditingController _widthController = TextEditingController();
-  final TextEditingController _heightController = TextEditingController();
-
-  // Price controllers
-  final TextEditingController _factoryController = TextEditingController();
-  final TextEditingController _elhalkController = TextEditingController();
-  final TextEditingController _totalThreadController = TextEditingController();
-  final TextEditingController _curtainPriceController = TextEditingController();
-  final TextEditingController _doubleCurtainPriceController =
-      TextEditingController();
-  final TextEditingController _tapePriceController = TextEditingController();
-  final TextEditingController _assemblyKitController = TextEditingController();
-  final TextEditingController _forshPriceController = TextEditingController();
-  final TextEditingController _wightAlumColorController =
-      TextEditingController();
-  final TextEditingController _frameWeightController = TextEditingController();
-  final TextEditingController _sashWeightController = TextEditingController();
-  final TextEditingController _magnetPriceController = TextEditingController();
-  final TextEditingController _wirePriceController = TextEditingController();
+  final List<String> _keys = const [
+    'width',
+    'height',
+    'factory',
+    'elhalk',
+    'totalThread',
+    'curtainPrice',
+    'doubleCurtainPrice',
+    'tapePrice',
+    'assemblyKit',
+    'forshPrice',
+    'wightAlumColor',
+    'frameWeight',
+    'sashWeight',
+    'magnetPrice',
+    'wirePrice',
+  ];
+  final Map<String, String> _values = {};
+  Timer? _saveDebounce;
+  bool _isReady = false;
 
   String _dimensionsResult = '';
   String _priceResult = '';
 
   @override
+  void initState() {
+    super.initState();
+    _loadSavedValues();
+  }
+
+  @override
   void dispose() {
-    _widthController.dispose();
-    _heightController.dispose();
-    _factoryController.dispose();
-    _elhalkController.dispose();
-    _totalThreadController.dispose();
-    _curtainPriceController.dispose();
-    _doubleCurtainPriceController.dispose();
-    _tapePriceController.dispose();
-    _assemblyKitController.dispose();
-    _forshPriceController.dispose();
-    _wightAlumColorController.dispose();
-    _frameWeightController.dispose();
-    _sashWeightController.dispose();
-    _magnetPriceController.dispose();
-    _wirePriceController.dispose();
+    _saveDebounce?.cancel();
     super.dispose();
   }
 
-  /// عدد الضلفة يتبع نوع الشباك (ضلفة واحدة أو اثنتين)
+  Future<void> _loadSavedValues() async {
+    final Map<String, String> loaded = {};
+    for (final String key in _keys) {
+      loaded[key] = await SaveFile.loadData(key) ?? '';
+    }
+    if (!mounted) return;
+    setState(() {
+      _values.addAll(loaded);
+      _isReady = true;
+    });
+  }
+
+  void _setValue(String key, String value) {
+    _values[key] = value;
+    _saveDebounce?.cancel();
+    _saveDebounce = Timer(const Duration(milliseconds: 350), () {
+      SaveFile.saveData(key, value);
+    });
+  }
+
+  double _num(String key) => double.tryParse(_values[key] ?? '') ?? 0;
+
   TypeOfSash _sashTypeFromBelesah(TypeOfBelesah type) {
     switch (type) {
       case TypeOfBelesah.singleSashwire:
@@ -115,8 +129,8 @@ class _HomeScreenState extends State<HomeScreen>
   }
 
   void _calculateDimensions() {
-    final double? width = double.tryParse(_widthController.text);
-    final double? height = double.tryParse(_heightController.text);
+    final double? width = double.tryParse(_values['width'] ?? '');
+    final double? height = double.tryParse(_values['height'] ?? '');
 
     if (width == null || height == null) {
       setState(() {
@@ -137,9 +151,12 @@ class _HomeScreenState extends State<HomeScreen>
     final double wire = logic.calcWire(
       width,
       _selectedWireSize,
-      _selectedSashType,
+      _sashTypeFromBelesah(_selectedBelesahType),
     );
-    final int numThread = logic.calcNumThread(height, _selectedSashType);
+    final int numThread = logic.calcNumThread(
+      height,
+      _sashTypeFromBelesah(_selectedBelesahType),
+    );
 
     setState(() {
       _dimensionsResult =
@@ -159,8 +176,8 @@ class _HomeScreenState extends State<HomeScreen>
   }
 
   void _calculatePrice() {
-    final double? width = double.tryParse(_widthController.text);
-    final double? height = double.tryParse(_heightController.text);
+    final double? width = double.tryParse(_values['width'] ?? '');
+    final double? height = double.tryParse(_values['height'] ?? '');
     if (width == null || height == null) {
       setState(() {
         _priceResult = 'من فضلك أدخل الطول والعرض بشكل صحيح.';
@@ -168,24 +185,19 @@ class _HomeScreenState extends State<HomeScreen>
       return;
     }
 
-    double _parseOrZero(TextEditingController c) =>
-        double.tryParse(c.text) ?? 0;
-
-    final double factory = _parseOrZero(_factoryController);
-    final double elhalk = _parseOrZero(_elhalkController);
-    final double totalThread = _parseOrZero(_totalThreadController);
-    final double curtainPrice = _parseOrZero(_curtainPriceController);
-    final double doubleCurtainPrice = _parseOrZero(
-      _doubleCurtainPriceController,
-    );
-    final double tapePrice = _parseOrZero(_tapePriceController);
-    final double assemblyKit = _parseOrZero(_assemblyKitController);
-    final double forshPrice = _parseOrZero(_forshPriceController);
-    final double wightAlumColor = _parseOrZero(_wightAlumColorController);
-    final double frameWeight = _parseOrZero(_frameWeightController);
-    final double sashWeight = _parseOrZero(_sashWeightController);
-    final double magnetPrice = _parseOrZero(_magnetPriceController);
-    final double wirePrice = _parseOrZero(_wirePriceController);
+    final double factory = _num('factory');
+    final double elhalk = _num('elhalk');
+    final double totalThread = _num('totalThread');
+    final double curtainPrice = _num('curtainPrice');
+    final double doubleCurtainPrice = _num('doubleCurtainPrice');
+    final double tapePrice = _num('tapePrice');
+    final double assemblyKit = _num('assemblyKit');
+    final double forshPrice = _num('forshPrice');
+    final double wightAlumColor = _num('wightAlumColor');
+    final double frameWeight = _num('frameWeight');
+    final double sashWeight = _num('sashWeight');
+    final double magnetPrice = _num('magnetPrice');
+    final double wirePrice = _num('wirePrice');
 
     final ContractsPrice logicPrice = LogicPrice();
     final TypeOfSash sashType = _sashTypeFromBelesah(_selectedBelesahType);
@@ -218,6 +230,9 @@ class _HomeScreenState extends State<HomeScreen>
 
   @override
   Widget build(BuildContext context) {
+    if (!_isReady) {
+      return const Scaffold(body: Center(child: CircularProgressIndicator()));
+    }
     return DefaultTabController(
       length: 2,
       child: Scaffold(
@@ -269,11 +284,11 @@ class _HomeScreenState extends State<HomeScreen>
           Row(
             children: [
               Expanded(
-                child: _buildNumberField('العرض (متر)', _widthController),
+                child: _buildNumberField('العرض (متر)', 'width'),
               ),
               const SizedBox(width: 12),
               Expanded(
-                child: _buildNumberField('الارتفاع (متر)', _heightController),
+                child: _buildNumberField('الارتفاع (متر)', 'height'),
               ),
             ],
           ),
@@ -304,18 +319,14 @@ class _HomeScreenState extends State<HomeScreen>
               const SizedBox(width: 12),
               Expanded(
                 child: DropdownButton<TypeOfSash>(
-                  value: _selectedSashType,
+                  value: _sashTypeFromBelesah(_selectedBelesahType),
                   isExpanded: true,
                   items: TypeOfSash.values
                       .map(
                         (s) => DropdownMenuItem(value: s, child: Text(s.name)),
                       )
                       .toList(),
-                  onChanged: (value) {
-                    if (value != null) {
-                      setState(() => _selectedSashType = value);
-                    }
-                  },
+                  onChanged: null,
                 ),
               ),
             ],
@@ -353,11 +364,11 @@ class _HomeScreenState extends State<HomeScreen>
           Row(
             children: [
               Expanded(
-                child: _buildNumberField('العرض (متر)', _widthController),
+                child: _buildNumberField('العرض (متر)', 'width'),
               ),
               const SizedBox(width: 12),
               Expanded(
-                child: _buildNumberField('الارتفاع (متر)', _heightController),
+                child: _buildNumberField('الارتفاع (متر)', 'height'),
               ),
             ],
           ),
@@ -366,25 +377,25 @@ class _HomeScreenState extends State<HomeScreen>
             spacing: 12,
             runSpacing: 12,
             children: [
-              _buildNumberField('سعر المصنع للمتر', _factoryController),
-              _buildNumberField('الهالك', _elhalkController),
-              _buildNumberField('سعر الخيط للمتر', _totalThreadController),
-              _buildNumberField('سعر الستارة للمتر', _curtainPriceController),
+              _buildNumberField('سعر المصنع للمتر', 'factory'),
+              _buildNumberField('الهالك', 'elhalk'),
+              _buildNumberField('سعر الخيط للمتر', 'totalThread'),
+              _buildNumberField('سعر الستارة للمتر', 'curtainPrice'),
               _buildNumberField(
                 'سعر الستارة المزدوجة للمتر',
-                _doubleCurtainPriceController,
+                'doubleCurtainPrice',
               ),
-              _buildNumberField('سعر الشريط للمتر', _tapePriceController),
-              _buildNumberField('سعر طقم التجميع', _assemblyKitController),
-              _buildNumberField('سعر الفورش للمتر', _forshPriceController),
+              _buildNumberField('سعر الشريط للمتر', 'tapePrice'),
+              _buildNumberField('سعر طقم التجميع', 'assemblyKit'),
+              _buildNumberField('سعر الفورش للمتر', 'forshPrice'),
               _buildNumberField(
                 'سعر الألومنيوم الملون للكيلو',
-                _wightAlumColorController,
+                'wightAlumColor',
               ),
-              _buildNumberField('وزن الإطار', _frameWeightController),
-              _buildNumberField('وزن الضلفة', _sashWeightController),
-              _buildNumberField('سعر المغناطيس للمتر', _magnetPriceController),
-              _buildNumberField('سعر السلك للمتر', _wirePriceController),
+              _buildNumberField('وزن الإطار', 'frameWeight'),
+              _buildNumberField('وزن الضلفة', 'sashWeight'),
+              _buildNumberField('سعر المغناطيس للمتر', 'magnetPrice'),
+              _buildNumberField('سعر السلك للمتر', 'wirePrice'),
             ],
           ),
           const SizedBox(height: 16),
@@ -446,11 +457,11 @@ class _HomeScreenState extends State<HomeScreen>
     );
   }
 
-  Widget _buildNumberField(String label, TextEditingController controller) {
+  Widget _buildNumberField(String label, String key) {
     return SizedBox(
       width: 220,
-      child: TextField(
-        controller: controller,
+      child: TextFormField(
+        initialValue: _values[key] ?? '',
         keyboardType: const TextInputType.numberWithOptions(
           decimal: true,
           signed: false,
@@ -459,6 +470,7 @@ class _HomeScreenState extends State<HomeScreen>
           labelText: label,
           border: const OutlineInputBorder(),
         ),
+        onChanged: (value) => _setValue(key, value),
         textDirection: TextDirection.rtl,
       ),
     );
