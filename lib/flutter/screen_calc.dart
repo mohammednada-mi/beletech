@@ -45,7 +45,7 @@ class _ScreenCalcState extends State<ScreenCalc> {
                   items: pleatsTypes.map((String type) {
                     return DropdownMenuItem<String>(
                       value: type,
-                      child: Text(type),
+                      child: Text(type.typebel),
                     );
                   }).toList(),
                   onChanged: (String? newValue) {
@@ -89,6 +89,7 @@ class _ScreenCalcState extends State<ScreenCalc> {
                   ),
                 ],
               ),
+              const SizedBox(height: 16.0),
               Row(
                 children: [
                   Expanded(
@@ -98,7 +99,7 @@ class _ScreenCalcState extends State<ScreenCalc> {
                       items: TypeOfSash.values.map((TypeOfSash type) {
                         return DropdownMenuItem<TypeOfSash>(
                           value: type,
-                          child: Text(type.name),
+                          child: Text(type.sash),
                         );
                       }).toList(),
                       onChanged: (TypeOfSash? newValue) {
@@ -116,7 +117,7 @@ class _ScreenCalcState extends State<ScreenCalc> {
                       items: Wiresize.values.map((Wiresize type) {
                         return DropdownMenuItem<Wiresize>(
                           value: type,
-                          child: Text(type.name),
+                          child: Text(type.wire),
                         );
                       }).toList(),
                       onChanged: (Wiresize? newValue) {
@@ -133,7 +134,7 @@ class _ScreenCalcState extends State<ScreenCalc> {
                       items: TypeOfBelesah.values.map((TypeOfBelesah type) {
                         return DropdownMenuItem<TypeOfBelesah>(
                           value: type,
-                          child: Text(type.belName),
+                          child: Text(type.belesah),
                         );
                       }).toList(),
                       onChanged: (TypeOfBelesah? newValue) {
