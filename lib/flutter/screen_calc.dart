@@ -19,6 +19,14 @@ class _ScreenCalcState extends State<ScreenCalc> {
   TypeOfBelesah? selectedBelesah;
   Wiresize? selectedWire;
   TypeOfSash? selectedSash;
+  double? resultWidth;
+  double? resultHeight;
+  double? resultSash;
+  double? resultWire;
+  double? resultDoubleFace;
+  double? resultThread;
+  double? resultThreadSmall;
+  double? resultPunching;
   double height = 0;
   double width = 0;
   @override
@@ -127,25 +135,72 @@ class _ScreenCalcState extends State<ScreenCalc> {
                       },
                     ),
                   ),
-                  Expanded(
-                    child: DropdownButton<TypeOfBelesah>(
-                      value: selectedBelesah,
-                      hint: const Text('اختر نوع البليسيه'),
-                      items: TypeOfBelesah.values.map((TypeOfBelesah type) {
-                        return DropdownMenuItem<TypeOfBelesah>(
-                          value: type,
-                          child: Text(type.belesah),
-                        );
-                      }).toList(),
-                      onChanged: (TypeOfBelesah? newValue) {
-                        setState(() {
-                          selectedBelesah = newValue;
-                        });
-                      },
-                    ),
-                  ),
                 ],
               ),
+
+              DropdownButton<TypeOfBelesah>(
+                value: selectedBelesah,
+                hint: const Text('اختر نوع البليسيه'),
+                items: TypeOfBelesah.values.map((TypeOfBelesah type) {
+                  return DropdownMenuItem<TypeOfBelesah>(
+                    value: type,
+                    child: Text(type.belesah),
+                  );
+                }).toList(),
+                onChanged: (TypeOfBelesah? newValue) {
+                  setState(() {
+                    selectedBelesah = newValue;
+                  });
+                },
+              ),
+
+              ElevatedButton(
+                onPressed: () {
+                  setState(() {
+                    resultWidth = logic?.calcWidth(width);
+                    resultHeight = logic?.calcHeight(height);
+                    resultSash = logic?.calcSash(height);
+                    resultWire = logic?.calcWire(
+                      width,
+                      selectedWire!,
+                      selectedSash!,
+                    );
+                    resultDoubleFace = logic?.calcDoubleFace(height);
+                    resultThread = logic?.calcThread(width, height);
+                    resultThreadSmall = logic?.calcThreadSmall(width, height);
+                    resultPunching = logic?.calcPunching(height);
+                  });
+                },
+                child: const Text('احسب'),
+              ),
+              const SizedBox(height: 16.0),
+              if (resultWidth != null)
+                Card(
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text('العرض: ${resultWidth!.toStringAsFixed(2)} متر'),
+                        Text(
+                          'الارتفاع: ${resultHeight!.toStringAsFixed(2)} متر',
+                        ),
+                        Text('الشيش: ${resultSash!.toStringAsFixed(2)} متر'),
+                        Text('السلك: ${resultWire!.toStringAsFixed(0)} كسرة'),
+                        Text(
+                          'الدابل فيس: ${resultDoubleFace!.toStringAsFixed(2)} متر',
+                        ),
+                        Text('الخيط: ${resultThread!.toStringAsFixed(2)} متر'),
+                        Text(
+                          'الخيط الصغير: ${resultThreadSmall!.toStringAsFixed(2)} متر',
+                        ),
+                        Text(
+                          'الثقوب: ${resultPunching!.toStringAsFixed(2)} سم',
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
             ],
           ),
         ),
