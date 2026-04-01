@@ -27,10 +27,10 @@ class _ScreenCalcState extends State<ScreenCalc> {
   double? resultThread;
   double? resultThreadSmall;
   double? resultPunching;
-  double? resultCalcNumTHread;
-  double? resultCalcNumThreadSmall;
-  double? resultCalcNumSash;
-  double? resultCalcNumDoubleFace;
+  int? resultCalcNumTHread;
+  int? resultCalcNumThreadSmall;
+  int? resultCalcNumSash;
+  int? resultCalcNumDoubleFace;
   double height = 0;
   double width = 0;
   @override
@@ -160,6 +160,16 @@ class _ScreenCalcState extends State<ScreenCalc> {
 
               ElevatedButton(
                 onPressed: () {
+                  if (selectedWire == null ||
+                      selectedSash == null ||
+                      height <= 0 ||
+                      width <= 0) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text('الرجاء ملء جميع الحقول بشكل صحيح'),
+                      ),
+                    );
+                  }
                   setState(() {
                     resultWidth = logic?.calcWidth(width);
                     resultHeight = logic?.calcHeight(height);
@@ -173,13 +183,18 @@ class _ScreenCalcState extends State<ScreenCalc> {
                     resultThread = logic?.calcThread(width, height);
                     resultThreadSmall = logic?.calcThreadSmall(height, width);
                     resultPunching = logic?.calcPunching(height);
-                    resultCalcNumTHread = logic?.calcThread(width, height);
-                    resultCalcNumThreadSmall = logic?.calcThreadSmall(
+                    resultCalcNumTHread = logic?.calcNumThread(
                       height,
-                      width,
+                      selectedSash!,
                     );
-                    resultCalcNumSash = logic?.calcSash(height);
-                    resultCalcNumDoubleFace = logic?.calcDoubleFace(height);
+                    resultCalcNumThreadSmall = logic?.calcNumThreadSmall(
+                      height,
+                      selectedSash!,
+                    );
+                    resultCalcNumSash = logic?.numSash(selectedSash!);
+                    resultCalcNumDoubleFace = logic?.numDoubleFace(
+                      selectedSash!,
+                    );
                   });
                 },
                 child: const Text('احسب'),
