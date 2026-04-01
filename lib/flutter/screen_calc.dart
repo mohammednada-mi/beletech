@@ -4,6 +4,7 @@ import 'package:belesah/dart/screen/constants.dart';
 import 'package:belesah/dart/logic/logic_mini.dart';
 import 'package:belesah/dart/logic/logic_jumbo.dart';
 import 'package:belesah/dart/logic/logic_mi.dart';
+import 'package:belesah/dart/enum/enum_beleash.dart';
 
 class ScreenCalc extends StatefulWidget {
   const ScreenCalc({super.key});
@@ -15,6 +16,9 @@ class ScreenCalc extends StatefulWidget {
 class _ScreenCalcState extends State<ScreenCalc> {
   String? selectedType;
   ContractsBelesah? logic;
+  TypeOfBelesah? selectedBelesah;
+  Wiresize? selectedWire;
+  TypeOfSash? selectedSash;
   double height = 0;
   double width = 0;
   @override
@@ -28,7 +32,13 @@ class _ScreenCalcState extends State<ScreenCalc> {
             children: [
               Align(
                 alignment: Alignment.centerLeft,
-
+                child: Text(
+                  'اختر نوع البليسيه:',
+                  style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
+                ),
+              ),
+              Align(
+                alignment: Alignment.centerLeft,
                 child: DropdownButton<String>(
                   value: selectedType,
                   hint: const Text('اختر نوع البليسيه'),
@@ -74,6 +84,62 @@ class _ScreenCalcState extends State<ScreenCalc> {
                       ),
                       onChanged: (value) {
                         width = double.tryParse(value) ?? 0;
+                      },
+                    ),
+                  ),
+                ],
+              ),
+              Row(
+                children: [
+                  Expanded(
+                    child: DropdownButton<TypeOfSash>(
+                      value: selectedSash,
+                      hint: const Text('اختر نوع الشيش'),
+                      items: TypeOfSash.values.map((TypeOfSash type) {
+                        return DropdownMenuItem<TypeOfSash>(
+                          value: type,
+                          child: Text(type.name),
+                        );
+                      }).toList(),
+                      onChanged: (TypeOfSash? newValue) {
+                        setState(() {
+                          selectedSash = newValue;
+                        });
+                      },
+                    ),
+                  ),
+
+                  Expanded(
+                    child: DropdownButton<Wiresize>(
+                      value: selectedWire,
+                      hint: const Text('اختر نوع السلك'),
+                      items: Wiresize.values.map((Wiresize type) {
+                        return DropdownMenuItem<Wiresize>(
+                          value: type,
+                          child: Text(type.name),
+                        );
+                      }).toList(),
+                      onChanged: (Wiresize? newValue) {
+                        setState(() {
+                          selectedWire = newValue;
+                        });
+                      },
+                    ),
+                  ),
+                  Expanded(
+                    child: DropdownButton<TypeOfBelesah>(
+                      value: selectedBelesah,
+                      hint: const Text('اختر نوع البليسيه'),
+                      items: TypeOfBelesah.values.map((TypeOfBelesah type) {
+                        return DropdownMenuItem<TypeOfBelesah>(
+                          value: type,
+                          child: Text(type.belName),
+                        );
+                      }).toList(),
+                      onChanged: (TypeOfBelesah? newValue) {
+                        setState(() {
+                          selectedBelesah = newValue;
+                        });
                       },
                     ),
                   ),
