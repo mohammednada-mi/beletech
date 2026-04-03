@@ -76,6 +76,90 @@ class _ScreenCalcPriceState extends State<ScreenCalcPrice> {
                       },
                     ),
                   ),
+                  SizedBox(
+                    width: 100,
+                    child: TextField(
+                      keyboardType: TextInputType.number,
+                      decoration: InputDecoration(labelText: 'سعر المغناطيس'),
+                      onChanged: (value) {
+                        setState(() {
+                          magnetPrice = double.tryParse(value) ?? 0;
+                        });
+                      },
+                    ),
+                  ),
+                  SizedBox(
+                    width: 100,
+                    child: TextField(
+                      keyboardType: TextInputType.number,
+                      decoration: InputDecoration(labelText: 'سعر الشريط'),
+                      onChanged: (value) {
+                        setState(() {
+                          tapePrice = double.tryParse(value) ?? 0;
+                        });
+                      },
+                    ),
+                  ),
+                  SizedBox(
+                    width: 100,
+                    child: TextField(
+                      keyboardType: TextInputType.number,
+                      decoration: InputDecoration(labelText: 'سعر كيت التجميع'),
+                      onChanged: (value) {
+                        setState(() {
+                          assemblyKit = double.tryParse(value) ?? 0;
+                        });
+                      },
+                    ),
+                  ),
+                  SizedBox(
+                    width: 100,
+                    child: TextField(
+                      keyboardType: TextInputType.number,
+                      decoration: InputDecoration(labelText: 'سعر الفورش'),
+                      onChanged: (value) {
+                        setState(() {
+                          forshPrice = double.tryParse(value) ?? 0;
+                        });
+                      },
+                    ),
+                  ),
+                  SizedBox(
+                    width: 100,
+                    child: TextField(
+                      keyboardType: TextInputType.number,
+                      decoration: InputDecoration(labelText: 'وزن الالومنيوم'),
+                      onChanged: (value) {
+                        setState(() {
+                          wightAlumColor = double.tryParse(value) ?? 0;
+                        });
+                      },
+                    ),
+                  ),
+                  SizedBox(
+                    width: 100,
+                    child: TextField(
+                      keyboardType: TextInputType.number,
+                      decoration: InputDecoration(labelText: 'وزن الإطار'),
+                      onChanged: (value) {
+                        setState(() {
+                          frameWeight = double.tryParse(value) ?? 0;
+                        });
+                      },
+                    ),
+                  ),
+                  SizedBox(
+                    width: 100,
+                    child: TextField(
+                      keyboardType: TextInputType.number,
+                      decoration: InputDecoration(labelText: 'وزن الشيش'),
+                      onChanged: (value) {
+                        setState(() {
+                          sashWeight = double.tryParse(value) ?? 0;
+                        });
+                      },
+                    ),
+                  ),
                 ],
               ),
             ],
