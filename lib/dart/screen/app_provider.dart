@@ -19,21 +19,6 @@ class AppProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void setSelectedType(String? value) {
-    selectedType = value;
-    notifyListeners();
-  }
-
-  void setSelectedWire(Wiresize? value) {
-    selectedWire = value;
-    notifyListeners();
-  }
-
-  void setSelectedSash(TypeOfSash? value) {
-    selectedSash = value;
-    notifyListeners();
-  }
-
   void setSelectedBelesah(TypeOfBelesah? value) {
     selectedBelesah = value;
     notifyListeners();
