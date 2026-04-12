@@ -5,8 +5,6 @@ import 'package:belesah/dart/logic/logic_mini.dart';
 import 'package:belesah/dart/logic/logic_jumbo.dart';
 import 'package:belesah/dart/logic/logic_mi.dart';
 import 'package:belesah/dart/enum/enum_beleash.dart';
-import 'package:provider/provider.dart';
-import '../dart/screen/app_provider.dart';
 
 class ScreenCalc extends StatefulWidget {
   const ScreenCalc({super.key});
@@ -73,7 +71,6 @@ class _ScreenCalcState extends State<ScreenCalc> {
                         logic = LogicBelesahJumbo();
                       }
                     });
-                    context.read<AppProvider>().setSelectedType(selectedType);
                   },
                 ),
               ),
@@ -86,9 +83,7 @@ class _ScreenCalcState extends State<ScreenCalc> {
                         labelText: 'الارتفاع (متر)',
                       ),
                       onChanged: (value) {
-                        context.read<AppProvider>().setHeight(
-                          double.tryParse(value) ?? 0,
-                        );
+                        double.tryParse(value) ?? 0;
                       },
                     ),
                   ),
@@ -100,9 +95,7 @@ class _ScreenCalcState extends State<ScreenCalc> {
                         labelText: 'العرض (متر)',
                       ),
                       onChanged: (value) {
-                        context.read<AppProvider>().setWidth(
-                          double.tryParse(value) ?? 0,
-                        );
+                        double.tryParse(value) ?? 0;
                       },
                     ),
                   ),
@@ -125,9 +118,6 @@ class _ScreenCalcState extends State<ScreenCalc> {
                         setState(() {
                           selectedSash = newValue;
                         });
-                        context.read<AppProvider>().setSelectedSash(
-                          selectedSash,
-                        );
                       },
                     ),
                   ),
@@ -146,9 +136,6 @@ class _ScreenCalcState extends State<ScreenCalc> {
                         setState(() {
                           selectedWire = newValue;
                         });
-                        context.read<AppProvider>().setSelectedWire(
-                          selectedWire,
-                        );
                       },
                     ),
                   ),
@@ -168,9 +155,6 @@ class _ScreenCalcState extends State<ScreenCalc> {
                   setState(() {
                     selectedBelesah = newValue;
                   });
-                  context.read<AppProvider>().setSelectedBelesah(
-                    selectedBelesah,
-                  );
                 },
               ),
 

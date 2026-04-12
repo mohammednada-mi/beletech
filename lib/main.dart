@@ -4,14 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../dart/screen/app_provider.dart';
 
-void main() {
-  runApp(
-    ChangeNotifierProvider(
-      create: (context) => AppProvider(),
-      child: const BelesahApp(),
-    ),
-  );
-}
+void main() {}
 
 class BelesahApp extends StatelessWidget {
   const BelesahApp({super.key});

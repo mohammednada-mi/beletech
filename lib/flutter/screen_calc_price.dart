@@ -27,6 +27,8 @@ class _ScreenCalcPriceState extends State<ScreenCalcPrice> {
   double sashWeight = 0;
   double magnetPrice = 0;
   double wirePrice = 0;
+  TypeOfBelesah? selectedBelesah;
+
   @override
   void initState() {
     super.initState();
@@ -57,7 +59,6 @@ class _ScreenCalcPriceState extends State<ScreenCalcPrice> {
 
   @override
   Widget build(BuildContext context) {
-    final provider = context.watch<AppProvider>();
     return Scaffold(
       appBar: AppBar(title: const Text('بليسيه')),
       body: SafeArea(
@@ -74,9 +75,7 @@ class _ScreenCalcPriceState extends State<ScreenCalcPrice> {
                         labelText: 'الارتفاع (متر)',
                       ),
                       onChanged: (value) {
-                        context.read<AppProvider>().setHeight(
-                          double.tryParse(value) ?? 0,
-                        );
+                        double.tryParse(value) ?? 0;
                       },
                     ),
                   ),
@@ -88,9 +87,7 @@ class _ScreenCalcPriceState extends State<ScreenCalcPrice> {
                         labelText: 'العرض (متر)',
                       ),
                       onChanged: (value) {
-                        context.read<AppProvider>().setWidth(
-                          double.tryParse(value) ?? 0,
-                        );
+                        double.tryParse(value) ?? 0;
                       },
                     ),
                   ),
@@ -246,6 +243,25 @@ class _ScreenCalcPriceState extends State<ScreenCalcPrice> {
                         SaveFile.saveData('totalThread', value);
                       },
                     ),
+                  ),
+                ],
+              ),
+              Row(
+                children: [
+                  DropdownButton<TypeOfBelesah>(
+                    value: selectedBelesah,
+                    hint: const Text('اختر نوع البليسيه'),
+                    items: TypeOfBelesah.values.map((TypeOfBelesah type) {
+                      return DropdownMenuItem<TypeOfBelesah>(
+                        value: type,
+                        child: Text(type.belesah),
+                      );
+                    }).toList(),
+                    onChanged: (TypeOfBelesah? newValue) {
+                      setState(() {
+                        selectedBelesah = newValue;
+                      });
+                    },
                   ),
                 ],
               ),
