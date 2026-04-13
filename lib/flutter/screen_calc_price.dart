@@ -1,7 +1,5 @@
 import 'package:belesah/dart/enum/enum_beleash.dart';
 
-import 'package:provider/provider.dart';
-import 'package:belesah/dart/screen/app_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:belesah/dart/logic/save_file.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -28,7 +26,21 @@ class _ScreenCalcPriceState extends State<ScreenCalcPrice> {
   double magnetPrice = 0;
   double wirePrice = 0;
   TypeOfBelesah? selectedBelesah;
-
+  final TextEditingController factoryController = TextEditingController();
+  final TextEditingController elhalkController = TextEditingController();
+  final TextEditingController tapePriceController = TextEditingController();
+  final TextEditingController assemblyKitController = TextEditingController();
+  final TextEditingController forshPriceController = TextEditingController();
+  final TextEditingController wightAlumColorController =
+      TextEditingController();
+  final TextEditingController frameWeightController = TextEditingController();
+  final TextEditingController sashWeightController = TextEditingController();
+  final TextEditingController magnetPriceController = TextEditingController();
+  final TextEditingController wirePriceController = TextEditingController();
+  final TextEditingController curtainPriceController = TextEditingController();
+  final TextEditingController doubleCurtainPriceController =
+      TextEditingController();
+  final TextEditingController totalThreadController = TextEditingController();
   @override
   void initState() {
     super.initState();
@@ -38,23 +50,39 @@ class _ScreenCalcPriceState extends State<ScreenCalcPrice> {
   Future<void> _loadData() async {
     final prefs = await SharedPreferences.getInstance();
     setState(() {
-      factory = double.tryParse(prefs.getString('factory') ?? '0') ?? 0;
-      elhalk = double.tryParse(prefs.getString('elhalk') ?? '0') ?? 0;
-      tapePrice = double.tryParse(prefs.getString('tapePrice') ?? '0') ?? 0;
-      assemblyKit = double.tryParse(prefs.getString('assemblyKit') ?? '0') ?? 0;
-      forshPrice = double.tryParse(prefs.getString('forshPrice') ?? '0') ?? 0;
-      wightAlumColor =
-          double.tryParse(prefs.getString('wightAlumColor') ?? '0') ?? 0;
-      frameWeight = double.tryParse(prefs.getString('frameWeight') ?? '0') ?? 0;
-      sashWeight = double.tryParse(prefs.getString('sashWeight') ?? '0') ?? 0;
-      magnetPrice = double.tryParse(prefs.getString('magnetPrice') ?? '0') ?? 0;
-      wirePrice = double.tryParse(prefs.getString('wirePrice') ?? '0') ?? 0;
-      curtainprice =
-          double.tryParse(prefs.getString('curtainprice') ?? '0') ?? 0;
-      doubleCurtainPrice =
-          double.tryParse(prefs.getString('doubleCurtainPrice') ?? '0') ?? 0;
-      totalThread = double.tryParse(prefs.getString('totalThread') ?? '0') ?? 0;
+      factoryController.text = prefs.getString('factory') ?? '0';
+      elhalkController.text = prefs.getString('elhalk') ?? '0';
+      tapePriceController.text = prefs.getString('tapePrice') ?? '0';
+      assemblyKitController.text = prefs.getString('assemblyKit') ?? '0';
+      forshPriceController.text = prefs.getString('forshPrice') ?? '0';
+      wightAlumColorController.text = prefs.getString('wightAlumColor') ?? '0';
+      frameWeightController.text = prefs.getString('frameWeight') ?? '0';
+      sashWeightController.text = prefs.getString('sashWeight') ?? '0';
+      magnetPriceController.text = prefs.getString('magnetPrice') ?? '0';
+      wirePriceController.text = prefs.getString('wirePrice') ?? '0';
+      curtainPriceController.text = prefs.getString('curtainprice') ?? '0';
+      doubleCurtainPriceController.text =
+          prefs.getString('doubleCurtainPrice') ?? '0';
+      totalThreadController.text = prefs.getString('totalThread') ?? '0';
     });
+  }
+
+  @override
+  void dispose() {
+    factoryController.dispose();
+    elhalkController.dispose();
+    tapePriceController.dispose();
+    assemblyKitController.dispose();
+    forshPriceController.dispose();
+    wightAlumColorController.dispose();
+    frameWeightController.dispose();
+    sashWeightController.dispose();
+    magnetPriceController.dispose();
+    wirePriceController.dispose();
+    curtainPriceController.dispose();
+    doubleCurtainPriceController.dispose();
+    totalThreadController.dispose();
+    super.dispose();
   }
 
   @override
@@ -74,9 +102,7 @@ class _ScreenCalcPriceState extends State<ScreenCalcPrice> {
                       decoration: const InputDecoration(
                         labelText: 'الارتفاع (متر)',
                       ),
-                      onChanged: (value) {
-                        double.tryParse(value) ?? 0;
-                      },
+                      onChanged: (value) {},
                     ),
                   ),
                   const SizedBox(width: 16.0),
@@ -86,9 +112,7 @@ class _ScreenCalcPriceState extends State<ScreenCalcPrice> {
                       decoration: const InputDecoration(
                         labelText: 'العرض (متر)',
                       ),
-                      onChanged: (value) {
-                        double.tryParse(value) ?? 0;
-                      },
+                      onChanged: (value) {},
                     ),
                   ),
                 ],
@@ -101,6 +125,7 @@ class _ScreenCalcPriceState extends State<ScreenCalcPrice> {
                   SizedBox(
                     width: 100,
                     child: TextField(
+                      controller: factoryController,
                       keyboardType: TextInputType.number,
                       decoration: InputDecoration(labelText: 'سعر المصنع'),
                       onChanged: (value) {
@@ -112,6 +137,7 @@ class _ScreenCalcPriceState extends State<ScreenCalcPrice> {
                   SizedBox(
                     width: 100,
                     child: TextField(
+                      controller: elhalkController,
                       keyboardType: TextInputType.number,
                       decoration: InputDecoration(labelText: 'الهالك'),
                       onChanged: (value) {
@@ -124,6 +150,7 @@ class _ScreenCalcPriceState extends State<ScreenCalcPrice> {
                   SizedBox(
                     width: 100,
                     child: TextField(
+                      controller: wirePriceController,
                       keyboardType: TextInputType.number,
                       decoration: InputDecoration(labelText: 'سعر السلك'),
                       onChanged: (value) {
@@ -135,6 +162,8 @@ class _ScreenCalcPriceState extends State<ScreenCalcPrice> {
                   SizedBox(
                     width: 100,
                     child: TextField(
+                      controller: magnetPriceController,
+
                       keyboardType: TextInputType.number,
                       decoration: InputDecoration(labelText: 'سعر المغناطيس'),
                       onChanged: (value) {
@@ -146,6 +175,8 @@ class _ScreenCalcPriceState extends State<ScreenCalcPrice> {
                   SizedBox(
                     width: 100,
                     child: TextField(
+                      controller: tapePriceController,
+
                       keyboardType: TextInputType.number,
                       decoration: InputDecoration(labelText: 'سعر الشريط'),
                       onChanged: (value) {
@@ -157,6 +188,8 @@ class _ScreenCalcPriceState extends State<ScreenCalcPrice> {
                   SizedBox(
                     width: 100,
                     child: TextField(
+                      controller: assemblyKitController,
+
                       keyboardType: TextInputType.number,
                       decoration: InputDecoration(labelText: 'سعر كيت التجميع'),
                       onChanged: (value) {
@@ -168,6 +201,8 @@ class _ScreenCalcPriceState extends State<ScreenCalcPrice> {
                   SizedBox(
                     width: 100,
                     child: TextField(
+                      controller: forshPriceController,
+
                       keyboardType: TextInputType.number,
                       decoration: InputDecoration(labelText: 'سعر الفورش'),
                       onChanged: (value) {
@@ -179,6 +214,8 @@ class _ScreenCalcPriceState extends State<ScreenCalcPrice> {
                   SizedBox(
                     width: 100,
                     child: TextField(
+                      controller: wightAlumColorController,
+
                       keyboardType: TextInputType.number,
                       decoration: InputDecoration(labelText: 'وزن الالومنيوم'),
                       onChanged: (value) {
@@ -190,6 +227,8 @@ class _ScreenCalcPriceState extends State<ScreenCalcPrice> {
                   SizedBox(
                     width: 100,
                     child: TextField(
+                      controller: frameWeightController,
+
                       keyboardType: TextInputType.number,
                       decoration: InputDecoration(labelText: 'وزن الإطار'),
                       onChanged: (value) {
@@ -201,6 +240,8 @@ class _ScreenCalcPriceState extends State<ScreenCalcPrice> {
                   SizedBox(
                     width: 100,
                     child: TextField(
+                      controller: sashWeightController,
+
                       keyboardType: TextInputType.number,
                       decoration: InputDecoration(labelText: 'وزن الشيش'),
                       onChanged: (value) {
@@ -212,6 +253,7 @@ class _ScreenCalcPriceState extends State<ScreenCalcPrice> {
                   SizedBox(
                     width: 100,
                     child: TextField(
+                      controller: curtainPriceController,
                       keyboardType: TextInputType.number,
                       decoration: InputDecoration(labelText: 'سعر الستارة'),
                       onChanged: (value) {
@@ -223,6 +265,7 @@ class _ScreenCalcPriceState extends State<ScreenCalcPrice> {
                   SizedBox(
                     width: 100,
                     child: TextField(
+                      controller: doubleCurtainPriceController,
                       keyboardType: TextInputType.number,
                       decoration: InputDecoration(
                         labelText: 'سعر الستارة المزدوجة',
@@ -236,6 +279,7 @@ class _ScreenCalcPriceState extends State<ScreenCalcPrice> {
                   SizedBox(
                     width: 100,
                     child: TextField(
+                      controller: totalThreadController,
                       keyboardType: TextInputType.number,
                       decoration: InputDecoration(labelText: 'سعر الخيط'),
                       onChanged: (value) {
