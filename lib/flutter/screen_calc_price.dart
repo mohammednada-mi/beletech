@@ -1,8 +1,9 @@
 import 'package:belesah/dart/enum/enum_beleash.dart';
-
+import 'package:belesah/dart/logic/logic_price.dart';
 import 'package:flutter/material.dart';
 import 'package:belesah/dart/logic/save_file.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:belesah/dart/screen/app_data.dart';
 
 class ScreenCalcPrice extends StatefulWidget {
   const ScreenCalcPrice({super.key});
@@ -26,6 +27,7 @@ class _ScreenCalcPriceState extends State<ScreenCalcPrice> {
   double magnetPrice = 0;
   double wirePrice = 0;
   TypeOfBelesah? selectedBelesah;
+  double? resultPrice;
   final TextEditingController factoryController = TextEditingController();
   final TextEditingController elhalkController = TextEditingController();
   final TextEditingController tapePriceController = TextEditingController();
@@ -51,19 +53,34 @@ class _ScreenCalcPriceState extends State<ScreenCalcPrice> {
     final prefs = await SharedPreferences.getInstance();
     setState(() {
       factoryController.text = prefs.getString('factory') ?? '0';
+      factory = double.tryParse(factoryController.text) ?? 0;
       elhalkController.text = prefs.getString('elhalk') ?? '0';
+      elhalk = double.tryParse(elhalkController.text) ?? 0;
       tapePriceController.text = prefs.getString('tapePrice') ?? '0';
+      tapePrice = double.tryParse(tapePriceController.text) ?? 0;
       assemblyKitController.text = prefs.getString('assemblyKit') ?? '0';
+      assemblyKit = double.tryParse(assemblyKitController.text) ?? 0;
       forshPriceController.text = prefs.getString('forshPrice') ?? '0';
+      forshPrice = double.tryParse(forshPriceController.text) ?? 0;
       wightAlumColorController.text = prefs.getString('wightAlumColor') ?? '0';
+      wightAlumColor = double.tryParse(wightAlumColorController.text) ?? 0;
       frameWeightController.text = prefs.getString('frameWeight') ?? '0';
+      frameWeight = double.tryParse(frameWeightController.text) ?? 0;
       sashWeightController.text = prefs.getString('sashWeight') ?? '0';
+      sashWeight = double.tryParse(sashWeightController.text) ?? 0;
       magnetPriceController.text = prefs.getString('magnetPrice') ?? '0';
+      magnetPrice = double.tryParse(magnetPriceController.text) ?? 0;
       wirePriceController.text = prefs.getString('wirePrice') ?? '0';
+      wirePrice = double.tryParse(wirePriceController.text) ?? 0;
+
       curtainPriceController.text = prefs.getString('curtainprice') ?? '0';
+      curtainprice = double.tryParse(curtainPriceController.text) ?? 0;
       doubleCurtainPriceController.text =
           prefs.getString('doubleCurtainPrice') ?? '0';
+      doubleCurtainPrice =
+          double.tryParse(doubleCurtainPriceController.text) ?? 0;
       totalThreadController.text = prefs.getString('totalThread') ?? '0';
+      totalThread = double.tryParse(totalThreadController.text) ?? 0;
     });
   }
 
@@ -102,7 +119,9 @@ class _ScreenCalcPriceState extends State<ScreenCalcPrice> {
                       decoration: const InputDecoration(
                         labelText: 'الارتفاع (متر)',
                       ),
-                      onChanged: (value) {},
+                      onChanged: (value) {
+                        AppData.height = double.tryParse(value) ?? 0;
+                      },
                     ),
                   ),
                   const SizedBox(width: 16.0),
@@ -112,7 +131,9 @@ class _ScreenCalcPriceState extends State<ScreenCalcPrice> {
                       decoration: const InputDecoration(
                         labelText: 'العرض (متر)',
                       ),
-                      onChanged: (value) {},
+                      onChanged: (value) {
+                        AppData.width = double.tryParse(value) ?? 0;
+                      },
                     ),
                   ),
                 ],
@@ -309,6 +330,43 @@ class _ScreenCalcPriceState extends State<ScreenCalcPrice> {
                   ),
                 ],
               ),
+              //Test
+              ElevatedButton(
+                onPressed: () {
+                  setState(() {
+                    resultPrice = LogicPrice().calcPrice(
+                      AppData.width,
+                      AppData.height,
+                      factory,
+                      elhalk,
+                      totalThread,
+                      curtainprice,
+                      doubleCurtainPrice,
+                      tapePrice,
+                      assemblyKit,
+                      forshPrice,
+                      wightAlumColor,
+                      frameWeight,
+                      sashWeight,
+                      magnetPrice,
+                      wirePrice,
+                      AppData.selectedWire!,
+                      AppData.selectedSash!,
+                      selectedBelesah!,
+                    );
+                  });
+                },
+                child: const Text('احسب'),
+              ),
+              if (resultPrice != null)
+                Card(
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Text(
+                      'السعر الكلي: ${resultPrice!.toStringAsFixed(2)} جنيه',
+                    ),
+                  ),
+                ),
             ],
           ),
         ),
