@@ -24,10 +24,16 @@ class LogicPrice implements ContractsPrice {
     double wirePrice, // سعر السلك // ضلفة واحدة أو اثنتين
     TypeOfBelesah typeOfBelesah,
   ) {
+    final Wiresize wireSize =
+        (typeOfBelesah == TypeOfBelesah.singleSashDoubleCurtain ||
+            typeOfBelesah == TypeOfBelesah.twoSashDoubleCurtain ||
+            typeOfBelesah == TypeOfBelesah.twoSashDoubleCurtainWithwire)
+        ? Wiresize.doublecurtain7m
+        : Wiresize.wire18m;
     final TypeOfSash sashType = typeOfBelesah.name.startsWith('single')
         ? TypeOfSash.singleSash
         : TypeOfSash.twoSash;
-    const Wiresize wireSize = Wiresize.wire18m;
+
     final double belesahWidth = logicBelesahMi.calcWidth(width);
     final double belesahHeight = logicBelesahMi.calcHeight(height);
     final double belesahSash = logicBelesahMi.calcSash(height);
