@@ -17,8 +17,7 @@ abstract class ContractsPrice {
     double sashWeight, // وزن الشباك
     double magnetPrice, // سعر المغناطيس
     double wirePrice, // سعر السلك
-
-    TypeOfSash sashType, // ضلفة واحدة أو اثنتين
+    // ضلفة واحدة أو اثنتين
     TypeOfBelesah typeOfBelesah,
   );
 }

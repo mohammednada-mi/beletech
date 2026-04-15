@@ -21,11 +21,12 @@ class LogicPrice implements ContractsPrice {
     double frameWeight, // وزن الاطار
     double sashWeight, // وزن الشباك
     double magnetPrice, // سعر المغناطيس
-    double wirePrice, // سعر السلك
-
-    TypeOfSash sashType, // ضلفة واحدة أو اثنتين
+    double wirePrice, // سعر السلك // ضلفة واحدة أو اثنتين
     TypeOfBelesah typeOfBelesah,
   ) {
+    final TypeOfSash sashType = typeOfBelesah.name.startsWith('single')
+        ? TypeOfSash.singleSash
+        : TypeOfSash.twoSash;
     const Wiresize wireSize = Wiresize.wire18m;
     final double belesahWidth = logicBelesahMi.calcWidth(width);
     final double belesahHeight = logicBelesahMi.calcHeight(height);

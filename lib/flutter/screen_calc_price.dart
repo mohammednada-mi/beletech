@@ -350,7 +350,6 @@ class _ScreenCalcPriceState extends State<ScreenCalcPrice> {
                       sashWeight,
                       magnetPrice,
                       wirePrice,
-                      AppData.selectedSash!,
                       selectedBelesah!,
                     );
                   });
