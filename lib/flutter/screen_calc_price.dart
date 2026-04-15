@@ -13,6 +13,7 @@ class ScreenCalcPrice extends StatefulWidget {
 }
 
 class _ScreenCalcPriceState extends State<ScreenCalcPrice> {
+  final LogicPrice logicPrice = LogicPrice();
   double factory = 0;
   double elhalk = 0;
   double totalThread = 0;
@@ -28,6 +29,7 @@ class _ScreenCalcPriceState extends State<ScreenCalcPrice> {
   double wirePrice = 0;
   TypeOfBelesah? selectedBelesah;
   double? resultPrice;
+  Map<String, double>? pricingDetails;
   final TextEditingController factoryController = TextEditingController();
   final TextEditingController elhalkController = TextEditingController();
   final TextEditingController tapePriceController = TextEditingController();
@@ -333,8 +335,14 @@ class _ScreenCalcPriceState extends State<ScreenCalcPrice> {
               //Test
               ElevatedButton(
                 onPressed: () {
+                  if (selectedBelesah == null) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text('اختار نوع البليسيه اولا')),
+                    );
+                    return;
+                  }
                   setState(() {
-                    resultPrice = LogicPrice().calcPrice(
+                    pricingDetails = logicPrice.calcPriceDetails(
                       AppData.width,
                       AppData.height,
                       factory,
@@ -352,6 +360,7 @@ class _ScreenCalcPriceState extends State<ScreenCalcPrice> {
                       wirePrice,
                       selectedBelesah!,
                     );
+                    resultPrice = pricingDetails!['selectedTotal'];
                   });
                 },
                 child: const Text('احسب'),
@@ -365,10 +374,77 @@ class _ScreenCalcPriceState extends State<ScreenCalcPrice> {
                     ),
                   ),
                 ),
+              if (pricingDetails != null) ...[
+                const SizedBox(height: 12),
+                Card(
+                  child: Padding(
+                    padding: const EdgeInsets.all(12.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text(
+                          'تفاصيل الحساب',
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        const SizedBox(height: 8),
+                        ...pricingDetails!.entries.map((entry) {
+                          final String label = _detailLabel(entry.key);
+                          return Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 2),
+                            child: Text(
+                              '$label: ${entry.value.toStringAsFixed(4)}',
+                            ),
+                          );
+                        }),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
             ],
           ),
         ),
       ),
     );
+  }
+
+  String _detailLabel(String key) {
+    const labels = {
+      'belesahWidth': 'عرض البليسيه',
+      'belesahHeight': 'ارتفاع البليسيه',
+      'belesahSash': 'طول الضلفة',
+      'belesahDoubleFace': 'طول الشريط',
+      'belesahThread': 'طول الخيط الكبير',
+      'belesahThreadSmall': 'طول الخيط الصغير',
+      'belesahwire': 'كمية السلك',
+      'numThread': 'عدد الخيط الكبير',
+      'numThreadSmall': 'عدد الخيط الصغير',
+      'numSash': 'عدد الضلف',
+      'numDoubleFace': 'عدد الأشرطة',
+      'totalFrame': 'إجمالي أطوال الحلق',
+      'totalSash': 'إجمالي أطوال الضلف',
+      'totalWight': 'إجمالي وزن الألومنيوم',
+      'totalPriceAlum': 'إجمالي سعر الألومنيوم',
+      'totalPriceFactory': 'إجمالي سعر المصنع',
+      'totalPriceElhalk': 'إجمالي الهالك',
+      'totalPriceDoubleFace': 'إجمالي سعر الشريط',
+      'totalPriceForsh': 'إجمالي سعر الفورش',
+      'totalPriceMagnet': 'إجمالي سعر المغناطيس',
+      'totalPriceAssemblyKit': 'إجمالي سعر كيت التجميع',
+      'totalPriceThread': 'إجمالي سعر الخيط',
+      'totalPriceWire': 'إجمالي سعر السلك',
+      'totalPriceCurtain': 'إجمالي سعر الستارة',
+      'totalPriceDoubleCurtain': 'إجمالي سعر الستارة المزدوجة',
+      'singleSashwire': 'ناتج مفرد سلك',
+      'singleSashCurtain': 'ناتج مفرد قماش',
+      'singleSashDoubleCurtain': 'ناتج مفرد قماش مزدوج',
+      'twoSashwire': 'ناتج مزدوج سلك',
+      'twoSashCurtain': 'ناتج مزدوج قماش',
+      'twoSashwireCurtain': 'ناتج مزدوج سلك وقماش',
+      'twoSashDoubleCurtain': 'ناتج مزدوج قماش مزدوج',
+      'twoSashDoubleCurtainWithwire': 'ناتج مزدوج قماش مزدوج وسلك',
+      'selectedTotal': 'إجمالي النوع المختار',
+    };
+    return labels[key] ?? key;
   }
 }
