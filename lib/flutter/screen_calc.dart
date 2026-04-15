@@ -5,6 +5,7 @@ import 'package:belesah/dart/logic/logic_mini.dart';
 import 'package:belesah/dart/logic/logic_jumbo.dart';
 import 'package:belesah/dart/logic/logic_mi.dart';
 import 'package:belesah/dart/enum/enum_beleash.dart';
+import 'package:belesah/dart/screen/app_data.dart';
 
 class ScreenCalc extends StatefulWidget {
   const ScreenCalc({super.key});
@@ -83,7 +84,8 @@ class _ScreenCalcState extends State<ScreenCalc> {
                         labelText: 'الارتفاع (متر)',
                       ),
                       onChanged: (value) {
-                        double.tryParse(value) ?? 0;
+                        height = double.tryParse(value) ?? 0;
+                        AppData.height = height;
                       },
                     ),
                   ),
@@ -95,7 +97,8 @@ class _ScreenCalcState extends State<ScreenCalc> {
                         labelText: 'العرض (متر)',
                       ),
                       onChanged: (value) {
-                        double.tryParse(value) ?? 0;
+                        width = double.tryParse(value) ?? 0;
+                        AppData.width = width;
                       },
                     ),
                   ),
