@@ -2,7 +2,9 @@
 import 'package:belesah/flutter/screen_calc_price.dart';
 import 'package:flutter/material.dart';
 
-void main() {}
+void main() {
+  runApp(const BelesahApp());
+}
 
 class BelesahApp extends StatelessWidget {
   const BelesahApp({super.key});
