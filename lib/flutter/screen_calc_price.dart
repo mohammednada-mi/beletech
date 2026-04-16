@@ -102,6 +102,7 @@ class _ScreenCalcPriceState extends State<ScreenCalcPrice> {
     super.dispose();
   }
 
+  Map<String, double>? details;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -334,7 +335,7 @@ class _ScreenCalcPriceState extends State<ScreenCalcPrice> {
               ElevatedButton(
                 onPressed: () {
                   setState(() {
-                    resultPrice = LogicPrice().calcPrice(
+                    details = LogicPrice().calcPriceDetails(
                       AppData.width,
                       AppData.height,
                       factory,
@@ -352,6 +353,7 @@ class _ScreenCalcPriceState extends State<ScreenCalcPrice> {
                       wirePrice,
                       selectedBelesah!,
                     );
+                    resultPrice = details!['selectedTotal']!;
                   });
                 },
                 child: const Text('احسب'),
@@ -360,8 +362,14 @@ class _ScreenCalcPriceState extends State<ScreenCalcPrice> {
                 Card(
                   child: Padding(
                     padding: const EdgeInsets.all(16.0),
-                    child: Text(
-                      'السعر الكلي: ${resultPrice!.toStringAsFixed(2)} جنيه',
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text('السعر: ${resultPrice!.toStringAsFixed(2)}'),
+                        Text(
+                          'سعر بدون فورش: ${(resultPrice! - details!['totalPriceForsh']!).toStringAsFixed(2)}',
+                        ),
+                      ],
                     ),
                   ),
                 ),
