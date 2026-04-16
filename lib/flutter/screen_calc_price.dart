@@ -365,9 +365,11 @@ class _ScreenCalcPriceState extends State<ScreenCalcPrice> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('السعر: ${resultPrice!.toStringAsFixed(2)}'),
                         Text(
-                          'سعر بدون فورش: ${(resultPrice! - details!['totalPriceForsh']!).toStringAsFixed(2)}',
+                          'السعر الخامات فقط : ${resultPrice!.toStringAsFixed(2)}',
+                        ),
+                        Text(
+                          'السعر شامل الهالك : ${(resultPrice! * (elhalk / 100) + resultPrice!).toStringAsFixed(2)}',
                         ),
                       ],
                     ),
