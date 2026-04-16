@@ -26,6 +26,7 @@ class _ScreenCalcPriceState extends State<ScreenCalcPrice> {
   double sashWeight = 0;
   double magnetPrice = 0;
   double wirePrice = 0;
+  double makseb = 0;
   TypeOfBelesah? selectedBelesah;
   double? resultPrice;
   final TextEditingController factoryController = TextEditingController();
@@ -43,6 +44,7 @@ class _ScreenCalcPriceState extends State<ScreenCalcPrice> {
   final TextEditingController doubleCurtainPriceController =
       TextEditingController();
   final TextEditingController totalThreadController = TextEditingController();
+  final TextEditingController maksebController = TextEditingController();
   @override
   void initState() {
     super.initState();
@@ -81,6 +83,8 @@ class _ScreenCalcPriceState extends State<ScreenCalcPrice> {
           double.tryParse(doubleCurtainPriceController.text) ?? 0;
       totalThreadController.text = prefs.getString('totalThread') ?? '0';
       totalThread = double.tryParse(totalThreadController.text) ?? 0;
+      maksebController.text = prefs.getString('makseb') ?? '0';
+      makseb = double.tryParse(maksebController.text) ?? 0;
     });
   }
 
@@ -99,6 +103,7 @@ class _ScreenCalcPriceState extends State<ScreenCalcPrice> {
     curtainPriceController.dispose();
     doubleCurtainPriceController.dispose();
     totalThreadController.dispose();
+    maksebController.dispose();
     super.dispose();
   }
 
@@ -310,6 +315,19 @@ class _ScreenCalcPriceState extends State<ScreenCalcPrice> {
                       },
                     ),
                   ),
+                  SizedBox(
+                    width: 100,
+                    child: TextField(
+                      keyboardType: TextInputType.number,
+                      decoration: InputDecoration(labelText: 'المكسب '),
+                      onChanged: (value) {
+                        setState(() {
+                          makseb = double.tryParse(value) ?? 0;
+                          SaveFile.saveData('makseb', value);
+                        });
+                      },
+                    ),
+                  ),
                 ],
               ),
               Row(
@@ -351,6 +369,7 @@ class _ScreenCalcPriceState extends State<ScreenCalcPrice> {
                       sashWeight,
                       magnetPrice,
                       wirePrice,
+                      makseb,
                       selectedBelesah!,
                     );
                     resultPrice = details!['selectedTotal']!;
@@ -370,6 +389,9 @@ class _ScreenCalcPriceState extends State<ScreenCalcPrice> {
                         ),
                         Text(
                           'السعر شامل الهالك : ${(resultPrice! * (elhalk / 100) + resultPrice!).toStringAsFixed(2)}',
+                        ),
+                        Text(
+                          'السعر شامل المكسب : ${((resultPrice! * (elhalk / 100) + resultPrice!) * (makseb / 100) + (resultPrice! * (elhalk / 100) + resultPrice!)).toStringAsFixed(2)}',
                         ),
                       ],
                     ),

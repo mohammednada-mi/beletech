@@ -22,13 +22,27 @@ class LogicPrice implements ContractsPrice {
     double sashWeight, // وزن الشباك
     double magnetPrice, // سعر المغناطيس
     double wirePrice, // سعر السلك // ضلفة واحدة أو اثنتين
+    double makseb, // المكسب
     TypeOfBelesah typeOfBelesah,
   ) {
     return calcPriceDetails(
-      width, height, factory, elhalk, totalThread, curtainprice,
-      doubleCurtainPrice, tapePrice, assemblyKit, forshPrice,
-      wightAlumColor, frameWeight, sashWeight, magnetPrice,
-      wirePrice, typeOfBelesah,
+      width,
+      height,
+      factory,
+      elhalk,
+      totalThread,
+      curtainprice,
+      doubleCurtainPrice,
+      tapePrice,
+      assemblyKit,
+      forshPrice,
+      wightAlumColor,
+      frameWeight,
+      sashWeight,
+      magnetPrice,
+      wirePrice,
+      makseb,
+      typeOfBelesah,
     )['selectedTotal']!;
   }
 
@@ -49,6 +63,7 @@ class LogicPrice implements ContractsPrice {
     double sashWeight, // وزن الشباك
     double magnetPrice, // سعر المغناطيس
     double wirePrice, // سعر السلك // ضلفة واحدة أو اثنتين
+    double makseb, // المكسب
     TypeOfBelesah typeOfBelesah,
   ) {
     final Wiresize wireSize =

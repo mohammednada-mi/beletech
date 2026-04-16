@@ -17,7 +17,7 @@ abstract class ContractsPrice {
     double sashWeight, // وزن الشباك
     double magnetPrice, // سعر المغناطيس
     double wirePrice, // سعر السلك
-
+    double makseb, // المكسب
     TypeOfBelesah typeOfBelesah,
   );
 
@@ -37,7 +37,7 @@ abstract class ContractsPrice {
     double sashWeight, // وزن الشباك
     double magnetPrice, // سعر المغناطيس
     double wirePrice, // سعر السلك
-
+    double makseb, // المكسب
     TypeOfBelesah typeOfBelesah,
   );
 }
