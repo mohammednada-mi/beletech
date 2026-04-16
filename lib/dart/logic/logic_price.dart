@@ -24,6 +24,33 @@ class LogicPrice implements ContractsPrice {
     double wirePrice, // سعر السلك // ضلفة واحدة أو اثنتين
     TypeOfBelesah typeOfBelesah,
   ) {
+    return calcPriceDetails(
+      width, height, factory, elhalk, totalThread, curtainprice,
+      doubleCurtainPrice, tapePrice, assemblyKit, forshPrice,
+      wightAlumColor, frameWeight, sashWeight, magnetPrice,
+      wirePrice, typeOfBelesah,
+    )['selectedTotal']!;
+  }
+
+  @override
+  Map<String, double> calcPriceDetails(
+    double width, // الطول
+    double height, // العرض
+    double factory, // سعر المصنع
+    double elhalk, // الهالك
+    double totalThread, // اجمالي الخيط
+    double curtainprice, // سعر الستارة
+    double doubleCurtainPrice, // سعر الستارة المزدوجة
+    double tapePrice, // سعر الشريط
+    double assemblyKit, // سعر طقم التجميع
+    double forshPrice, // سعر الفورش
+    double wightAlumColor, // عرض الالمنيوم الملون
+    double frameWeight, // وزن الاطار
+    double sashWeight, // وزن الشباك
+    double magnetPrice, // سعر المغناطيس
+    double wirePrice, // سعر السلك // ضلفة واحدة أو اثنتين
+    TypeOfBelesah typeOfBelesah,
+  ) {
     final Wiresize wireSize =
         (typeOfBelesah == TypeOfBelesah.singleSashDoubleCurtain ||
             typeOfBelesah == TypeOfBelesah.twoSashDoubleCurtain ||
@@ -163,23 +190,46 @@ class LogicPrice implements ContractsPrice {
         totalPriceAssemblyKit +
         totalPriceMagnet;
 
+    double selectedTotal = 0;
     switch (typeOfBelesah) {
       case TypeOfBelesah.singleSashwire:
-        return totalpricesingleSashwire;
+        selectedTotal = totalpricesingleSashwire;
+        break;
       case TypeOfBelesah.singleSashCurtain:
-        return totalpricesingleSashCurtain;
+        selectedTotal = totalpricesingleSashCurtain;
+        break;
       case TypeOfBelesah.singleSashDoubleCurtain:
-        return totalpricesingleSashDoubleCurtain;
+        selectedTotal = totalpricesingleSashDoubleCurtain;
+        break;
       case TypeOfBelesah.twoSashwireCurtain:
-        return totalPriceTwoSashwireCurtain;
+        selectedTotal = totalPriceTwoSashwireCurtain;
+        break;
       case TypeOfBelesah.twoSashwire:
-        return totalPriceTwoSashWire;
+        selectedTotal = totalPriceTwoSashWire;
+        break;
       case TypeOfBelesah.twoSashCurtain:
-        return totalPriceTwoSashCurtain;
+        selectedTotal = totalPriceTwoSashCurtain;
+        break;
       case TypeOfBelesah.twoSashDoubleCurtain:
-        return totalPriceTwoSashDoubleCurtain;
+        selectedTotal = totalPriceTwoSashDoubleCurtain;
+        break;
       case TypeOfBelesah.twoSashDoubleCurtainWithwire:
-        return totalPriceTwoSashDoubleCurtainWithwire;
+        selectedTotal = totalPriceTwoSashDoubleCurtainWithwire;
+        break;
     }
+
+    return {
+      'selectedTotal': selectedTotal,
+      'totalPriceForsh': totalPriceForsh,
+      'totalPriceAlum': totalPriceAlum,
+      'totalPriceFactory': totalPriceFactory,
+      'totalPriceDoubleFace': totalPriceDoubleFace,
+      'totalPriceMagnet': totalPriceMagnet,
+      'totalPriceAssemblyKit': totalPriceAssemblyKit,
+      'totalPriceThread': totalPriceThread,
+      'totalPriceWire': totalPriceWire,
+      'totalPriceCurtain': totalPriceCurtain,
+      'totalPriceDoubleCurtain': totalPriceDoubleCurtain,
+    };
   }
 }
