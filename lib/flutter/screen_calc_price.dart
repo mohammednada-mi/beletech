@@ -393,6 +393,10 @@ class _ScreenCalcPriceState extends State<ScreenCalcPrice> {
                         Text(
                           'السعر شامل المكسب : ${((resultPrice! * (elhalk / 100) + resultPrice!) * (makseb / 100) + (resultPrice! * (elhalk / 100) + resultPrice!)).toStringAsFixed(2)}',
                         ),
+                        if (selectedBelesah == TypeOfBelesah.twoSashwireCurtain)
+                          Text(
+                            'سعر بدون مغناطيس : ${((resultPrice!) - details!['totalPriceMagnet']!).toStringAsFixed(2)} ',
+                          ),
                       ],
                     ),
                   ),
