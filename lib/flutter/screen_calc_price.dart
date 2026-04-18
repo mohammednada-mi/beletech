@@ -319,6 +319,7 @@ class _ScreenCalcPriceState extends State<ScreenCalcPrice> {
                     width: 100,
                     child: TextField(
                       keyboardType: TextInputType.number,
+                      controller: maksebController,
                       decoration: InputDecoration(labelText: 'المكسب '),
                       onChanged: (value) {
                         setState(() {
