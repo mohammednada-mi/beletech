@@ -34,6 +34,7 @@ class _ScreenCalcState extends State<ScreenCalc> {
   int? resultCalcNumDoubleFace;
   double height = 0;
   double width = 0;
+  String clientName = '';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -144,23 +145,18 @@ class _ScreenCalcState extends State<ScreenCalc> {
                   ),
                 ],
               ),
-
-              DropdownButton<TypeOfBelesah>(
-                value: selectedBelesah,
-                hint: const Text('اختر نوع البليسيه'),
-                items: TypeOfBelesah.values.map((TypeOfBelesah type) {
-                  return DropdownMenuItem<TypeOfBelesah>(
-                    value: type,
-                    child: Text(type.belesah),
-                  );
-                }).toList(),
-                onChanged: (TypeOfBelesah? newValue) {
-                  setState(() {
-                    selectedBelesah = newValue;
-                  });
-                },
+              SizedBox(
+                width: 150,
+                child: TextField(
+                  keyboardType: TextInputType.text,
+                  decoration: const InputDecoration(labelText: 'اسم العميل'),
+                  onChanged: (value) {
+                    clientName = value;
+                  },
+                ),
               ),
 
+              //
               ElevatedButton(
                 onPressed: () {
                   if (selectedWire == null ||

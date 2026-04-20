@@ -353,6 +353,30 @@ class _ScreenCalcPriceState extends State<ScreenCalcPrice> {
               //Test
               ElevatedButton(
                 onPressed: () {
+                  if (selectedBelesah == null ||
+                      AppData.width <= 0 ||
+                      AppData.height <= 0 ||
+                      factory <= 0 ||
+                      elhalk < 0 ||
+                      tapePrice < 0 ||
+                      assemblyKit < 0 ||
+                      forshPrice < 0 ||
+                      wightAlumColor < 0 ||
+                      frameWeight < 0 ||
+                      sashWeight < 0 ||
+                      magnetPrice < 0 ||
+                      wirePrice < 0 ||
+                      curtainprice < 0 ||
+                      doubleCurtainPrice < 0 ||
+                      totalThread < 0 ||
+                      makseb < 0) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text('الرجاء ملء جميع الحقول بشكل صحيح'),
+                      ),
+                    );
+                  }
+
                   setState(() {
                     details = LogicPrice().calcPriceDetails(
                       AppData.width,
