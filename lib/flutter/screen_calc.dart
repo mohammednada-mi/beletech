@@ -19,8 +19,8 @@ class _ScreenCalcState extends State<ScreenCalc> {
   String? selectedType;
   ContractsBelesah? logic;
   TypeOfBelesah? selectedBelesah;
-  Wiresize? selectedWire;
-  TypeOfSash? selectedSash;
+  Wiresize? selectedWire = Wiresize.wire15m;
+  TypeOfSash? selectedSash = TypeOfSash.singleSash;
   double? resultWidth;
   double? resultHeight;
   double? resultSash;
