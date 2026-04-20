@@ -6,6 +6,7 @@ import 'package:belesah/dart/logic/logic_jumbo.dart';
 import 'package:belesah/dart/logic/logic_mi.dart';
 import 'package:belesah/dart/enum/enum_beleash.dart';
 import 'package:belesah/dart/screen/app_data.dart';
+import 'package:belesah/dart/screen/pdf_service.dart';
 
 class ScreenCalc extends StatefulWidget {
   const ScreenCalc({super.key});
@@ -198,6 +199,46 @@ class _ScreenCalcState extends State<ScreenCalc> {
                 },
                 child: const Text('احسب'),
               ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  ElevatedButton(
+                    onPressed: () {
+                      PdfService.addRow(
+                        clientName: clientName,
+                        width: width,
+                        height: height,
+                        belesahType: selectedType ?? '',
+                        resultWidth: resultWidth ?? 0,
+                        resultHeight: resultHeight ?? 0,
+                        resultSash: resultSash ?? 0,
+                        numSash: resultCalcNumSash ?? 0,
+                        resultWire: resultWire ?? 0,
+                        numWire: resultCalcNumSash ?? 0,
+                        resultDoubleFace: resultDoubleFace ?? 0,
+                        numDoubleFace: resultCalcNumDoubleFace ?? 0,
+                        resultThread: resultThread ?? 0,
+                        numThread: resultCalcNumTHread ?? 0,
+                      );
+                    },
+                    child: const Text('أضف للتقرير'),
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      PdfService.generatePdf();
+                    },
+                    child: const Text('حفظ التقرير'),
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      PdfService.clearRows();
+                    },
+                    child: const Text('مسح التقرير'),
+                  ),
+                ],
+              ),
+
+              // عرض النتائج
               const SizedBox(height: 16.0),
               if (resultWidth != null)
                 Card(
