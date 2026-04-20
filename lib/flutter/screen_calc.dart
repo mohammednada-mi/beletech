@@ -33,10 +33,21 @@ class _ScreenCalcState extends State<ScreenCalc> {
   int? resultCalcNumThreadSmall;
   int? resultCalcNumSash;
   int? resultCalcNumDoubleFace;
+  int? numHeight = 2;
+  int? numWidth = 2;
   double height = 0;
   double width = 0;
-  double numwindow = 1;
+  int? numwindow = 1;
   String clientName = '';
+  final TextEditingController _numWindowController = TextEditingController(
+    text: '1',
+  );
+  @override
+  void dispose() {
+    _numWindowController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -162,12 +173,15 @@ class _ScreenCalcState extends State<ScreenCalc> {
                   const SizedBox(width: 16.0),
                   Expanded(
                     child: TextField(
+                      controller: _numWindowController,
                       keyboardType: TextInputType.number,
                       decoration: const InputDecoration(
                         labelText: 'عدد النوافذ',
                       ),
                       onChanged: (value) {
-                        numwindow = double.tryParse(value) ?? 1;
+                        setState(() {
+                          numwindow = int.tryParse(value) ?? 1;
+                        });
                       },
                     ),
                   ),
@@ -212,6 +226,8 @@ class _ScreenCalcState extends State<ScreenCalc> {
                     resultCalcNumDoubleFace = logic?.numDoubleFace(
                       selectedSash!,
                     );
+                    numHeight = 2;
+                    numWidth = 2;
                   });
                 },
                 child: const Text('احسب'),
@@ -264,18 +280,26 @@ class _ScreenCalcState extends State<ScreenCalc> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('العرض: $resultWidth متر'),
-                        Text('الارتفاع: $resultHeight متر'),
-                        Text('الشيش: $resultSash متر×$resultCalcNumSash'),
                         Text(
-                          'السلك: ${resultWire!.toStringAsFixed(0)} كسرة×$resultCalcNumSash',
+                          'العرض: ${resultWidth!.toStringAsFixed(3)} متر ×${(numWidth! * numwindow!)} ',
                         ),
                         Text(
-                          'الدابل فيس: $resultDoubleFace متر×$resultCalcNumDoubleFace',
+                          'الارتفاع: ${resultHeight!.toStringAsFixed(3)} متر ×${(numHeight! * numwindow!)} ',
                         ),
-                        Text('الخيط: $resultThread متر×$resultCalcNumTHread'),
                         Text(
-                          'الخيط الصغير: ${resultThreadSmall!.toStringAsFixed(2)} متر×$resultCalcNumThreadSmall',
+                          'الشيش: ${resultSash!.toStringAsFixed(3)} متر×${(resultCalcNumSash)! * numwindow!} ',
+                        ),
+                        Text(
+                          'السلك: ${resultWire!.toStringAsFixed(0)} كسرة×${(resultCalcNumSash)! * numwindow!}',
+                        ),
+                        Text(
+                          'الدابل فيس: ${resultDoubleFace!.toStringAsFixed(3)} متر×${(resultCalcNumDoubleFace)! * numwindow!}',
+                        ),
+                        Text(
+                          'الخيط: ${resultThread!.toStringAsFixed(2)} متر×${(resultCalcNumTHread)! * numwindow!}',
+                        ),
+                        Text(
+                          'الخيط الصغير: ${resultThreadSmall!.toStringAsFixed(2)} متر×${(resultCalcNumThreadSmall)! * numwindow!}',
                         ),
                         Text(
                           'الثقوب: ${resultPunching!.toStringAsFixed(1)} سم',
