@@ -35,6 +35,7 @@ class _ScreenCalcState extends State<ScreenCalc> {
   int? resultCalcNumDoubleFace;
   double height = 0;
   double width = 0;
+  double numwindow = 1;
   String clientName = '';
   @override
   Widget build(BuildContext context) {
@@ -146,15 +147,31 @@ class _ScreenCalcState extends State<ScreenCalc> {
                   ),
                 ],
               ),
-              SizedBox(
-                width: 150,
-                child: TextField(
-                  keyboardType: TextInputType.text,
-                  decoration: const InputDecoration(labelText: 'اسم العميل'),
-                  onChanged: (value) {
-                    clientName = value;
-                  },
-                ),
+              Row(
+                children: [
+                  Expanded(
+                    child: TextField(
+                      decoration: const InputDecoration(
+                        labelText: 'اسم العميل',
+                      ),
+                      onChanged: (value) {
+                        clientName = value;
+                      },
+                    ),
+                  ),
+                  const SizedBox(width: 16.0),
+                  Expanded(
+                    child: TextField(
+                      keyboardType: TextInputType.number,
+                      decoration: const InputDecoration(
+                        labelText: 'عدد النوافذ',
+                      ),
+                      onChanged: (value) {
+                        numwindow = double.tryParse(value) ?? 1;
+                      },
+                    ),
+                  ),
+                ],
               ),
 
               //
