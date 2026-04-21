@@ -16,9 +16,9 @@ class ScreenCalc extends StatefulWidget {
 }
 
 class _ScreenCalcState extends State<ScreenCalc> {
-  String? selectedType;
+  String? selectedType = 'mi';
   ContractsBelesah? logic;
-  TypeOfBelesah? selectedBelesah;
+  TypeOfBelesah? selectedBelesah = TypeOfBelesah.singleSashwire;
   Wiresize? selectedWire = Wiresize.wire15m;
   TypeOfSash? selectedSash = TypeOfSash.singleSash;
   double? resultWidth;
@@ -45,7 +45,9 @@ class _ScreenCalcState extends State<ScreenCalc> {
   @override
   void dispose() {
     _numWindowController.dispose();
+
     super.dispose();
+    logic = LogicBelesahMi();
   }
 
   @override
@@ -189,6 +191,26 @@ class _ScreenCalcState extends State<ScreenCalc> {
                   ),
                 ],
               ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  DropdownButton<TypeOfBelesah>(
+                    value: selectedBelesah,
+                    hint: const Text('اختر نوع الشباك'),
+                    items: TypeOfBelesah.values.map((TypeOfBelesah type) {
+                      return DropdownMenuItem<TypeOfBelesah>(
+                        value: type,
+                        child: Text(type.belesah),
+                      );
+                    }).toList(),
+                    onChanged: (TypeOfBelesah? newValue) {
+                      setState(() {
+                        selectedBelesah = newValue;
+                      });
+                    },
+                  ),
+                ],
+              ),
 
               const SizedBox(height: 16.0),
               //
@@ -247,7 +269,7 @@ class _ScreenCalcState extends State<ScreenCalc> {
                         numWidth: numWidth!,
                         height: height,
                         numHeight: numHeight!,
-                        belesahType: selectedType ?? '',
+                        typeOfBelesah: selectedBelesah?.belesah ?? '',
                         resultWidth: resultWidth ?? 0,
                         resultHeight: resultHeight ?? 0,
                         resultSash: resultSash ?? 0,
