@@ -89,16 +89,19 @@ class LogicPrice implements ContractsPrice {
     final double belesahwire = logicBelesahJumbo.calcWire(
       width,
       wireSize,
-      sashType,
+      typeOfBelesah,
     );
-    final int numThread = logicBelesahJumbo.calcNumThread(height, sashType);
+    final int numThread = logicBelesahJumbo.calcNumThread(
+      height,
+      typeOfBelesah,
+    );
     final int numThreadSmall = logicBelesahJumbo.calcNumThreadSmall(
       height,
-      sashType,
+      typeOfBelesah,
     );
 
-    final int numSash = logicBelesahJumbo.numSash(sashType);
-    final int numDoubleFace = logicBelesahJumbo.numDoubleFace(sashType);
+    final int numSash = logicBelesahJumbo.numSash(typeOfBelesah);
+    final int numDoubleFace = logicBelesahJumbo.numDoubleFace(typeOfBelesah);
 
     final double totalFrame =
         belesahWidth * 2 + belesahHeight * 2; // اجمالي اطوال الحلق

@@ -125,24 +125,6 @@ class _ScreenCalcState extends State<ScreenCalc> {
               Row(
                 children: [
                   Expanded(
-                    child: DropdownButton<TypeOfSash>(
-                      value: selectedSash,
-                      hint: const Text('اختر نوع الشيش'),
-                      items: TypeOfSash.values.map((TypeOfSash type) {
-                        return DropdownMenuItem<TypeOfSash>(
-                          value: type,
-                          child: Text(type.sash),
-                        );
-                      }).toList(),
-                      onChanged: (TypeOfSash? newValue) {
-                        setState(() {
-                          selectedSash = newValue;
-                        });
-                      },
-                    ),
-                  ),
-
-                  Expanded(
                     child: DropdownButton<Wiresize>(
                       value: selectedWire,
                       hint: const Text('اختر نوع السلك'),
@@ -233,7 +215,7 @@ class _ScreenCalcState extends State<ScreenCalc> {
                     resultWire = logic?.calcWire(
                       width,
                       selectedWire!,
-                      selectedSash!,
+                      selectedBelesah!,
                     );
                     resultDoubleFace = logic?.calcDoubleFace(height);
                     resultThread = logic?.calcThread(width, height);
@@ -241,15 +223,15 @@ class _ScreenCalcState extends State<ScreenCalc> {
                     resultPunching = logic?.calcPunching(height);
                     resultCalcNumTHread = logic?.calcNumThread(
                       height,
-                      selectedSash!,
+                      selectedBelesah!,
                     );
                     resultCalcNumThreadSmall = logic?.calcNumThreadSmall(
                       height,
-                      selectedSash!,
+                      selectedBelesah!,
                     );
-                    resultCalcNumSash = logic?.numSash(selectedSash!);
+                    resultCalcNumSash = logic?.numSash(selectedBelesah!);
                     resultCalcNumDoubleFace = logic?.numDoubleFace(
-                      selectedSash!,
+                      selectedBelesah!,
                     );
                     numHeight = 2;
                     numWidth = 2;
@@ -314,30 +296,16 @@ class _ScreenCalcState extends State<ScreenCalc> {
                         Text(
                           'الارتفاع: ${resultHeight!.toStringAsFixed(3)} متر ×${(numHeight! * numwindow!)} ',
                         ),
+
                         // شرط عرض الشيش في حالة اختيار نوع الشباك سلك مع ضلفة
-                        if (selectedBelesah ==
-                                TypeOfBelesah.twoSashwireCurtain &&
-                            selectedSash == TypeOfSash.singleSash)
-                          Text(
-                            'الشيش: ${resultSash!.toStringAsFixed(3)} متر×${(resultCalcNumSash)! + 1 * numwindow!} ',
-                          )
-                        else
-                          Text(
-                            'الشيش: ${resultSash!.toStringAsFixed(3)} متر×${(resultCalcNumSash)! * numwindow!} ',
-                          ),
+                        Text(
+                          'الشيش: ${resultSash!.toStringAsFixed(3)} متر×${(resultCalcNumSash)! * numwindow!} ',
+                        ),
+
                         // شرط عرض السلك في حالة اختيار نوع الشباك سلك مع ضلفة
-                        if (selectedBelesah ==
-                                TypeOfBelesah.twoSashwireCurtain &&
-                            selectedSash == TypeOfSash.twoSash)
-                          Text(
-                            'السلك: ${(resultWire!.toDouble() * 2).toStringAsFixed(0)} كسرة×${(resultCalcNumSash)! * numwindow!}',
-                          ),
-                        if (selectedBelesah ==
-                                TypeOfBelesah.twoSashwireCurtain &&
-                            selectedSash == TypeOfSash.singleSash)
-                          Text(
-                            'السلك: ${resultWire!.toStringAsFixed(0)} كسرة×${(resultCalcNumSash)! * numwindow!}',
-                          ),
+                        Text(
+                          'السلك: ${resultWire!.toStringAsFixed(0)} كسرة×${(resultCalcNumSash)! * numwindow!}',
+                        ),
 
                         Text(
                           'الدابل فيس: ${resultDoubleFace!.toStringAsFixed(3)} متر×${(resultCalcNumDoubleFace)! * numwindow!}',

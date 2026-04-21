@@ -52,9 +52,13 @@ class LogicBelesahJumbo implements ContractsBelesah {
   }
 
   @override
-  double calcWire(double width, Wiresize wire, TypeOfSash sash) {
-    switch (sash) {
-      case TypeOfSash.singleSash:
+  double calcWire(double width, Wiresize wire, TypeOfBelesah belesah) {
+    switch (belesah) {
+      case TypeOfBelesah.singleSashCurtain:
+      case TypeOfBelesah.singleSashwire:
+      case TypeOfBelesah.singleSashDoubleCurtain:
+      case TypeOfBelesah.twoSashDoubleCurtainWithwire:
+      case TypeOfBelesah.twoSashwireCurtain:
         switch (wire) {
           case Wiresize.wire15m:
             return (width + 0.28) / 0.03;
@@ -68,7 +72,9 @@ class LogicBelesahJumbo implements ContractsBelesah {
           case Wiresize.doublecurtain7m:
             return (width * 1.3) / 0.014;
         }
-      case TypeOfSash.twoSash:
+      case TypeOfBelesah.twoSashCurtain:
+      case TypeOfBelesah.twoSashwire:
+      case TypeOfBelesah.twoSashDoubleCurtain:
         switch (wire) {
           case Wiresize.wire15m:
             return ((width + 0.28) / 0.03) / 2;
@@ -86,25 +92,37 @@ class LogicBelesahJumbo implements ContractsBelesah {
   }
 
   @override
-  int calcNumThread(double height, TypeOfSash sash) {
-    switch (sash) {
-      case TypeOfSash.singleSash:
+  int calcNumThread(double height, TypeOfBelesah belesah) {
+    switch (belesah) {
+      case TypeOfBelesah.singleSashCurtain:
+      case TypeOfBelesah.singleSashwire:
+      case TypeOfBelesah.singleSashDoubleCurtain:
         return 2;
-      case TypeOfSash.twoSash:
+      case TypeOfBelesah.twoSashCurtain:
+      case TypeOfBelesah.twoSashwire:
+      case TypeOfBelesah.twoSashDoubleCurtain:
+      case TypeOfBelesah.twoSashDoubleCurtainWithwire:
+      case TypeOfBelesah.twoSashwireCurtain:
         return 4;
     }
   }
 
   @override
-  int calcNumThreadSmall(double height, TypeOfSash sash) {
-    switch (sash) {
-      case TypeOfSash.singleSash:
+  int calcNumThreadSmall(double height, TypeOfBelesah belesah) {
+    switch (belesah) {
+      case TypeOfBelesah.singleSashCurtain:
+      case TypeOfBelesah.singleSashwire:
+      case TypeOfBelesah.singleSashDoubleCurtain:
         if (height > 1.3) {
           return 1;
         } else {
           return 0;
         }
-      case TypeOfSash.twoSash:
+      case TypeOfBelesah.twoSashCurtain:
+      case TypeOfBelesah.twoSashwire:
+      case TypeOfBelesah.twoSashDoubleCurtain:
+      case TypeOfBelesah.twoSashDoubleCurtainWithwire:
+      case TypeOfBelesah.twoSashwireCurtain:
         if (height > 1.3) {
           return 2;
         } else {
@@ -114,21 +132,33 @@ class LogicBelesahJumbo implements ContractsBelesah {
   }
 
   @override
-  int numSash(TypeOfSash sash) {
-    switch (sash) {
-      case TypeOfSash.singleSash:
+  int numSash(TypeOfBelesah belesah) {
+    switch (belesah) {
+      case TypeOfBelesah.singleSashCurtain:
+      case TypeOfBelesah.singleSashwire:
+      case TypeOfBelesah.singleSashDoubleCurtain:
         return 1;
-      case TypeOfSash.twoSash:
+      case TypeOfBelesah.twoSashCurtain:
+      case TypeOfBelesah.twoSashwire:
+      case TypeOfBelesah.twoSashDoubleCurtain:
+      case TypeOfBelesah.twoSashDoubleCurtainWithwire:
+      case TypeOfBelesah.twoSashwireCurtain:
         return 2;
     }
   }
 
   @override
-  int numDoubleFace(TypeOfSash sash) {
-    switch (sash) {
-      case TypeOfSash.singleSash:
+  int numDoubleFace(TypeOfBelesah belesah) {
+    switch (belesah) {
+      case TypeOfBelesah.singleSashCurtain:
+      case TypeOfBelesah.singleSashwire:
+      case TypeOfBelesah.singleSashDoubleCurtain:
         return 2;
-      case TypeOfSash.twoSash:
+      case TypeOfBelesah.twoSashCurtain:
+      case TypeOfBelesah.twoSashwire:
+      case TypeOfBelesah.twoSashDoubleCurtain:
+      case TypeOfBelesah.twoSashDoubleCurtainWithwire:
+      case TypeOfBelesah.twoSashwireCurtain:
         return 4;
     }
   }
