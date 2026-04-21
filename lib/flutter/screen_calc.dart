@@ -314,12 +314,31 @@ class _ScreenCalcState extends State<ScreenCalc> {
                         Text(
                           'الارتفاع: ${resultHeight!.toStringAsFixed(3)} متر ×${(numHeight! * numwindow!)} ',
                         ),
-                        Text(
-                          'الشيش: ${resultSash!.toStringAsFixed(3)} متر×${(resultCalcNumSash)! * numwindow!} ',
-                        ),
-                        Text(
-                          'السلك: ${resultWire!.toStringAsFixed(0)} كسرة×${(resultCalcNumSash)! * numwindow!}',
-                        ),
+                        // شرط عرض الشيش في حالة اختيار نوع الشباك سلك مع ضلفة
+                        if (selectedBelesah ==
+                                TypeOfBelesah.twoSashwireCurtain &&
+                            selectedSash == TypeOfSash.singleSash)
+                          Text(
+                            'الشيش: ${resultSash!.toStringAsFixed(3)} متر×${(resultCalcNumSash)! + 1 * numwindow!} ',
+                          )
+                        else
+                          Text(
+                            'الشيش: ${resultSash!.toStringAsFixed(3)} متر×${(resultCalcNumSash)! * numwindow!} ',
+                          ),
+                        // شرط عرض السلك في حالة اختيار نوع الشباك سلك مع ضلفة
+                        if (selectedBelesah ==
+                                TypeOfBelesah.twoSashwireCurtain &&
+                            selectedSash == TypeOfSash.twoSash)
+                          Text(
+                            'السلك: ${(resultWire!.toDouble() * 2).toStringAsFixed(0)} كسرة×${(resultCalcNumSash)! * numwindow!}',
+                          ),
+                        if (selectedBelesah ==
+                                TypeOfBelesah.twoSashwireCurtain &&
+                            selectedSash == TypeOfSash.singleSash)
+                          Text(
+                            'السلك: ${resultWire!.toStringAsFixed(0)} كسرة×${(resultCalcNumSash)! * numwindow!}',
+                          ),
+
                         Text(
                           'الدابل فيس: ${resultDoubleFace!.toStringAsFixed(3)} متر×${(resultCalcNumDoubleFace)! * numwindow!}',
                         ),
