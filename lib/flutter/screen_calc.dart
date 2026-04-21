@@ -118,6 +118,7 @@ class _ScreenCalcState extends State<ScreenCalc> {
                   ),
                 ],
               ),
+
               const SizedBox(height: 16.0),
               Row(
                 children: [
@@ -170,6 +171,7 @@ class _ScreenCalcState extends State<ScreenCalc> {
                       },
                     ),
                   ),
+
                   const SizedBox(width: 16.0),
                   Expanded(
                     child: TextField(
@@ -188,6 +190,7 @@ class _ScreenCalcState extends State<ScreenCalc> {
                 ],
               ),
 
+              const SizedBox(height: 16.0),
               //
               ElevatedButton(
                 onPressed: () {
@@ -232,6 +235,7 @@ class _ScreenCalcState extends State<ScreenCalc> {
                 },
                 child: const Text('احسب'),
               ),
+              const SizedBox(height: 8.0),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -240,7 +244,9 @@ class _ScreenCalcState extends State<ScreenCalc> {
                       PdfService.addRow(
                         clientName: clientName,
                         width: width,
+                        numWidth: numWidth!,
                         height: height,
+                        numHeight: numHeight!,
                         belesahType: selectedType ?? '',
                         resultWidth: resultWidth ?? 0,
                         resultHeight: resultHeight ?? 0,
