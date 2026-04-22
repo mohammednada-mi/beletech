@@ -47,6 +47,11 @@ class _ScreenCalcState extends State<ScreenCalc> {
     _numWindowController.dispose();
 
     super.dispose();
+  }
+
+  @override
+  void initState() {
+    super.initState();
     logic = LogicBelesahMi();
   }
 
