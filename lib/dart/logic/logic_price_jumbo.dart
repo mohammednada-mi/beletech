@@ -72,9 +72,6 @@ class LogicPrice implements ContractsPrice {
             typeOfBelesah == TypeOfBelesah.twoSashDoubleCurtainWithwire)
         ? Wiresize.doublecurtain7m
         : Wiresize.wire18m;
-    final TypeOfSash sashType = typeOfBelesah.name.startsWith('single')
-        ? TypeOfSash.singleSash
-        : TypeOfSash.twoSash;
 
     final double belesahWidth = logicBelesahJumbo.calcWidth(width);
     final double belesahHeight = logicBelesahJumbo.calcHeight(height);
