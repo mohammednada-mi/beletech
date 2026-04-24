@@ -13,4 +13,5 @@ abstract class ContractsBelesah {
   int calcNumThreadSmall(double height, TypeOfBelesah belesah);
   int numSash(TypeOfBelesah belesah);
   int numDoubleFace(TypeOfBelesah belesah);
+  int numWire(TypeOfBelesah belesah);
 }

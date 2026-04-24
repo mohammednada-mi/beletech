@@ -162,4 +162,20 @@ class LogicBelesahJumbo implements ContractsBelesah {
         return 4;
     }
   }
+
+  @override
+  int numWire(TypeOfBelesah belesah) {
+    switch (belesah) {
+      case TypeOfBelesah.singleSashCurtain:
+      case TypeOfBelesah.singleSashwire:
+      case TypeOfBelesah.singleSashDoubleCurtain:
+      case TypeOfBelesah.twoSashDoubleCurtainWithwire:
+        return 1;
+      case TypeOfBelesah.twoSashCurtain:
+      case TypeOfBelesah.twoSashwire:
+      case TypeOfBelesah.twoSashDoubleCurtain:
+      case TypeOfBelesah.twoSashwireCurtain:
+        return 2;
+    }
+  }
 }

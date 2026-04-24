@@ -34,8 +34,10 @@ class _ScreenCalcState extends State<ScreenCalc> {
   int? resultCalcNumThreadSmall;
   int? resultCalcNumSash;
   int? resultCalcNumDoubleFace;
+  int? resultCalcNumWire;
   int? numHeight = 2;
   int? numWidth = 2;
+
   double height = 0;
   double width = 0;
   int? numwindow = 1;
@@ -268,6 +270,7 @@ class _ScreenCalcState extends State<ScreenCalc> {
                     resultCalcNumDoubleFace = logic?.numDoubleFace(
                       selectedBelesah!,
                     );
+                    resultCalcNumWire = logic?.numWire(selectedBelesah!);
                     numHeight = 2;
                     numWidth = 2;
                   });
@@ -292,7 +295,7 @@ class _ScreenCalcState extends State<ScreenCalc> {
                         resultSash: resultSash ?? 0,
                         numSash: resultCalcNumSash ?? 0,
                         resultWire: resultWire ?? 0,
-                        numWire: resultCalcNumSash ?? 0,
+                        numWire: resultCalcNumWire ?? 0,
                         resultDoubleFace: resultDoubleFace ?? 0,
                         numDoubleFace: resultCalcNumDoubleFace ?? 0,
                         resultThread: resultThread ?? 0,
@@ -337,12 +340,12 @@ class _ScreenCalcState extends State<ScreenCalc> {
                         ),
 
                         Text(
-                          'السلك: ${resultWire!.toStringAsFixed(0)} كسرة×${(resultCalcNumSash)! * numwindow!}',
+                          'السلك: ${resultWire!.toStringAsFixed(0)} كسرة×${(resultCalcNumWire)! * numwindow!}',
                         ),
                         if (selectedBelesah ==
                             TypeOfBelesah.twoSashDoubleCurtainWithwire)
                           Text(
-                            'السلك: ${logic!.calcWire(width, selectedWire2!, selectedBelesah!).toStringAsFixed(0)} كسرة×${(resultCalcNumSash)! * numwindow!}',
+                            'السلك: ${logic!.calcWire(width, selectedWire2!, selectedBelesah!).toStringAsFixed(0)} كسرة×${(resultCalcNumWire)! * numwindow!}',
                           ),
 
                         Text(
