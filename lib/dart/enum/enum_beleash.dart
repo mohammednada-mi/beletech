@@ -17,21 +17,21 @@ extension TypeOfBelesahExtension on TypeOfBelesah {
   String get belesah {
     switch (this) {
       case TypeOfBelesah.singleSashwire:
-        return 'بليسيه بشريط سلك';
+        return 'ضلفة واحدة سلك';
       case TypeOfBelesah.singleSashCurtain:
-        return 'بليسيه بشريط قماش';
+        return 'ضلفة واحدة ستارة';
       case TypeOfBelesah.twoSashwire:
-        return 'بليسيه بشريط سلك مزدوج';
+        return 'ضلفتين سلك';
       case TypeOfBelesah.twoSashwireCurtain:
-        return 'بليسيه بشريط سلك مزدوج وقماش';
+        return 'ضلفتين سلك وستارة';
       case TypeOfBelesah.twoSashCurtain:
-        return 'بليسيه بشريط قماش مزدوج';
+        return 'ضلفتين ستارة';
       case TypeOfBelesah.singleSashDoubleCurtain:
-        return 'بليسيه بشريط قماش ومزدوج';
+        return 'ضلفة واحدة ستارة دبل';
       case TypeOfBelesah.twoSashDoubleCurtain:
-        return 'بليسيه بشريط قماش مزدوج';
+        return 'ضلفتين ستارة دبل';
       case TypeOfBelesah.twoSashDoubleCurtainWithwire:
-        return 'بليسيه بشريط قماش مزدوج وسلك';
+        return 'ضلفتين ستارة دبل وسلك';
     }
   }
 }

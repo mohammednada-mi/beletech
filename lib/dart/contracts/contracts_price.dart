@@ -17,7 +17,27 @@ abstract class ContractsPrice {
     double sashWeight, // وزن الشباك
     double magnetPrice, // سعر المغناطيس
     double wirePrice, // سعر السلك
-    // ضلفة واحدة أو اثنتين
+    double makseb, // المكسب
+    TypeOfBelesah typeOfBelesah,
+  );
+
+  Map<String, double> calcPriceDetails(
+    double width, // الطول
+    double height, // العرض
+    double factory, // سعر المصنع
+    double elhalk, // الهالك
+    double totalThread, // اجمالي الخيط
+    double curtainprice, // سعر الستارة
+    double doubleCurtainPrice, // سعر الستارة المزدوجة
+    double tapePrice, // سعر الشريط
+    double assemblyKit, // سعر طقم التجميع
+    double forshPrice, // سعر الفورش
+    double wightAlumColor, // عرض الالمنيوم الملون
+    double frameWeight, // وزن الاطار
+    double sashWeight, // وزن الشباك
+    double magnetPrice, // سعر المغناطيس
+    double wirePrice, // سعر السلك
+    double makseb, // المكسب
     TypeOfBelesah typeOfBelesah,
   );
 }

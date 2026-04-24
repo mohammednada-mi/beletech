@@ -1,0 +1,428 @@
+import 'package:belesah/dart/enum/enum_beleash.dart';
+import 'package:belesah/dart/logic/logic_price_jumbo.dart';
+import 'package:flutter/material.dart';
+import 'package:belesah/dart/logic/save_file.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:belesah/dart/screen/app_data.dart';
+
+class ScreenCalcPriceJumbo extends StatefulWidget {
+  const ScreenCalcPriceJumbo({super.key});
+
+  @override
+  State<ScreenCalcPriceJumbo> createState() => _ScreenCalcPriceJumboState();
+}
+
+class _ScreenCalcPriceJumboState extends State<ScreenCalcPriceJumbo> {
+  double factory = 0;
+  double elhalk = 0;
+  double totalThread = 0;
+  double curtainprice = 0;
+  double doubleCurtainPrice = 0;
+  double tapePrice = 0;
+  double assemblyKit = 0;
+  double forshPrice = 0;
+  double wightAlumColor = 0;
+  double frameWeight = 0;
+  double sashWeight = 0;
+  double magnetPrice = 0;
+  double wirePrice = 0;
+  double makseb = 0;
+  TypeOfBelesah? selectedBelesah;
+  double? resultPrice;
+  final TextEditingController factoryControllerJumbo = TextEditingController();
+  final TextEditingController elhalkControllerJumbo = TextEditingController();
+  final TextEditingController tapePriceControllerJumbo =
+      TextEditingController();
+  final TextEditingController assemblyKitControllerJumbo =
+      TextEditingController();
+  final TextEditingController forshPriceControllerJumbo =
+      TextEditingController();
+  final TextEditingController wightAlumColorControllerJumbo =
+      TextEditingController();
+  final TextEditingController frameWeightControllerJumbo =
+      TextEditingController();
+  final TextEditingController sashWeightControllerJumbo =
+      TextEditingController();
+  final TextEditingController magnetPriceControllerJumbo =
+      TextEditingController();
+  final TextEditingController wirePriceControllerJumbo =
+      TextEditingController();
+  final TextEditingController curtainPriceControllerJumbo =
+      TextEditingController();
+  final TextEditingController doubleCurtainPriceControllerJumbo =
+      TextEditingController();
+  final TextEditingController totalThreadControllerJumbo =
+      TextEditingController();
+  final TextEditingController maksebControllerJumbo = TextEditingController();
+  @override
+  void initState() {
+    super.initState();
+    _loadData();
+  }
+
+  Future<void> _loadData() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      factoryControllerJumbo.text = prefs.getString('factoryJumbo') ?? '0';
+      factory = double.tryParse(factoryControllerJumbo.text) ?? 0;
+      elhalkControllerJumbo.text = prefs.getString('elhalkJumbo') ?? '0';
+      elhalk = double.tryParse(elhalkControllerJumbo.text) ?? 0;
+      tapePriceControllerJumbo.text = prefs.getString('tapePriceJumbo') ?? '0';
+      tapePrice = double.tryParse(tapePriceControllerJumbo.text) ?? 0;
+      assemblyKitControllerJumbo.text =
+          prefs.getString('assemblyKitJumbo') ?? '0';
+      assemblyKit = double.tryParse(assemblyKitControllerJumbo.text) ?? 0;
+      forshPriceControllerJumbo.text =
+          prefs.getString('forshPriceJumbo') ?? '0';
+      forshPrice = double.tryParse(forshPriceControllerJumbo.text) ?? 0;
+      wightAlumColorControllerJumbo.text =
+          prefs.getString('wightAlumColorJumbo') ?? '0';
+      wightAlumColor = double.tryParse(wightAlumColorControllerJumbo.text) ?? 0;
+      frameWeightControllerJumbo.text =
+          prefs.getString('frameWeightJumbo') ?? '0';
+      frameWeight = double.tryParse(frameWeightControllerJumbo.text) ?? 0;
+      sashWeightControllerJumbo.text =
+          prefs.getString('sashWeightJumbo') ?? '0';
+      sashWeight = double.tryParse(sashWeightControllerJumbo.text) ?? 0;
+      magnetPriceControllerJumbo.text =
+          prefs.getString('magnetPriceJumbo') ?? '0';
+      magnetPrice = double.tryParse(magnetPriceControllerJumbo.text) ?? 0;
+      wirePriceControllerJumbo.text = prefs.getString('wirePriceJumbo') ?? '0';
+      wirePrice = double.tryParse(wirePriceControllerJumbo.text) ?? 0;
+
+      curtainPriceControllerJumbo.text =
+          prefs.getString('curtainpriceJumbo') ?? '0';
+      curtainprice = double.tryParse(curtainPriceControllerJumbo.text) ?? 0;
+      doubleCurtainPriceControllerJumbo.text =
+          prefs.getString('doubleCurtainPriceJumbo') ?? '0';
+      doubleCurtainPrice =
+          double.tryParse(doubleCurtainPriceControllerJumbo.text) ?? 0;
+      totalThreadControllerJumbo.text =
+          prefs.getString('totalThreadJumbo') ?? '0';
+      totalThread = double.tryParse(totalThreadControllerJumbo.text) ?? 0;
+      maksebControllerJumbo.text = prefs.getString('maksebJumbo') ?? '0';
+      makseb = double.tryParse(maksebControllerJumbo.text) ?? 0;
+    });
+  }
+
+  @override
+  void dispose() {
+    factoryControllerJumbo.dispose();
+    elhalkControllerJumbo.dispose();
+    tapePriceControllerJumbo.dispose();
+    assemblyKitControllerJumbo.dispose();
+    forshPriceControllerJumbo.dispose();
+    wightAlumColorControllerJumbo.dispose();
+    frameWeightControllerJumbo.dispose();
+    sashWeightControllerJumbo.dispose();
+    magnetPriceControllerJumbo.dispose();
+    wirePriceControllerJumbo.dispose();
+    curtainPriceControllerJumbo.dispose();
+    doubleCurtainPriceControllerJumbo.dispose();
+    totalThreadControllerJumbo.dispose();
+    maksebControllerJumbo.dispose();
+    super.dispose();
+  }
+
+  Map<String, double>? details;
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('بليسيه ميني')),
+      body: SafeArea(
+        child: SingleChildScrollView(
+          padding: EdgeInsets.all(16.0),
+          child: Column(
+            children: [
+              Row(
+                children: [
+                  Expanded(
+                    child: TextField(
+                      keyboardType: TextInputType.number,
+                      decoration: const InputDecoration(
+                        labelText: 'الارتفاع (متر)',
+                      ),
+                      onChanged: (value) {
+                        AppData.height = double.tryParse(value) ?? 0;
+                      },
+                    ),
+                  ),
+                  const SizedBox(width: 16.0),
+                  Expanded(
+                    child: TextField(
+                      keyboardType: TextInputType.number,
+                      decoration: const InputDecoration(
+                        labelText: 'العرض (متر)',
+                      ),
+                      onChanged: (value) {
+                        AppData.width = double.tryParse(value) ?? 0;
+                      },
+                    ),
+                  ),
+                ],
+              ),
+
+              Wrap(
+                spacing: 5.0,
+                runSpacing: 5.0,
+                children: [
+                  SizedBox(
+                    width: 100,
+                    child: TextField(
+                      controller: factoryControllerJumbo,
+                      keyboardType: TextInputType.number,
+                      decoration: InputDecoration(labelText: 'سعر المصنع'),
+                      onChanged: (value) {
+                        factory = double.tryParse(value) ?? 0;
+                        SaveFile.saveData('factoryJumbo', value);
+                      },
+                    ),
+                  ),
+                  SizedBox(
+                    width: 100,
+                    child: TextField(
+                      controller: elhalkControllerJumbo,
+                      keyboardType: TextInputType.number,
+                      decoration: InputDecoration(labelText: 'الهالك'),
+                      onChanged: (value) {
+                        elhalk = double.tryParse(value) ?? 0;
+                        SaveFile.saveData('elhalkJumbo', value);
+                      },
+                    ),
+                  ),
+
+                  SizedBox(
+                    width: 100,
+                    child: TextField(
+                      controller: wirePriceControllerJumbo,
+                      keyboardType: TextInputType.number,
+                      decoration: InputDecoration(labelText: 'سعر السلك'),
+                      onChanged: (value) {
+                        wirePrice = double.tryParse(value) ?? 0;
+                        SaveFile.saveData('wirePriceJumbo', value);
+                      },
+                    ),
+                  ),
+                  SizedBox(
+                    width: 100,
+                    child: TextField(
+                      controller: magnetPriceControllerJumbo,
+
+                      keyboardType: TextInputType.number,
+                      decoration: InputDecoration(labelText: 'سعر المغناطيس'),
+                      onChanged: (value) {
+                        magnetPrice = double.tryParse(value) ?? 0;
+                        SaveFile.saveData('magnetPriceJumbo', value);
+                      },
+                    ),
+                  ),
+                  SizedBox(
+                    width: 100,
+                    child: TextField(
+                      controller: tapePriceControllerJumbo,
+
+                      keyboardType: TextInputType.number,
+                      decoration: InputDecoration(labelText: 'سعر الشريط'),
+                      onChanged: (value) {
+                        tapePrice = double.tryParse(value) ?? 0;
+                        SaveFile.saveData('tapePriceJumbo', value);
+                      },
+                    ),
+                  ),
+                  SizedBox(
+                    width: 100,
+                    child: TextField(
+                      controller: assemblyKitControllerJumbo,
+
+                      keyboardType: TextInputType.number,
+                      decoration: InputDecoration(labelText: 'سعر كيت التجميع'),
+                      onChanged: (value) {
+                        assemblyKit = double.tryParse(value) ?? 0;
+                        SaveFile.saveData('assemblyKitJumbo', value);
+                      },
+                    ),
+                  ),
+                  SizedBox(
+                    width: 100,
+                    child: TextField(
+                      controller: forshPriceControllerJumbo,
+
+                      keyboardType: TextInputType.number,
+                      decoration: InputDecoration(labelText: 'سعر الفورش'),
+                      onChanged: (value) {
+                        forshPrice = double.tryParse(value) ?? 0;
+                        SaveFile.saveData('forshPriceJumbo', value);
+                      },
+                    ),
+                  ),
+                  SizedBox(
+                    width: 100,
+                    child: TextField(
+                      controller: wightAlumColorControllerJumbo,
+
+                      keyboardType: TextInputType.number,
+                      decoration: InputDecoration(labelText: 'وزن الالومنيوم'),
+                      onChanged: (value) {
+                        wightAlumColor = double.tryParse(value) ?? 0;
+                        SaveFile.saveData('wightAlumColorJumbo', value);
+                      },
+                    ),
+                  ),
+                  SizedBox(
+                    width: 100,
+                    child: TextField(
+                      controller: frameWeightControllerJumbo,
+
+                      keyboardType: TextInputType.number,
+                      decoration: InputDecoration(labelText: 'وزن الإطار'),
+                      onChanged: (value) {
+                        frameWeight = double.tryParse(value) ?? 0;
+                        SaveFile.saveData('frameWeightJumbo', value);
+                      },
+                    ),
+                  ),
+                  SizedBox(
+                    width: 100,
+                    child: TextField(
+                      controller: sashWeightControllerJumbo,
+
+                      keyboardType: TextInputType.number,
+                      decoration: InputDecoration(labelText: 'وزن الشيش'),
+                      onChanged: (value) {
+                        sashWeight = double.tryParse(value) ?? 0;
+                        SaveFile.saveData('sashWeightJumbo', value);
+                      },
+                    ),
+                  ),
+                  SizedBox(
+                    width: 100,
+                    child: TextField(
+                      controller: curtainPriceControllerJumbo,
+                      keyboardType: TextInputType.number,
+                      decoration: InputDecoration(labelText: 'سعر الستارة'),
+                      onChanged: (value) {
+                        curtainprice = double.tryParse(value) ?? 0;
+                        SaveFile.saveData('curtainpriceJumbo', value);
+                      },
+                    ),
+                  ),
+                  SizedBox(
+                    width: 100,
+                    child: TextField(
+                      controller: doubleCurtainPriceControllerJumbo,
+                      keyboardType: TextInputType.number,
+                      decoration: InputDecoration(
+                        labelText: 'سعر الستارة المزدوجة',
+                      ),
+                      onChanged: (value) {
+                        doubleCurtainPrice = double.tryParse(value) ?? 0;
+                        SaveFile.saveData('doubleCurtainPriceJumbo', value);
+                      },
+                    ),
+                  ),
+                  SizedBox(
+                    width: 100,
+                    child: TextField(
+                      controller: totalThreadControllerJumbo,
+                      keyboardType: TextInputType.number,
+                      decoration: InputDecoration(labelText: 'سعر الخيط'),
+                      onChanged: (value) {
+                        totalThread = double.tryParse(value) ?? 0;
+                        SaveFile.saveData('totalThreadJumbo', value);
+                      },
+                    ),
+                  ),
+                  SizedBox(
+                    width: 100,
+                    child: TextField(
+                      keyboardType: TextInputType.number,
+                      controller: maksebControllerJumbo,
+                      decoration: InputDecoration(labelText: 'المكسب '),
+                      onChanged: (value) {
+                        setState(() {
+                          makseb = double.tryParse(value) ?? 0;
+                          SaveFile.saveData('maksebJumbo', value);
+                        });
+                      },
+                    ),
+                  ),
+                ],
+              ),
+              Row(
+                children: [
+                  DropdownButton<TypeOfBelesah>(
+                    value: selectedBelesah,
+                    hint: const Text('اختر نوع البليسيه'),
+                    items: TypeOfBelesah.values.map((TypeOfBelesah type) {
+                      return DropdownMenuItem<TypeOfBelesah>(
+                        value: type,
+                        child: Text(type.belesah),
+                      );
+                    }).toList(),
+                    onChanged: (TypeOfBelesah? newValue) {
+                      setState(() {
+                        selectedBelesah = newValue;
+                      });
+                    },
+                  ),
+                ],
+              ),
+              //Test
+              ElevatedButton(
+                onPressed: () {
+                  setState(() {
+                    details = LogicPrice().calcPriceDetails(
+                      AppData.width,
+                      AppData.height,
+                      factory,
+                      elhalk,
+                      totalThread,
+                      curtainprice,
+                      doubleCurtainPrice,
+                      tapePrice,
+                      assemblyKit,
+                      forshPrice,
+                      wightAlumColor,
+                      frameWeight,
+                      sashWeight,
+                      magnetPrice,
+                      wirePrice,
+                      makseb,
+                      selectedBelesah!,
+                    );
+                    resultPrice = details!['selectedTotal']!;
+                  });
+                },
+                child: const Text('احسب'),
+              ),
+              if (resultPrice != null)
+                Card(
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'السعر الخامات فقط : ${resultPrice!.toStringAsFixed(2)}',
+                        ),
+                        Text(
+                          'السعر شامل الهالك : ${(resultPrice! * (elhalk / 100) + resultPrice!).toStringAsFixed(2)}',
+                        ),
+                        Text(
+                          'السعر شامل المكسب : ${((resultPrice! * (elhalk / 100) + resultPrice!) * (makseb / 100) + (resultPrice! * (elhalk / 100) + resultPrice!)).toStringAsFixed(2)}',
+                        ),
+                        if (selectedBelesah == TypeOfBelesah.twoSashwireCurtain)
+                          Text(
+                            'سعر بدون مغناطيس : ${((resultPrice!) - details!['totalPriceMagnet']!).toStringAsFixed(2)} ',
+                          ),
+                      ],
+                    ),
+                  ),
+                ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}

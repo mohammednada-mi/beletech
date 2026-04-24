@@ -13,7 +13,6 @@ class ScreenCalcPrice extends StatefulWidget {
 }
 
 class _ScreenCalcPriceState extends State<ScreenCalcPrice> {
-  final LogicPrice logicPrice = LogicPrice();
   double factory = 0;
   double elhalk = 0;
   double totalThread = 0;
@@ -27,9 +26,9 @@ class _ScreenCalcPriceState extends State<ScreenCalcPrice> {
   double sashWeight = 0;
   double magnetPrice = 0;
   double wirePrice = 0;
+  double makseb = 0;
   TypeOfBelesah? selectedBelesah;
   double? resultPrice;
-  Map<String, double>? pricingDetails;
   final TextEditingController factoryController = TextEditingController();
   final TextEditingController elhalkController = TextEditingController();
   final TextEditingController tapePriceController = TextEditingController();
@@ -45,6 +44,7 @@ class _ScreenCalcPriceState extends State<ScreenCalcPrice> {
   final TextEditingController doubleCurtainPriceController =
       TextEditingController();
   final TextEditingController totalThreadController = TextEditingController();
+  final TextEditingController maksebController = TextEditingController();
   @override
   void initState() {
     super.initState();
@@ -83,6 +83,8 @@ class _ScreenCalcPriceState extends State<ScreenCalcPrice> {
           double.tryParse(doubleCurtainPriceController.text) ?? 0;
       totalThreadController.text = prefs.getString('totalThread') ?? '0';
       totalThread = double.tryParse(totalThreadController.text) ?? 0;
+      maksebController.text = prefs.getString('makseb') ?? '0';
+      makseb = double.tryParse(maksebController.text) ?? 0;
     });
   }
 
@@ -101,9 +103,11 @@ class _ScreenCalcPriceState extends State<ScreenCalcPrice> {
     curtainPriceController.dispose();
     doubleCurtainPriceController.dispose();
     totalThreadController.dispose();
+    maksebController.dispose();
     super.dispose();
   }
 
+  Map<String, double>? details;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -311,6 +315,20 @@ class _ScreenCalcPriceState extends State<ScreenCalcPrice> {
                       },
                     ),
                   ),
+                  SizedBox(
+                    width: 100,
+                    child: TextField(
+                      keyboardType: TextInputType.number,
+                      controller: maksebController,
+                      decoration: InputDecoration(labelText: 'المكسب '),
+                      onChanged: (value) {
+                        setState(() {
+                          makseb = double.tryParse(value) ?? 0;
+                          SaveFile.saveData('makseb', value);
+                        });
+                      },
+                    ),
+                  ),
                 ],
               ),
               Row(
@@ -335,14 +353,32 @@ class _ScreenCalcPriceState extends State<ScreenCalcPrice> {
               //Test
               ElevatedButton(
                 onPressed: () {
-                  if (selectedBelesah == null) {
+                  if (selectedBelesah == null ||
+                      AppData.width <= 0 ||
+                      AppData.height <= 0 ||
+                      factory <= 0 ||
+                      elhalk <= 0 ||
+                      tapePrice <= 0 ||
+                      assemblyKit <= 0 ||
+                      forshPrice <= 0 ||
+                      wightAlumColor <= 0 ||
+                      frameWeight <= 0 ||
+                      sashWeight <= 0 ||
+                      magnetPrice <= 0 ||
+                      wirePrice <= 0 ||
+                      curtainprice <= 0 ||
+                      doubleCurtainPrice <= 0 ||
+                      totalThread <= 0 ||
+                      makseb <= 0) {
                     ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('اختار نوع البليسيه اولا')),
+                      const SnackBar(
+                        content: Text('الرجاء ملء جميع الحقول بشكل صحيح'),
+                      ),
                     );
-                    return;
                   }
+
                   setState(() {
-                    pricingDetails = logicPrice.calcPriceDetails(
+                    details = LogicPrice().calcPriceDetails(
                       AppData.width,
                       AppData.height,
                       factory,
@@ -358,9 +394,10 @@ class _ScreenCalcPriceState extends State<ScreenCalcPrice> {
                       sashWeight,
                       magnetPrice,
                       wirePrice,
+                      makseb,
                       selectedBelesah!,
                     );
-                    resultPrice = pricingDetails!['selectedTotal'];
+                    resultPrice = details!['selectedTotal']!;
                   });
                 },
                 child: const Text('احسب'),
@@ -369,82 +406,30 @@ class _ScreenCalcPriceState extends State<ScreenCalcPrice> {
                 Card(
                   child: Padding(
                     padding: const EdgeInsets.all(16.0),
-                    child: Text(
-                      'السعر الكلي: ${resultPrice!.toStringAsFixed(2)} جنيه',
-                    ),
-                  ),
-                ),
-              if (pricingDetails != null) ...[
-                const SizedBox(height: 12),
-                Card(
-                  child: Padding(
-                    padding: const EdgeInsets.all(12.0),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Text(
-                          'تفاصيل الحساب',
-                          style: TextStyle(fontWeight: FontWeight.bold),
+                        Text(
+                          'السعر الخامات فقط : ${resultPrice!.toStringAsFixed(2)}',
                         ),
-                        const SizedBox(height: 8),
-                        ...pricingDetails!.entries.map((entry) {
-                          final String label = _detailLabel(entry.key);
-                          return Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 2),
-                            child: Text(
-                              '$label: ${entry.value.toStringAsFixed(4)}',
-                            ),
-                          );
-                        }),
+                        Text(
+                          'السعر شامل الهالك : ${(resultPrice! * (elhalk / 100) + resultPrice!).toStringAsFixed(2)}',
+                        ),
+                        Text(
+                          'السعر شامل المكسب : ${((resultPrice! * (elhalk / 100) + resultPrice!) * (makseb / 100) + (resultPrice! * (elhalk / 100) + resultPrice!)).toStringAsFixed(2)}',
+                        ),
+                        if (selectedBelesah == TypeOfBelesah.twoSashwireCurtain)
+                          Text(
+                            'سعر بدون مغناطيس : ${((resultPrice!) - details!['totalPriceMagnet']!).toStringAsFixed(2)} ',
+                          ),
                       ],
                     ),
                   ),
                 ),
-              ],
             ],
           ),
         ),
       ),
     );
-  }
-
-  String _detailLabel(String key) {
-    const labels = {
-      'belesahWidth': 'عرض البليسيه',
-      'belesahHeight': 'ارتفاع البليسيه',
-      'belesahSash': 'طول الضلفة',
-      'belesahDoubleFace': 'طول الشريط',
-      'belesahThread': 'طول الخيط الكبير',
-      'belesahThreadSmall': 'طول الخيط الصغير',
-      'belesahwire': 'كمية السلك',
-      'numThread': 'عدد الخيط الكبير',
-      'numThreadSmall': 'عدد الخيط الصغير',
-      'numSash': 'عدد الضلف',
-      'numDoubleFace': 'عدد الأشرطة',
-      'totalFrame': 'إجمالي أطوال الحلق',
-      'totalSash': 'إجمالي أطوال الضلف',
-      'totalWight': 'إجمالي وزن الألومنيوم',
-      'totalPriceAlum': 'إجمالي سعر الألومنيوم',
-      'totalPriceFactory': 'إجمالي سعر المصنع',
-      'totalPriceElhalk': 'إجمالي الهالك',
-      'totalPriceDoubleFace': 'إجمالي سعر الشريط',
-      'totalPriceForsh': 'إجمالي سعر الفورش',
-      'totalPriceMagnet': 'إجمالي سعر المغناطيس',
-      'totalPriceAssemblyKit': 'إجمالي سعر كيت التجميع',
-      'totalPriceThread': 'إجمالي سعر الخيط',
-      'totalPriceWire': 'إجمالي سعر السلك',
-      'totalPriceCurtain': 'إجمالي سعر الستارة',
-      'totalPriceDoubleCurtain': 'إجمالي سعر الستارة المزدوجة',
-      'singleSashwire': 'ناتج مفرد سلك',
-      'singleSashCurtain': 'ناتج مفرد قماش',
-      'singleSashDoubleCurtain': 'ناتج مفرد قماش مزدوج',
-      'twoSashwire': 'ناتج مزدوج سلك',
-      'twoSashCurtain': 'ناتج مزدوج قماش',
-      'twoSashwireCurtain': 'ناتج مزدوج سلك وقماش',
-      'twoSashDoubleCurtain': 'ناتج مزدوج قماش مزدوج',
-      'twoSashDoubleCurtainWithwire': 'ناتج مزدوج قماش مزدوج وسلك',
-      'selectedTotal': 'إجمالي النوع المختار',
-    };
-    return labels[key] ?? key;
   }
 }

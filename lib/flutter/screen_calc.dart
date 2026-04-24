@@ -6,6 +6,7 @@ import 'package:belesah/dart/logic/logic_jumbo.dart';
 import 'package:belesah/dart/logic/logic_mi.dart';
 import 'package:belesah/dart/enum/enum_beleash.dart';
 import 'package:belesah/dart/screen/app_data.dart';
+import 'package:belesah/dart/screen/pdf_service.dart';
 
 class ScreenCalc extends StatefulWidget {
   const ScreenCalc({super.key});
@@ -15,11 +16,11 @@ class ScreenCalc extends StatefulWidget {
 }
 
 class _ScreenCalcState extends State<ScreenCalc> {
-  String? selectedType;
+  String? selectedType = 'mi';
   ContractsBelesah? logic;
-  TypeOfBelesah? selectedBelesah;
-  Wiresize? selectedWire;
-  TypeOfSash? selectedSash;
+  TypeOfBelesah? selectedBelesah = TypeOfBelesah.singleSashwire;
+  Wiresize? selectedWire = Wiresize.wire15m;
+  TypeOfSash? selectedSash = TypeOfSash.singleSash;
   double? resultWidth;
   double? resultHeight;
   double? resultSash;
@@ -32,8 +33,28 @@ class _ScreenCalcState extends State<ScreenCalc> {
   int? resultCalcNumThreadSmall;
   int? resultCalcNumSash;
   int? resultCalcNumDoubleFace;
+  int? numHeight = 2;
+  int? numWidth = 2;
   double height = 0;
   double width = 0;
+  int? numwindow = 1;
+  String clientName = '';
+  final TextEditingController _numWindowController = TextEditingController(
+    text: '1',
+  );
+  @override
+  void dispose() {
+    _numWindowController.dispose();
+
+    super.dispose();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    logic = LogicBelesahMi();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -104,27 +125,10 @@ class _ScreenCalcState extends State<ScreenCalc> {
                   ),
                 ],
               ),
+
               const SizedBox(height: 16.0),
               Row(
                 children: [
-                  Expanded(
-                    child: DropdownButton<TypeOfSash>(
-                      value: selectedSash,
-                      hint: const Text('اختر نوع الشيش'),
-                      items: TypeOfSash.values.map((TypeOfSash type) {
-                        return DropdownMenuItem<TypeOfSash>(
-                          value: type,
-                          child: Text(type.sash),
-                        );
-                      }).toList(),
-                      onChanged: (TypeOfSash? newValue) {
-                        setState(() {
-                          selectedSash = newValue;
-                        });
-                      },
-                    ),
-                  ),
-
                   Expanded(
                     child: DropdownButton<Wiresize>(
                       value: selectedWire,
@@ -144,23 +148,59 @@ class _ScreenCalcState extends State<ScreenCalc> {
                   ),
                 ],
               ),
+              Row(
+                children: [
+                  Expanded(
+                    child: TextField(
+                      decoration: const InputDecoration(
+                        labelText: 'اسم العميل',
+                      ),
+                      onChanged: (value) {
+                        clientName = value;
+                      },
+                    ),
+                  ),
 
-              DropdownButton<TypeOfBelesah>(
-                value: selectedBelesah,
-                hint: const Text('اختر نوع البليسيه'),
-                items: TypeOfBelesah.values.map((TypeOfBelesah type) {
-                  return DropdownMenuItem<TypeOfBelesah>(
-                    value: type,
-                    child: Text(type.belesah),
-                  );
-                }).toList(),
-                onChanged: (TypeOfBelesah? newValue) {
-                  setState(() {
-                    selectedBelesah = newValue;
-                  });
-                },
+                  const SizedBox(width: 16.0),
+                  Expanded(
+                    child: TextField(
+                      controller: _numWindowController,
+                      keyboardType: TextInputType.number,
+                      decoration: const InputDecoration(
+                        labelText: 'عدد النوافذ',
+                      ),
+                      onChanged: (value) {
+                        setState(() {
+                          numwindow = int.tryParse(value) ?? 1;
+                        });
+                      },
+                    ),
+                  ),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  DropdownButton<TypeOfBelesah>(
+                    value: selectedBelesah,
+                    hint: const Text('اختر نوع الشباك'),
+                    items: TypeOfBelesah.values.map((TypeOfBelesah type) {
+                      return DropdownMenuItem<TypeOfBelesah>(
+                        value: type,
+                        child: Text(type.belesah),
+                      );
+                    }).toList(),
+                    onChanged: (TypeOfBelesah? newValue) {
+                      setState(() {
+                        selectedBelesah = newValue;
+                      });
+                    },
+                  ),
+                ],
               ),
 
+              const SizedBox(height: 16.0),
+              //
               ElevatedButton(
                 onPressed: () {
                   if (selectedWire == null ||
@@ -180,7 +220,7 @@ class _ScreenCalcState extends State<ScreenCalc> {
                     resultWire = logic?.calcWire(
                       width,
                       selectedWire!,
-                      selectedSash!,
+                      selectedBelesah!,
                     );
                     resultDoubleFace = logic?.calcDoubleFace(height);
                     resultThread = logic?.calcThread(width, height);
@@ -188,20 +228,65 @@ class _ScreenCalcState extends State<ScreenCalc> {
                     resultPunching = logic?.calcPunching(height);
                     resultCalcNumTHread = logic?.calcNumThread(
                       height,
-                      selectedSash!,
+                      selectedBelesah!,
                     );
                     resultCalcNumThreadSmall = logic?.calcNumThreadSmall(
                       height,
-                      selectedSash!,
+                      selectedBelesah!,
                     );
-                    resultCalcNumSash = logic?.numSash(selectedSash!);
+                    resultCalcNumSash = logic?.numSash(selectedBelesah!);
                     resultCalcNumDoubleFace = logic?.numDoubleFace(
-                      selectedSash!,
+                      selectedBelesah!,
                     );
+                    numHeight = 2;
+                    numWidth = 2;
                   });
                 },
                 child: const Text('احسب'),
               ),
+              const SizedBox(height: 8.0),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  ElevatedButton(
+                    onPressed: () {
+                      PdfService.addRow(
+                        clientName: clientName,
+                        width: width,
+                        numWidth: numWidth!,
+                        height: height,
+                        numHeight: numHeight!,
+                        typeOfBelesah: selectedBelesah?.belesah ?? '',
+                        resultWidth: resultWidth ?? 0,
+                        resultHeight: resultHeight ?? 0,
+                        resultSash: resultSash ?? 0,
+                        numSash: resultCalcNumSash ?? 0,
+                        resultWire: resultWire ?? 0,
+                        numWire: resultCalcNumSash ?? 0,
+                        resultDoubleFace: resultDoubleFace ?? 0,
+                        numDoubleFace: resultCalcNumDoubleFace ?? 0,
+                        resultThread: resultThread ?? 0,
+                        numThread: resultCalcNumTHread ?? 0,
+                      );
+                    },
+                    child: const Text('أضف للتقرير'),
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      PdfService.generatePdf();
+                    },
+                    child: const Text('حفظ التقرير'),
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      PdfService.clearRows();
+                    },
+                    child: const Text('مسح التقرير'),
+                  ),
+                ],
+              ),
+
+              // عرض النتائج
               const SizedBox(height: 16.0),
               if (resultWidth != null)
                 Card(
@@ -210,18 +295,31 @@ class _ScreenCalcState extends State<ScreenCalc> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('العرض: $resultWidth متر'),
-                        Text('الارتفاع: $resultHeight متر'),
-                        Text('الشيش: $resultSash متر×$resultCalcNumSash'),
                         Text(
-                          'السلك: ${resultWire!.toStringAsFixed(0)} كسرة×$resultCalcNumSash',
+                          'العرض: ${resultWidth!.toStringAsFixed(3)} متر ×${(numWidth! * numwindow!)} ',
                         ),
                         Text(
-                          'الدابل فيس: $resultDoubleFace متر×$resultCalcNumDoubleFace',
+                          'الارتفاع: ${resultHeight!.toStringAsFixed(3)} متر ×${(numHeight! * numwindow!)} ',
                         ),
-                        Text('الخيط: $resultThread متر×$resultCalcNumTHread'),
+
+                        // شرط عرض الشيش في حالة اختيار نوع الشباك سلك مع ضلفة
                         Text(
-                          'الخيط الصغير: ${resultThreadSmall!.toStringAsFixed(2)} متر×$resultCalcNumThreadSmall',
+                          'الشيش: ${resultSash!.toStringAsFixed(3)} متر×${(resultCalcNumSash)! * numwindow!} ',
+                        ),
+
+                        // شرط عرض السلك في حالة اختيار نوع الشباك سلك مع ضلفة
+                        Text(
+                          'السلك: ${resultWire!.toStringAsFixed(0)} كسرة×${(resultCalcNumSash)! * numwindow!}',
+                        ),
+
+                        Text(
+                          'الدابل فيس: ${resultDoubleFace!.toStringAsFixed(3)} متر×${(resultCalcNumDoubleFace)! * numwindow!}',
+                        ),
+                        Text(
+                          'الخيط: ${resultThread!.toStringAsFixed(2)} متر×${(resultCalcNumTHread)! * numwindow!}',
+                        ),
+                        Text(
+                          'الخيط الصغير: ${resultThreadSmall!.toStringAsFixed(2)} متر×${(resultCalcNumThreadSmall)! * numwindow!}',
                         ),
                         Text(
                           'الثقوب: ${resultPunching!.toStringAsFixed(1)} سم',

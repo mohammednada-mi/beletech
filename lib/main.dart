@@ -1,5 +1,7 @@
-//import 'package:belesah/flutter/screen_calc.dart';
+import 'package:belesah/flutter/screen_calc.dart';
 import 'package:belesah/flutter/screen_calc_price.dart';
+import 'package:belesah/flutter/screen_calc_price_mini.dart';
+import 'package:belesah/flutter/screen_calc_price_jumbo.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -11,6 +13,6 @@ class BelesahApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(home: const ScreenCalcPrice());
+    return MaterialApp(home: const ScreenCalc());
   }
 }
