@@ -242,6 +242,34 @@ class LogicPrice implements ContractsPrice {
       'totalPriceWire': totalPriceWire,
       'totalPriceCurtain': totalPriceCurtain,
       'totalPriceDoubleCurtain': totalPriceDoubleCurtain,
+      // أبعاد وكميات (تصحيح)
+      'belesahWidth': belesahWidth,
+      'belesahHeight': belesahHeight,
+      'belesahSash': belesahSash,
+      'belesahDoubleFace': belesahDoubleFace,
+      'belesahThread': belesahThread,
+      'belesahThreadSmall': belesahThreadSmall,
+      'belesahwire': belesahwire,
+      'numThread': numThread.toDouble(),
+      'numThreadSmall': numThreadSmall.toDouble(),
+      'numSash': numSash.toDouble(),
+      'numDoubleFace': numDoubleFace.toDouble(),
+      'wireSizeIsDoubleCurtain7m': (wireSize == Wiresize.doublecurtain7m)
+          ? 1.0
+          : 0.0,
+      'totalFrame': totalFrame,
+      'totalSash': totalSash,
+      'totalWight': totalWight,
+      // إجماليات كل نوع (مقارنة مع المختار)
+      'totalpricesingleSashwire': totalpricesingleSashwire,
+      'totalpricesingleSashCurtain': totalpricesingleSashCurtain,
+      'totalpricesingleSashDoubleCurtain': totalpricesingleSashDoubleCurtain,
+      'totalPriceTwoSashWire': totalPriceTwoSashWire,
+      'totalPriceTwoSashCurtain': totalPriceTwoSashCurtain,
+      'totalPriceTwoSashwireCurtain': totalPriceTwoSashwireCurtain,
+      'totalPriceTwoSashDoubleCurtain': totalPriceTwoSashDoubleCurtain,
+      'totalPriceTwoSashDoubleCurtainWithwire':
+          totalPriceTwoSashDoubleCurtainWithwire,
     };
   }
 }

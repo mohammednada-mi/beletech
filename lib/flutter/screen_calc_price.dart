@@ -5,6 +5,106 @@ import 'package:belesah/dart/logic/save_file.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:belesah/dart/screen/app_data.dart';
 
+/// تسميات عربية لكل مفتاح يعيده [LogicPrice.calcPriceDetails] (لتتبع التسعير).
+const Map<String, String> _kCalcPriceDetailLabels = {
+  'wireSizeIsDoubleCurtain7m': 'حجم السلك المستخدم (1 = 7م دبل ستارة، 0 = 18م)',
+  'belesahWidth': 'عرض البليسيه (محسوب)',
+  'belesahHeight': 'ارتفاع البليسيه (محسوب)',
+  'belesahSash': 'طول الضلفة (محسوب)',
+  'belesahDoubleFace': 'الوجه المزدوج (محسوب)',
+  'belesahThread': 'مقدار الخيط الرئيسي',
+  'belesahThreadSmall': 'مقدار الخيط الصغير',
+  'belesahwire': 'مقدار السلك (طول)',
+  'numThread': 'عدد الخيوط الرئيسية',
+  'numThreadSmall': 'عدد الخيوط الصغيرة',
+  'numSash': 'عدد الضلف',
+  'numDoubleFace': 'عدد الوجه المزدوج',
+  'totalFrame': 'إجمالي محيط الحلق (م)',
+  'totalSash': 'إجمالي طول الضلف (م)',
+  'totalWight': 'إجمالي وزن الألومنيوم (كجم تقريباً)',
+  'totalPriceAlum': 'سعر الألومنيوم',
+  'totalPriceFactory': 'سعر المصنعية',
+  'totalPriceDoubleFace': 'سعر الشريط (وجه مزدوج)',
+  'totalPriceForsh': 'سعر الفورش',
+  'totalPriceMagnet': 'سعر المغناطيس',
+  'totalPriceAssemblyKit': 'سعر كيت التجميع',
+  'totalPriceThread': 'سعر الخيط',
+  'totalPriceWire': 'سعر السلك',
+  'totalPriceCurtain': 'سعر الستارة',
+  'totalPriceDoubleCurtain': 'سعر الستارة المزدوجة',
+  'totalpricesingleSashwire': 'إجمالي نوع: ضلفة واحدة سلك',
+  'totalpricesingleSashCurtain': 'إجمالي نوع: ضلفة واحدة ستارة',
+  'totalpricesingleSashDoubleCurtain': 'إجمالي نوع: ضلفة واحدة ستارة دبل',
+  'totalPriceTwoSashWire': 'إجمالي نوع: ضلفتين سلك',
+  'totalPriceTwoSashCurtain': 'إجمالي نوع: ضلفتين ستارة',
+  'totalPriceTwoSashwireCurtain': 'إجمالي نوع: ضلفتين سلك وستارة',
+  'totalPriceTwoSashDoubleCurtain': 'إجمالي نوع: ضلفتين ستارة دبل',
+  'totalPriceTwoSashDoubleCurtainWithwire': 'إجمالي نوع: ضلفتين ستارة دبل وسلك',
+  'selectedTotal': 'المجموع المختار لهذا النوع (خامات فقط)',
+};
+
+const List<String> _kCalcPriceDetailKeyOrder = [
+  'wireSizeIsDoubleCurtain7m',
+  'belesahWidth',
+  'belesahHeight',
+  'belesahSash',
+  'belesahDoubleFace',
+  'belesahThread',
+  'belesahThreadSmall',
+  'belesahwire',
+  'numThread',
+  'numThreadSmall',
+  'numSash',
+  'numDoubleFace',
+  'totalFrame',
+  'totalSash',
+  'totalWight',
+  'totalPriceAlum',
+  'totalPriceFactory',
+  'totalPriceDoubleFace',
+  'totalPriceForsh',
+  'totalPriceMagnet',
+  'totalPriceAssemblyKit',
+  'totalPriceThread',
+  'totalPriceWire',
+  'totalPriceCurtain',
+  'totalPriceDoubleCurtain',
+  'totalpricesingleSashwire',
+  'totalpricesingleSashCurtain',
+  'totalpricesingleSashDoubleCurtain',
+  'totalPriceTwoSashWire',
+  'totalPriceTwoSashCurtain',
+  'totalPriceTwoSashwireCurtain',
+  'totalPriceTwoSashDoubleCurtain',
+  'totalPriceTwoSashDoubleCurtainWithwire',
+  'selectedTotal',
+];
+
+List<Widget> _debugDetailRows(Map<String, double> d) {
+  final seen = <String>{};
+  final rows = <Widget>[];
+  for (final key in _kCalcPriceDetailKeyOrder) {
+    if (!d.containsKey(key)) continue;
+    seen.add(key);
+    rows.add(
+      SelectableText(
+        '${_kCalcPriceDetailLabels[key] ?? key}: ${d[key]!.toStringAsFixed(4)}',
+      ),
+    );
+    rows.add(const SizedBox(height: 4));
+  }
+  for (final e in d.entries) {
+    if (seen.contains(e.key)) continue;
+    rows.add(
+      SelectableText(
+        '${_kCalcPriceDetailLabels[e.key] ?? e.key}: ${e.value.toStringAsFixed(4)}',
+      ),
+    );
+    rows.add(const SizedBox(height: 4));
+  }
+  return rows;
+}
+
 class ScreenCalcPrice extends StatefulWidget {
   const ScreenCalcPrice({super.key});
 
@@ -375,6 +475,7 @@ class _ScreenCalcPriceState extends State<ScreenCalcPrice> {
                         content: Text('الرجاء ملء جميع الحقول بشكل صحيح'),
                       ),
                     );
+                    return;
                   }
 
                   setState(() {
@@ -402,13 +503,20 @@ class _ScreenCalcPriceState extends State<ScreenCalcPrice> {
                 },
                 child: const Text('احسب'),
               ),
-              if (resultPrice != null)
+              if (resultPrice != null && details != null) ...[
                 Card(
                   child: Padding(
                     padding: const EdgeInsets.all(16.0),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+                        Text(
+                          'مدخلات الأبعاد: العرض ${AppData.width} م — الارتفاع ${AppData.height} م',
+                        ),
+                        if (selectedBelesah != null)
+                          Text('النوع: ${selectedBelesah!.belesah}'),
+                        Text('الهالك %: $elhalk — المكسب %: $makseb'),
+                        const Divider(height: 24),
                         Text(
                           'السعر الخامات فقط : ${resultPrice!.toStringAsFixed(2)}',
                         ),
@@ -426,6 +534,24 @@ class _ScreenCalcPriceState extends State<ScreenCalcPrice> {
                     ),
                   ),
                 ),
+                Card(
+                  color: Theme.of(context).colorScheme.surfaceContainerHighest,
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'تفاصيل الحساب (كل النتائج)',
+                          style: Theme.of(context).textTheme.titleMedium,
+                        ),
+                        const SizedBox(height: 8),
+                        ..._debugDetailRows(details!),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
             ],
           ),
         ),
