@@ -6,11 +6,11 @@ extension PleatsTypeExtension on String {
   String get typebel {
     switch (this) {
       case 'mini':
-        return 'بليسيه ميني';
+        return 'قطاع صغير';
       case 'mi':
-        return 'بليسيه مي';
+        return ' قطاع 3.7 سم';
       case 'jumbo':
-        return 'بليسيه جامبو';
+        return 'قطاع جامبو';
       default:
         return this;
     }
