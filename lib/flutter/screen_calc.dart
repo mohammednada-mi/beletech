@@ -67,7 +67,7 @@ class _ScreenCalcState extends State<ScreenCalc> {
               Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  'اختر نوع البليسيه:',
+                  'اختر نوع القطاع',
                   style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
                 ),
               ),
@@ -146,6 +146,29 @@ class _ScreenCalcState extends State<ScreenCalc> {
                       },
                     ),
                   ),
+                  const SizedBox(width: 16.0),
+                  if (selectedBelesah ==
+                      TypeOfBelesah.twoSashDoubleCurtainWithwire)
+                    Expanded(
+                      child: DropdownButton<Wiresize>(
+                        value: selectedWire,
+                        hint: const Text('اختر مقاس السلك'),
+                        items: Wiresize.values
+                            .where((w) => w != Wiresize.doublecurtain7m)
+                            .map((Wiresize type) {
+                              return DropdownMenuItem<Wiresize>(
+                                value: type,
+                                child: Text(type.wire),
+                              );
+                            })
+                            .toList(),
+                        onChanged: (Wiresize? newValue) {
+                          setState(() {
+                            selectedWire = newValue;
+                          });
+                        },
+                      ),
+                    ),
                 ],
               ),
               Row(
@@ -193,6 +216,16 @@ class _ScreenCalcState extends State<ScreenCalc> {
                     onChanged: (TypeOfBelesah? newValue) {
                       setState(() {
                         selectedBelesah = newValue;
+                        if (newValue == TypeOfBelesah.singleSashDoubleCurtain ||
+                            newValue == TypeOfBelesah.twoSashDoubleCurtain ||
+                            newValue ==
+                                TypeOfBelesah.twoSashDoubleCurtainWithwire) {
+                          selectedWire = Wiresize.doublecurtain7m;
+                        }
+                        if (newValue ==
+                            TypeOfBelesah.twoSashDoubleCurtainWithwire) {
+                          selectedWire = Wiresize.wire15m;
+                        }
                       });
                     },
                   ),
@@ -302,12 +335,10 @@ class _ScreenCalcState extends State<ScreenCalc> {
                           'الارتفاع: ${resultHeight!.toStringAsFixed(3)} متر ×${(numHeight! * numwindow!)} ',
                         ),
 
-                        // شرط عرض الشيش في حالة اختيار نوع الشباك سلك مع ضلفة
                         Text(
                           'الشيش: ${resultSash!.toStringAsFixed(3)} متر×${(resultCalcNumSash)! * numwindow!} ',
                         ),
 
-                        // شرط عرض السلك في حالة اختيار نوع الشباك سلك مع ضلفة
                         Text(
                           'السلك: ${resultWire!.toStringAsFixed(0)} كسرة×${(resultCalcNumSash)! * numwindow!}',
                         ),
