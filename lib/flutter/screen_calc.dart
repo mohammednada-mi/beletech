@@ -225,6 +225,13 @@ class _ScreenCalcState extends State<ScreenCalc> {
                                 TypeOfBelesah.twoSashDoubleCurtainWithwire) {
                           selectedWire = Wiresize.doublecurtain7m;
                         }
+                        if (newValue == TypeOfBelesah.singleSashCurtain ||
+                            newValue == TypeOfBelesah.twoSashwireCurtain ||
+                            newValue == TypeOfBelesah.singleSashwire ||
+                            newValue == TypeOfBelesah.twoSashCurtain ||
+                            newValue == TypeOfBelesah.twoSashwire) {
+                          selectedWire = Wiresize.wire18m;
+                        }
                       });
                     },
                   ),
