@@ -170,11 +170,11 @@ class LogicBelesahMini implements ContractsBelesah {
       case TypeOfBelesah.singleSashwire:
       case TypeOfBelesah.singleSashDoubleCurtain:
       case TypeOfBelesah.twoSashDoubleCurtainWithwire:
+      case TypeOfBelesah.twoSashwireCurtain:
         return 1;
       case TypeOfBelesah.twoSashCurtain:
       case TypeOfBelesah.twoSashwire:
       case TypeOfBelesah.twoSashDoubleCurtain:
-      case TypeOfBelesah.twoSashwireCurtain:
         return 2;
     }
   }
