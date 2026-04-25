@@ -72,6 +72,10 @@ class LogicPrice implements ContractsPrice {
             typeOfBelesah == TypeOfBelesah.twoSashDoubleCurtainWithwire)
         ? Wiresize.doublecurtain7m
         : Wiresize.wire18m;
+    final double belesahwire2 =
+        (typeOfBelesah == TypeOfBelesah.twoSashDoubleCurtainWithwire)
+        ? logicBelesahJumbo.calcWire(width, Wiresize.wire18m, typeOfBelesah)
+        : 0;
 
     final double belesahWidth = logicBelesahJumbo.calcWidth(width);
     final double belesahHeight = logicBelesahJumbo.calcHeight(height);
@@ -96,9 +100,13 @@ class LogicPrice implements ContractsPrice {
       height,
       typeOfBelesah,
     );
+    final int numWire = logicBelesahJumbo.numWire(typeOfBelesah);
 
     final int numSash = logicBelesahJumbo.numSash(typeOfBelesah);
     final int numDoubleFace = logicBelesahJumbo.numDoubleFace(typeOfBelesah);
+
+    final double totalPriceWire2 =
+        wirePrice * belesahwire2 * belesahDoubleFace * numWire * (3.8 / 100);
 
     final double totalFrame =
         belesahWidth * 2 + belesahHeight * 2; // اجمالي اطوال الحلق
