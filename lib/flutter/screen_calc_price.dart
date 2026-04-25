@@ -511,13 +511,6 @@ class _ScreenCalcPriceState extends State<ScreenCalcPrice> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'مدخلات الأبعاد: العرض ${AppData.width} م — الارتفاع ${AppData.height} م',
-                        ),
-                        if (selectedBelesah != null)
-                          Text('النوع: ${selectedBelesah!.belesah}'),
-                        Text('الهالك %: $elhalk — المكسب %: $makseb'),
-                        const Divider(height: 24),
-                        Text(
                           'السعر الخامات فقط : ${resultPrice!.toStringAsFixed(2)}',
                         ),
                         Text(
@@ -530,23 +523,6 @@ class _ScreenCalcPriceState extends State<ScreenCalcPrice> {
                           Text(
                             'سعر بدون مغناطيس : ${((resultPrice!) - details!['totalPriceMagnet']!).toStringAsFixed(2)} ',
                           ),
-                      ],
-                    ),
-                  ),
-                ),
-                Card(
-                  color: Theme.of(context).colorScheme.surfaceContainerHighest,
-                  child: Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'تفاصيل الحساب (كل النتائج)',
-                          style: Theme.of(context).textTheme.titleMedium,
-                        ),
-                        const SizedBox(height: 8),
-                        ..._debugDetailRows(details!),
                       ],
                     ),
                   ),

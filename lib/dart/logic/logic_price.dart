@@ -73,6 +73,11 @@ class LogicPrice implements ContractsPrice {
         ? Wiresize.doublecurtain7m
         : Wiresize.wire18m;
 
+    final double belesahwire2 =
+        (typeOfBelesah == TypeOfBelesah.twoSashDoubleCurtainWithwire)
+        ? logicBelesahMi.calcWire(width, Wiresize.wire18m, typeOfBelesah)
+        : 0;
+
     final double belesahWidth = logicBelesahMi.calcWidth(width);
     final double belesahHeight = logicBelesahMi.calcHeight(height);
     final double belesahSash = logicBelesahMi.calcSash(height);
@@ -96,6 +101,10 @@ class LogicPrice implements ContractsPrice {
 
     final int numSash = logicBelesahMi.numSash(typeOfBelesah);
     final int numDoubleFace = logicBelesahMi.numDoubleFace(typeOfBelesah);
+    final int numWire = logicBelesahMi.numWire(typeOfBelesah);
+
+    final double totalPriceWire2 =
+        wirePrice * belesahwire2 * belesahDoubleFace * numWire * (3.8 / 100);
 
     final double totalFrame =
         belesahWidth * 2 + belesahHeight * 2; // اجمالي اطوال الحلق
@@ -122,12 +131,12 @@ class LogicPrice implements ContractsPrice {
         wirePrice *
         belesahwire *
         belesahDoubleFace *
-        numSash *
+        numWire *
         (3.8 / 100); // اجمالي سعر السلك
     final double totalPriceCurtain =
-        curtainprice * belesahwire * belesahDoubleFace * numSash * (3.8 / 100);
+        curtainprice * belesahwire * belesahDoubleFace * numWire * (3.8 / 100);
     final double totalPriceDoubleCurtain =
-        (doubleCurtainPrice * belesahwire * belesahDoubleFace * numSash * 1.4) /
+        (doubleCurtainPrice * belesahwire * belesahDoubleFace * numWire * 1.4) /
         100;
 
     final double totalpricesingleSashwire =
@@ -195,7 +204,7 @@ class LogicPrice implements ContractsPrice {
         totalPriceAlum +
         totalPriceFactory +
         totalPriceDoubleCurtain +
-        totalPriceWire +
+        totalPriceWire2 +
         totalPriceThread +
         totalPriceDoubleFace +
         totalPriceForsh +
