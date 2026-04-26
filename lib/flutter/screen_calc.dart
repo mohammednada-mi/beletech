@@ -306,6 +306,15 @@ class _ScreenCalcState extends State<ScreenCalc> {
                         numDoubleFace: resultCalcNumDoubleFace ?? 0,
                         resultThread: resultThread ?? 0,
                         numThread: resultCalcNumTHread ?? 0,
+                        resultWire2:
+                            selectedBelesah ==
+                                TypeOfBelesah.twoSashDoubleCurtainWithwire
+                            ? logic!.calcWire(
+                                width,
+                                selectedWire2!,
+                                selectedBelesah!,
+                              )
+                            : 0,
                       );
                     },
                     child: const Text('أضف للتقرير'),

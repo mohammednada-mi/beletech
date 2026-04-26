@@ -23,6 +23,7 @@ class PdfService {
     required int numDoubleFace,
     required double resultThread,
     required int numThread,
+    required double resultWire2,
   }) {
     rows.add({
       'clientName': clientName,
@@ -41,6 +42,7 @@ class PdfService {
       'numDoubleFace': numDoubleFace,
       'resultThread': resultThread,
       'numThread': numThread,
+      'resultWire2': resultWire2,
     });
   }
 
@@ -64,7 +66,6 @@ class PdfService {
           return pw.Table(
             border: pw.TableBorder.all(),
             children: [
-              // الهيدر
               pw.TableRow(
                 decoration: const pw.BoxDecoration(color: PdfColors.pink),
                 children: [
@@ -74,6 +75,7 @@ class PdfService {
                   _headerCell('دبل فيس', ttfBold),
                   _headerCell('عدد السلك', ttfBold),
                   _headerCell('السلك', ttfBold),
+                  _headerCell('الستارة', ttfBold),
                   _headerCell('عدد الضلف', ttfBold),
                   _headerCell('الضلفة', ttfBold),
                   _headerCell('عدد الارتفاع', ttfBold),
@@ -86,7 +88,6 @@ class PdfService {
                   _headerCell('اسم العميل', ttfBold),
                 ],
               ),
-              // الصفوف
               ...rows.map(
                 (row) => pw.TableRow(
                   children: [
@@ -95,7 +96,11 @@ class PdfService {
                     _cell(row['numDoubleFace'].toString(), ttf),
                     _cell(row['resultDoubleFace'].toStringAsFixed(3), ttf),
                     _cell(row['numWire'].toString(), ttf),
-                    _cell(row['resultWire'].toStringAsFixed(0), ttf),
+                    _cell('${row['resultWire'].toStringAsFixed(0)}', ttf),
+                    _cell(
+                      '${row['resultWire2'].toStringAsFixed(0)}',
+                      ttf,
+                    ), // خانة الستارة
                     _cell(row['numSash'].toString(), ttf),
                     _cell(row['resultSash'].toStringAsFixed(3), ttf),
                     _cell(row['numHeight'].toString(), ttf),

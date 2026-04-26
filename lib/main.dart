@@ -13,6 +13,6 @@ class BelesahApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(home: const ScreenCalcPrice());
+    return MaterialApp(home: const ScreenCalc());
   }
 }
