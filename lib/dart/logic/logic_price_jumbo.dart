@@ -206,7 +206,7 @@ class LogicPrice implements ContractsPrice {
         totalPriceAlum +
         totalPriceFactory +
         totalPriceDoubleCurtain +
-        totalPriceWire +
+        totalPriceWire2 +
         totalPriceThread +
         totalPriceDoubleFace +
         totalPriceForsh +
