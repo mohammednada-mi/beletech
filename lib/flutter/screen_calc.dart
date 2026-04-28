@@ -300,7 +300,24 @@ class _ScreenCalcState extends State<ScreenCalc> {
                         resultHeight: resultHeight ?? 0,
                         resultSash: resultSash ?? 0,
                         numSash: resultCalcNumSash ?? 0,
-                        resultWire: resultWire ?? 0,
+                        resultWire:
+                            selectedBelesah ==
+                                TypeOfBelesah.twoSashDoubleCurtainWithwire
+                            ? logic!.calcWire(
+                                width,
+                                selectedWire!,
+                                selectedBelesah!,
+                              )
+                            : selectedBelesah ==
+                                  TypeOfBelesah.twoSashwireCurtain
+                            ? logic!.calcWire(
+                                width,
+                                selectedWire!,
+                                selectedBelesah!,
+                              )
+                            : selectedBelesah == TypeOfBelesah.twoSashwire
+                            ? 0
+                            : 0,
 
                         numWire: resultCalcNumWire ?? 0,
                         resultDoubleFace: resultDoubleFace ?? 0,
@@ -312,7 +329,20 @@ class _ScreenCalcState extends State<ScreenCalc> {
                                 TypeOfBelesah.twoSashDoubleCurtainWithwire
                             ? logic!.calcWire(
                                 width,
+                                selectedWire2!,
+                                selectedBelesah!,
+                              )
+                            : selectedBelesah ==
+                                  TypeOfBelesah.twoSashwireCurtain
+                            ? logic!.calcWire(
+                                width,
                                 selectedWire!,
+                                selectedBelesah!,
+                              )
+                            : selectedBelesah == TypeOfBelesah.twoSashwire
+                            ? logic!.calcWire(
+                                width,
+                                selectedWire2!,
                                 selectedBelesah!,
                               )
                             : 0,

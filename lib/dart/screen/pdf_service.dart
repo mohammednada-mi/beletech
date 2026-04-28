@@ -96,9 +96,9 @@ class PdfService {
                     _cell(row['numDoubleFace'].toString(), ttf),
                     _cell(row['resultDoubleFace'].toStringAsFixed(3), ttf),
                     _cell(row['numWire'].toString(), ttf),
-                    _cell('${row['resultWire'].toStringAsFixed(0)}', ttf),
+                    _cell('${row['resultWire2'].toStringAsFixed(0)}', ttf),
                     _cell(
-                      '${row['resultWire2'].toStringAsFixed(0)}',
+                      '${row['resultWire'].toStringAsFixed(0)}',
                       ttf,
                     ), // خانة الستارة
                     _cell(row['numSash'].toString(), ttf),
