@@ -315,6 +315,34 @@ class _ScreenCalcState extends State<ScreenCalc> {
                                 selectedWire!,
                                 selectedBelesah!,
                               )
+                            : selectedBelesah == TypeOfBelesah.twoSashCurtain
+                            ? logic!.calcWire(
+                                width,
+                                selectedWire!,
+                                selectedBelesah!,
+                              )
+                            : selectedBelesah ==
+                                  TypeOfBelesah.twoSashDoubleCurtain
+                            ? logic!.calcWire(
+                                width,
+                                selectedWire!,
+                                selectedBelesah!,
+                              )
+                            : selectedBelesah ==
+                                  TypeOfBelesah.singleSashDoubleCurtain
+                            ? logic!.calcWire(
+                                width,
+                                selectedWire!,
+                                selectedBelesah!,
+                              )
+                            : selectedBelesah == TypeOfBelesah.singleSashCurtain
+                            ? logic!.calcWire(
+                                width,
+                                selectedWire!,
+                                selectedBelesah!,
+                              )
+                            : selectedBelesah == TypeOfBelesah.singleSashwire
+                            ? 0
                             : selectedBelesah == TypeOfBelesah.twoSashwire
                             ? 0
                             : 0,
@@ -339,10 +367,26 @@ class _ScreenCalcState extends State<ScreenCalc> {
                                 selectedWire!,
                                 selectedBelesah!,
                               )
+                            : selectedBelesah == TypeOfBelesah.twoSashCurtain
+                            ? 0
+                            : selectedBelesah ==
+                                  TypeOfBelesah.twoSashDoubleCurtain
+                            ? 0
+                            : selectedBelesah ==
+                                  TypeOfBelesah.singleSashDoubleCurtain
+                            ? 0
+                            : selectedBelesah == TypeOfBelesah.singleSashCurtain
+                            ? 0
+                            : selectedBelesah == TypeOfBelesah.singleSashwire
+                            ? logic!.calcWire(
+                                width,
+                                selectedWire!,
+                                selectedBelesah!,
+                              )
                             : selectedBelesah == TypeOfBelesah.twoSashwire
                             ? logic!.calcWire(
                                 width,
-                                selectedWire2!,
+                                selectedWire!,
                                 selectedBelesah!,
                               )
                             : 0,
@@ -390,12 +434,118 @@ class _ScreenCalcState extends State<ScreenCalc> {
                                 'الشيش: ${resultSash!.toStringAsFixed(3)} متر×${(resultCalcNumSash)! * numwindow!} ',
                               ),
                               Text(
+                                'السلك: ${logic!.calcWire(width, selectedWire2!, selectedBelesah!).toStringAsFixed(0)} كسرة×${(resultCalcNumWire)! * numwindow!}',
+                              ),
+
+                              Text(
+                                'الستارة ${logic!.calcWire(width, selectedWire!, selectedBelesah!).toStringAsFixed(0)} كسرة×${(resultCalcNumWire)! * numwindow!}',
+                              ),
+                              Text(
+                                'الدابل فيس: ${resultDoubleFace!.toStringAsFixed(3)} متر×${(resultCalcNumDoubleFace)! * numwindow!}',
+                              ),
+                              Text(
+                                'الخيط: ${resultThread!.toStringAsFixed(2)} متر×${(resultCalcNumTHread)! * numwindow!}',
+                              ),
+                              Text(
+                                'الخيط الصغير: ${resultThreadSmall!.toStringAsFixed(2)} متر×${(resultCalcNumThreadSmall)! * numwindow!}',
+                              ),
+                              Text(
+                                'الثقوب: ${resultPunching!.toStringAsFixed(1)} سم',
+                              ),
+                            ],
+                          ),
+                        if (selectedBelesah ==
+                                TypeOfBelesah.singleSashCurtain ||
+                            selectedBelesah == TypeOfBelesah.twoSashCurtain ||
+                            selectedBelesah ==
+                                TypeOfBelesah.singleSashDoubleCurtain ||
+                            selectedBelesah ==
+                                TypeOfBelesah.twoSashDoubleCurtain)
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Text(
+                                'العرض: ${resultWidth!.toStringAsFixed(3)} متر ×${(numWidth! * numwindow!)} ',
+                              ),
+                              Text(
+                                'الارتفاع: ${resultHeight!.toStringAsFixed(3)} متر ×${(numHeight! * numwindow!)} ',
+                              ),
+
+                              Text(
+                                'الشيش: ${resultSash!.toStringAsFixed(3)} متر×${(resultCalcNumSash)! * numwindow!} ',
+                              ),
+                              Text(
+                                'الستارة ${logic!.calcWire(width, selectedWire!, selectedBelesah!).toStringAsFixed(0)} كسرة×${(resultCalcNumWire)! * numwindow!}',
+                              ),
+                              Text(
+                                'الدابل فيس: ${resultDoubleFace!.toStringAsFixed(3)} متر×${(resultCalcNumDoubleFace)! * numwindow!}',
+                              ),
+                              Text(
+                                'الخيط: ${resultThread!.toStringAsFixed(2)} متر×${(resultCalcNumTHread)! * numwindow!}',
+                              ),
+                              Text(
+                                'الخيط الصغير: ${resultThreadSmall!.toStringAsFixed(2)} متر×${(resultCalcNumThreadSmall)! * numwindow!}',
+                              ),
+                              Text(
+                                'الثقوب: ${resultPunching!.toStringAsFixed(1)} سم',
+                              ),
+                            ],
+                          ),
+
+                        if (selectedBelesah == TypeOfBelesah.twoSashwireCurtain)
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Text(
+                                'العرض: ${resultWidth!.toStringAsFixed(3)} متر ×${(numWidth! * numwindow!)} ',
+                              ),
+                              Text(
+                                'الارتفاع: ${resultHeight!.toStringAsFixed(3)} متر ×${(numHeight! * numwindow!)} ',
+                              ),
+
+                              Text(
+                                'الشيش: ${resultSash!.toStringAsFixed(3)} متر×${(resultCalcNumSash)! * numwindow!} ',
+                              ),
+                              Text(
                                 'السلك: ${logic!.calcWire(width, selectedWire!, selectedBelesah!).toStringAsFixed(0)} كسرة×${(resultCalcNumWire)! * numwindow!}',
                               ),
 
                               Text(
-                                'الستارة ${logic!.calcWire(width, selectedWire2!, selectedBelesah!).toStringAsFixed(0)} كسرة×${(resultCalcNumWire)! * numwindow!}',
+                                'الستارة ${logic!.calcWire(width, selectedWire!, selectedBelesah!).toStringAsFixed(0)} كسرة×${(resultCalcNumWire)! * numwindow!}',
                               ),
+                              Text(
+                                'الدابل فيس: ${resultDoubleFace!.toStringAsFixed(3)} متر×${(resultCalcNumDoubleFace)! * numwindow!}',
+                              ),
+                              Text(
+                                'الخيط: ${resultThread!.toStringAsFixed(2)} متر×${(resultCalcNumTHread)! * numwindow!}',
+                              ),
+                              Text(
+                                'الخيط الصغير: ${resultThreadSmall!.toStringAsFixed(2)} متر×${(resultCalcNumThreadSmall)! * numwindow!}',
+                              ),
+                              Text(
+                                'الثقوب: ${resultPunching!.toStringAsFixed(1)} سم',
+                              ),
+                            ],
+                          ),
+                        if (selectedBelesah == TypeOfBelesah.singleSashwire ||
+                            selectedBelesah == TypeOfBelesah.twoSashwire)
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Text(
+                                'العرض: ${resultWidth!.toStringAsFixed(3)} متر ×${(numWidth! * numwindow!)} ',
+                              ),
+                              Text(
+                                'الارتفاع: ${resultHeight!.toStringAsFixed(3)} متر ×${(numHeight! * numwindow!)} ',
+                              ),
+
+                              Text(
+                                'الشيش: ${resultSash!.toStringAsFixed(3)} متر×${(resultCalcNumSash)! * numwindow!} ',
+                              ),
+                              Text(
+                                'السلك: ${logic!.calcWire(width, selectedWire!, selectedBelesah!).toStringAsFixed(0)} كسرة×${(resultCalcNumWire)! * numwindow!}',
+                              ),
+
                               Text(
                                 'الدابل فيس: ${resultDoubleFace!.toStringAsFixed(3)} متر×${(resultCalcNumDoubleFace)! * numwindow!}',
                               ),
