@@ -23,6 +23,8 @@ class PdfService {
     required int numDoubleFace,
     required double resultThread,
     required int numThread,
+    required double resultThread2,
+    required int numThread2,
     required double resultWire2,
   }) {
     rows.add({
@@ -42,6 +44,8 @@ class PdfService {
       'numDoubleFace': numDoubleFace,
       'resultThread': resultThread,
       'numThread': numThread,
+      'resultThread2': resultThread2,
+      'numThread2': numThread2,
       'resultWire2': resultWire2,
     });
   }
@@ -69,6 +73,7 @@ class PdfService {
               pw.TableRow(
                 decoration: const pw.BoxDecoration(color: PdfColors.pink),
                 children: [
+                  _headerCell('الخيط الاوسط', ttfBold),
                   _headerCell('عدد الخيط', ttfBold),
                   _headerCell('الخيط', ttfBold),
                   _headerCell('عدد دبل فيس', ttfBold),
@@ -91,6 +96,8 @@ class PdfService {
               ...rows.map(
                 (row) => pw.TableRow(
                   children: [
+                    _cell(row['numThread2'].toString(), ttf),
+                    _cell(row['resultThread2'].toString(), ttf),
                     _cell(row['numThread'].toString(), ttf),
                     _cell(row['resultThread'].toStringAsFixed(2), ttf),
                     _cell(row['numDoubleFace'].toString(), ttf),

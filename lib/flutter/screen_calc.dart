@@ -352,6 +352,8 @@ class _ScreenCalcState extends State<ScreenCalc> {
                         numDoubleFace: resultCalcNumDoubleFace ?? 0,
                         resultThread: resultThread ?? 0,
                         numThread: resultCalcNumTHread ?? 0,
+                        resultThread2: resultThreadSmall ?? 0,
+                        numThread2: resultCalcNumThreadSmall ?? 0,
                         resultWire2:
                             selectedBelesah ==
                                 TypeOfBelesah.twoSashDoubleCurtainWithwire
