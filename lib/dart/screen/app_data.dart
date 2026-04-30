@@ -5,6 +5,6 @@ class AppData {
   static double width = 0;
   static String? selectedType;
   static Wiresize? selectedWire;
-  static TypeOfSash? selectedSash;
+
   static TypeOfBelesah? selectedBelesah;
 }

@@ -11,8 +11,6 @@ enum TypeOfBelesah {
 
 enum Wiresize { wire15m, wire18m, wire19m, wire20m, doublecurtain7m }
 
-enum TypeOfSash { singleSash, twoSash }
-
 extension TypeOfBelesahExtension on TypeOfBelesah {
   String get belesah {
     switch (this) {
@@ -40,26 +38,15 @@ extension WiresizeExtension on Wiresize {
   String get wire {
     switch (this) {
       case Wiresize.wire15m:
-        return 'سلك 15 متر';
+        return 'سلك 15 ملي';
       case Wiresize.wire18m:
-        return 'سلك 18 متر';
+        return 'سلك 18 ملي';
       case Wiresize.wire19m:
-        return 'سلك 19 متر';
+        return 'سلك 19 ملي';
       case Wiresize.wire20m:
-        return 'سلك 20 متر';
+        return 'سلك 20 ملي';
       case Wiresize.doublecurtain7m:
-        return 'قماش مزدوج 7 متر';
-    }
-  }
-}
-
-extension TypeOfSashExtension on TypeOfSash {
-  String get sash {
-    switch (this) {
-      case TypeOfSash.singleSash:
-        return 'شيش مفرد';
-      case TypeOfSash.twoSash:
-        return 'شيش مزدوج';
+        return 'ستارة دبل 7 ملي';
     }
   }
 }

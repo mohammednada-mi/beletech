@@ -21,7 +21,7 @@ class _ScreenCalcState extends State<ScreenCalc> {
   TypeOfBelesah? selectedBelesah = TypeOfBelesah.singleSashwire;
   Wiresize? selectedWire = Wiresize.wire18m;
   Wiresize? selectedWire2 = Wiresize.wire18m;
-  TypeOfSash? selectedSash = TypeOfSash.singleSash;
+
   double? resultWidth;
   double? resultHeight;
   double? resultSash;
@@ -241,10 +241,7 @@ class _ScreenCalcState extends State<ScreenCalc> {
               //
               ElevatedButton(
                 onPressed: () {
-                  if (selectedWire == null ||
-                      selectedSash == null ||
-                      height <= 0 ||
-                      width <= 0) {
+                  if (selectedWire == null || height <= 0 || width <= 0) {
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(
                         content: Text('الرجاء ملء جميع الحقول بشكل صحيح'),
