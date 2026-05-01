@@ -17,7 +17,7 @@ dependencies:
   provider: ^6.1.5+1
   pdf: ^3.10.8
   printing: ^5.14.3
-  device_info_plus: ^8.0.0
+  device_info_plus: ^13.1.0
 
 
 
