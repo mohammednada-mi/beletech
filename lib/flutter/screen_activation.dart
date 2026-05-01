@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:belesah/flutter/screen_main.dart';
-import 'package:cloud_firestore/cloud_firestore.dart'; // 1. استيراد المكتبة
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:device_info_plus/device_info_plus.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'dart:io';
 
 class ScreenActivation extends StatefulWidget {
   const ScreenActivation({super.key});
@@ -12,8 +15,89 @@ class ScreenActivation extends StatefulWidget {
 class _ScreenActivationState extends State<ScreenActivation> {
   String activationCode = '';
   String message = '';
+  bool isLoading = false;
 
-  // دالة التحقق من الكود في الفايربيز
+  // جلب ID الجهاز
+  Future<String> _getDeviceId() async {
+    final prefs = await SharedPreferences.getInstance();
+
+    // Android و iOS - ID حقيقي من الجهاز
+    if (Platform.isAndroid) {
+      final info = await DeviceInfoPlugin().androidInfo;
+      return info.id;
+    } else if (Platform.isIOS) {
+      final info = await DeviceInfoPlugin().iosInfo;
+      return info.identifierForVendor ?? 'unknown';
+    }
+
+    // Linux / Windows - ID محفوظ محلياً
+    String? savedId = prefs.getString('device_unique_id');
+    if (savedId != null) return savedId;
+    final newId = DateTime.now().millisecondsSinceEpoch.toString();
+    await prefs.setString('device_unique_id', newId);
+    return newId;
+  }
+
+  // التحقق من الكود
+  Future<void> _checkCode() async {
+    if (activationCode.trim().isEmpty) {
+      setState(() => message = '⚠️ من فضلك أدخل الكود');
+      return;
+    }
+
+    setState(() {
+      isLoading = true;
+      message = '';
+    });
+
+    try {
+      final deviceId = await _getDeviceId();
+      final doc = await FirebaseFirestore.instance
+          .collection('activation_codes')
+          .doc(activationCode.trim())
+          .get();
+
+      // الكود مش موجود
+      if (!doc.exists) {
+        setState(() => message = '❌ كود غير صحيح');
+        return;
+      }
+
+      final data = doc.data()!;
+      final bool used = data['used'] ?? false;
+      final String linkedDevice = data['device_id'] ?? '';
+
+      // الكود اتفعّل على جهاز تاني
+      if (used && linkedDevice != deviceId) {
+        setState(() => message = '⚠️ هذا الكود مستخدم على جهاز آخر');
+        return;
+      }
+
+      // أول مرة يتفعّل - اربطه بالجهاز
+      if (!used) {
+        await FirebaseFirestore.instance
+            .collection('activation_codes')
+            .doc(activationCode.trim())
+            .update({'used': true, 'device_id': deviceId});
+      }
+
+      // احفظ التفعيل محلياً
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setBool('is_activated', true);
+
+      // روح للشاشة الرئيسية
+      if (mounted) {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => const ScreenMain()),
+        );
+      }
+    } catch (e) {
+      setState(() => message = '❌ خطأ في الاتصال بالإنترنت');
+    } finally {
+      setState(() => isLoading = false);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,30 +114,27 @@ class _ScreenActivationState extends State<ScreenActivation> {
                 child: TextField(
                   textAlign: TextAlign.left,
                   decoration: const InputDecoration(labelText: 'كود التفعيل'),
-                  onChanged: (value) {
-                    activationCode = value;
-                  },
+                  onChanged: (value) => activationCode = value,
                 ),
               ),
             ),
             const SizedBox(height: 16),
-            ElevatedButton(
-              onPressed: () {
-                if (activationCode == '1234') {
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(builder: (context) => const ScreenMain()),
-                  );
-                } else {
-                  setState(() {
-                    message = 'كود غير صحيح';
-                  });
-                }
-              },
-              child: const Text('تفعيل'),
-            ),
+            isLoading
+                ? const CircularProgressIndicator()
+                : ElevatedButton(
+                    onPressed: _checkCode,
+                    child: const Text('تفعيل'),
+                  ),
             const SizedBox(height: 16),
-            Text(message),
+            Text(
+              message,
+              style: TextStyle(
+                color: message.startsWith('❌') || message.startsWith('⚠️')
+                    ? Colors.red
+                    : Colors.green,
+                fontSize: 16,
+              ),
+            ),
           ],
         ),
       ),
