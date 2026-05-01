@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "66196741130",
+    "project_id": "beletech",
+    "storage_bucket": "beletech.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:66196741130:android:6abcbafcf0f6d7781ed3f3",
+        "android_client_info": {
+          "package_name": "com.example.belesah"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCCixm8u30VO1YBksxD6HDR60sgKjfBzO0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

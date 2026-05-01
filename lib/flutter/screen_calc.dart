@@ -99,30 +99,7 @@ class _ScreenCalcState extends State<ScreenCalc> {
                   },
                 ),
               ),
-              Row(
-                children: [
-                  Expanded(
-                    child: Text(
-                      'اﻷرتفاع',
-                      style: TextStyle(
-                        fontSize: 20.0,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
 
-                  Expanded(
-                    child: Text(
-                      ' العرض',
-                      style: TextStyle(
-                        fontSize: 20.0,
-                        color: Colors.black,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
               Row(
                 children: [
                   Expanded(
@@ -131,6 +108,11 @@ class _ScreenCalcState extends State<ScreenCalc> {
                       keyboardType: TextInputType.number,
                       decoration: const InputDecoration(
                         labelText: 'الارتفاع (متر)',
+                        labelStyle: TextStyle(
+                          fontSize: 20,
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                       onChanged: (value) {
                         height = double.tryParse(value) ?? 0;
@@ -145,6 +127,11 @@ class _ScreenCalcState extends State<ScreenCalc> {
                       keyboardType: TextInputType.number,
                       decoration: const InputDecoration(
                         labelText: 'العرض (متر)',
+                        labelStyle: TextStyle(
+                          fontSize: 20,
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                       onChanged: (value) {
                         width = double.tryParse(value) ?? 0;
@@ -212,6 +199,11 @@ class _ScreenCalcState extends State<ScreenCalc> {
                       style: const TextStyle(fontSize: 20),
                       decoration: const InputDecoration(
                         labelText: 'اسم العميل',
+                        labelStyle: TextStyle(
+                          fontSize: 20,
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                       onChanged: (value) {
                         clientName = value;
@@ -227,6 +219,11 @@ class _ScreenCalcState extends State<ScreenCalc> {
                       keyboardType: TextInputType.number,
                       decoration: const InputDecoration(
                         labelText: 'عدد النوافذ',
+                        labelStyle: TextStyle(
+                          fontSize: 20,
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                       onChanged: (value) {
                         setState(() {
