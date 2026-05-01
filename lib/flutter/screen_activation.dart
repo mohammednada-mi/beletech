@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:belesah/flutter/screen_main.dart';
+import 'package:cloud_firestore/cloud_firestore.dart'; // 1. استيراد المكتبة
 
 class ScreenActivation extends StatefulWidget {
   const ScreenActivation({super.key});
@@ -11,6 +12,9 @@ class ScreenActivation extends StatefulWidget {
 class _ScreenActivationState extends State<ScreenActivation> {
   String activationCode = '';
   String message = '';
+
+  // دالة التحقق من الكود في الفايربيز
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,7 +28,6 @@ class _ScreenActivationState extends State<ScreenActivation> {
               child: SizedBox(
                 width: 300,
                 child: TextField(
-                  
                   textAlign: TextAlign.left,
                   decoration: const InputDecoration(labelText: 'كود التفعيل'),
                   onChanged: (value) {
