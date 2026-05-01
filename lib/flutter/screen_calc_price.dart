@@ -121,6 +121,7 @@ class _ScreenCalcPriceState extends State<ScreenCalcPrice> {
                 children: [
                   Expanded(
                     child: TextField(
+                      style: const TextStyle(fontSize: 20),
                       keyboardType: TextInputType.number,
                       decoration: const InputDecoration(
                         labelText: 'الارتفاع (متر)',
@@ -133,6 +134,7 @@ class _ScreenCalcPriceState extends State<ScreenCalcPrice> {
                   const SizedBox(width: 16.0),
                   Expanded(
                     child: TextField(
+                      style: const TextStyle(fontSize: 20),
                       keyboardType: TextInputType.number,
                       decoration: const InputDecoration(
                         labelText: 'العرض (متر)',
@@ -152,6 +154,7 @@ class _ScreenCalcPriceState extends State<ScreenCalcPrice> {
                   SizedBox(
                     width: 100,
                     child: TextField(
+                      style: const TextStyle(fontSize: 20),
                       controller: factoryController,
                       keyboardType: TextInputType.number,
                       decoration: InputDecoration(labelText: 'سعر المصنع'),
@@ -164,6 +167,7 @@ class _ScreenCalcPriceState extends State<ScreenCalcPrice> {
                   SizedBox(
                     width: 100,
                     child: TextField(
+                      style: const TextStyle(fontSize: 20),
                       controller: elhalkController,
                       keyboardType: TextInputType.number,
                       decoration: InputDecoration(labelText: 'الهالك'),
@@ -177,6 +181,7 @@ class _ScreenCalcPriceState extends State<ScreenCalcPrice> {
                   SizedBox(
                     width: 100,
                     child: TextField(
+                      style: const TextStyle(fontSize: 20),
                       controller: wirePriceController,
                       keyboardType: TextInputType.number,
                       decoration: InputDecoration(labelText: 'سعر السلك'),
@@ -189,6 +194,7 @@ class _ScreenCalcPriceState extends State<ScreenCalcPrice> {
                   SizedBox(
                     width: 100,
                     child: TextField(
+                      style: const TextStyle(fontSize: 20),
                       controller: magnetPriceController,
 
                       keyboardType: TextInputType.number,
@@ -202,6 +208,7 @@ class _ScreenCalcPriceState extends State<ScreenCalcPrice> {
                   SizedBox(
                     width: 100,
                     child: TextField(
+                      style: const TextStyle(fontSize: 20),
                       controller: tapePriceController,
 
                       keyboardType: TextInputType.number,
@@ -215,6 +222,7 @@ class _ScreenCalcPriceState extends State<ScreenCalcPrice> {
                   SizedBox(
                     width: 100,
                     child: TextField(
+                      style: const TextStyle(fontSize: 20),
                       controller: assemblyKitController,
 
                       keyboardType: TextInputType.number,
@@ -228,6 +236,7 @@ class _ScreenCalcPriceState extends State<ScreenCalcPrice> {
                   SizedBox(
                     width: 100,
                     child: TextField(
+                      style: const TextStyle(fontSize: 20),
                       controller: forshPriceController,
 
                       keyboardType: TextInputType.number,
@@ -241,6 +250,7 @@ class _ScreenCalcPriceState extends State<ScreenCalcPrice> {
                   SizedBox(
                     width: 100,
                     child: TextField(
+                      style: const TextStyle(fontSize: 20),
                       controller: wightAlumColorController,
 
                       keyboardType: TextInputType.number,
@@ -254,6 +264,7 @@ class _ScreenCalcPriceState extends State<ScreenCalcPrice> {
                   SizedBox(
                     width: 100,
                     child: TextField(
+                      style: const TextStyle(fontSize: 20),
                       controller: frameWeightController,
 
                       keyboardType: TextInputType.number,
@@ -267,6 +278,7 @@ class _ScreenCalcPriceState extends State<ScreenCalcPrice> {
                   SizedBox(
                     width: 100,
                     child: TextField(
+                      style: const TextStyle(fontSize: 20),
                       controller: sashWeightController,
 
                       keyboardType: TextInputType.number,
@@ -280,6 +292,7 @@ class _ScreenCalcPriceState extends State<ScreenCalcPrice> {
                   SizedBox(
                     width: 100,
                     child: TextField(
+                      style: const TextStyle(fontSize: 20),
                       controller: curtainPriceController,
                       keyboardType: TextInputType.number,
                       decoration: InputDecoration(labelText: 'سعر الستارة'),
@@ -292,6 +305,7 @@ class _ScreenCalcPriceState extends State<ScreenCalcPrice> {
                   SizedBox(
                     width: 100,
                     child: TextField(
+                      style: const TextStyle(fontSize: 20),
                       controller: doubleCurtainPriceController,
                       keyboardType: TextInputType.number,
                       decoration: InputDecoration(
@@ -306,6 +320,7 @@ class _ScreenCalcPriceState extends State<ScreenCalcPrice> {
                   SizedBox(
                     width: 100,
                     child: TextField(
+                      style: const TextStyle(fontSize: 20),
                       controller: totalThreadController,
                       keyboardType: TextInputType.number,
                       decoration: InputDecoration(labelText: 'سعر الخيط'),
@@ -318,6 +333,7 @@ class _ScreenCalcPriceState extends State<ScreenCalcPrice> {
                   SizedBox(
                     width: 100,
                     child: TextField(
+                      style: const TextStyle(fontSize: 20),
                       keyboardType: TextInputType.number,
                       controller: maksebController,
                       decoration: InputDecoration(labelText: 'المكسب '),
@@ -331,9 +347,23 @@ class _ScreenCalcPriceState extends State<ScreenCalcPrice> {
                   ),
                 ],
               ),
+              const SizedBox(height: 16.0),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Text(
+                    'نوع الشباك',
+                    style: TextStyle(
+                      fontSize: 20.0,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
+              ),
               Row(
                 children: [
                   DropdownButton<TypeOfBelesah>(
+                    style: const TextStyle(fontSize: 18, color: Colors.black),
                     value: selectedBelesah,
                     hint: const Text('اختر نوع البليسيه'),
                     items: TypeOfBelesah.values.map((TypeOfBelesah type) {
@@ -352,6 +382,12 @@ class _ScreenCalcPriceState extends State<ScreenCalcPrice> {
               ),
               //Test
               ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 40,
+                    vertical: 15,
+                  ),
+                ),
                 onPressed: () {
                   if (selectedBelesah == null ||
                       AppData.width <= 0 ||
@@ -412,16 +448,20 @@ class _ScreenCalcPriceState extends State<ScreenCalcPrice> {
                       children: [
                         Text(
                           'السعر الخامات فقط : ${resultPrice!.toStringAsFixed(2)}',
+                          style: const TextStyle(fontSize: 20),
                         ),
                         Text(
                           'السعر شامل الهالك : ${(resultPrice! * (elhalk / 100) + resultPrice!).toStringAsFixed(2)}',
+                          style: const TextStyle(fontSize: 20),
                         ),
                         Text(
                           'السعر شامل المكسب : ${((resultPrice! * (elhalk / 100) + resultPrice!) * (makseb / 100) + (resultPrice! * (elhalk / 100) + resultPrice!)).toStringAsFixed(2)}',
+                          style: const TextStyle(fontSize: 20),
                         ),
                         if (selectedBelesah == TypeOfBelesah.twoSashwireCurtain)
                           Text(
                             'سعر بدون مغناطيس : ${((resultPrice!) - details!['totalPriceMagnet']!).toStringAsFixed(2)} ',
+                            style: const TextStyle(fontSize: 20),
                           ),
                       ],
                     ),

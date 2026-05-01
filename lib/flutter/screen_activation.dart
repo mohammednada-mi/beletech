@@ -24,6 +24,7 @@ class _ScreenActivationState extends State<ScreenActivation> {
               child: SizedBox(
                 width: 300,
                 child: TextField(
+                  
                   textAlign: TextAlign.left,
                   decoration: const InputDecoration(labelText: 'كود التفعيل'),
                   onChanged: (value) {

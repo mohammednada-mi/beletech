@@ -70,12 +70,13 @@ class _ScreenCalcState extends State<ScreenCalc> {
                 alignment: Alignment.centerLeft,
                 child: Text(
                   'اختر نوع القطاع',
-                  style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
+                  style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
                 ),
               ),
               Align(
                 alignment: Alignment.centerLeft,
                 child: DropdownButton<String>(
+                  style: const TextStyle(fontSize: 20, color: Colors.black),
                   value: selectedType,
                   hint: const Text('اختر نوع القطاع'),
                   items: pleatsTypes.map((String type) {
@@ -101,7 +102,32 @@ class _ScreenCalcState extends State<ScreenCalc> {
               Row(
                 children: [
                   Expanded(
+                    child: Text(
+                      'اﻷرتفاع',
+                      style: TextStyle(
+                        fontSize: 20.0,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+
+                  Expanded(
+                    child: Text(
+                      ' العرض',
+                      style: TextStyle(
+                        fontSize: 20.0,
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              Row(
+                children: [
+                  Expanded(
                     child: TextField(
+                      style: const TextStyle(fontSize: 20),
                       keyboardType: TextInputType.number,
                       decoration: const InputDecoration(
                         labelText: 'الارتفاع (متر)',
@@ -115,6 +141,7 @@ class _ScreenCalcState extends State<ScreenCalc> {
                   const SizedBox(width: 16.0),
                   Expanded(
                     child: TextField(
+                      style: const TextStyle(fontSize: 20),
                       keyboardType: TextInputType.number,
                       decoration: const InputDecoration(
                         labelText: 'العرض (متر)',
@@ -133,6 +160,7 @@ class _ScreenCalcState extends State<ScreenCalc> {
                 children: [
                   Expanded(
                     child: DropdownButton<Wiresize>(
+                      style: const TextStyle(fontSize: 20, color: Colors.black),
                       value: selectedWire,
                       hint: const Text('اختر نوع السلك'),
                       items: Wiresize.values.map((Wiresize type) {
@@ -153,6 +181,10 @@ class _ScreenCalcState extends State<ScreenCalc> {
                       TypeOfBelesah.twoSashDoubleCurtainWithwire)
                     Expanded(
                       child: DropdownButton<Wiresize>(
+                        style: const TextStyle(
+                          fontSize: 20,
+                          color: Colors.black,
+                        ),
                         value: selectedWire2,
                         hint: const Text('اختر مقاس السلك'),
                         items: Wiresize.values
@@ -177,6 +209,7 @@ class _ScreenCalcState extends State<ScreenCalc> {
                 children: [
                   Expanded(
                     child: TextField(
+                      style: const TextStyle(fontSize: 20),
                       decoration: const InputDecoration(
                         labelText: 'اسم العميل',
                       ),
@@ -189,6 +222,7 @@ class _ScreenCalcState extends State<ScreenCalc> {
                   const SizedBox(width: 16.0),
                   Expanded(
                     child: TextField(
+                      style: const TextStyle(fontSize: 20),
                       controller: _numWindowController,
                       keyboardType: TextInputType.number,
                       decoration: const InputDecoration(
@@ -203,10 +237,24 @@ class _ScreenCalcState extends State<ScreenCalc> {
                   ),
                 ],
               ),
+              const SizedBox(height: 16.0),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'نوع الشباك',
+                    style: TextStyle(
+                      fontSize: 20.0,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
+              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   DropdownButton<TypeOfBelesah>(
+                    style: const TextStyle(fontSize: 20, color: Colors.black),
                     value: selectedBelesah,
                     hint: const Text('اختر نوع الشباك'),
                     items: TypeOfBelesah.values.map((TypeOfBelesah type) {
@@ -240,6 +288,12 @@ class _ScreenCalcState extends State<ScreenCalc> {
               const SizedBox(height: 16.0),
               //
               ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 40,
+                    vertical: 15,
+                  ),
+                ),
                 onPressed: () {
                   if (selectedWire == null || height <= 0 || width <= 0) {
                     ScaffoldMessenger.of(context).showSnackBar(
@@ -285,6 +339,12 @@ class _ScreenCalcState extends State<ScreenCalc> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 40,
+                        vertical: 15,
+                      ),
+                    ),
                     onPressed: () {
                       PdfService.addRow(
                         clientName: clientName,
@@ -394,12 +454,24 @@ class _ScreenCalcState extends State<ScreenCalc> {
                     child: const Text('أضف للتقرير'),
                   ),
                   ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 40,
+                        vertical: 15,
+                      ),
+                    ),
                     onPressed: () {
                       PdfService.generatePdf();
                     },
                     child: const Text('حفظ التقرير'),
                   ),
                   ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 40,
+                        vertical: 15,
+                      ),
+                    ),
                     onPressed: () {
                       PdfService.clearRows();
                     },
