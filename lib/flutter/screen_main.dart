@@ -12,7 +12,14 @@ class ScreenMain extends StatefulWidget {
 }
 
 class _ScreenMainState extends State<ScreenMain> {
-  Widget _currentScreen = const ScreenCalc();
+  int _currentIndex = 0;
+
+  final List<Widget> _screens = const [
+    ScreenCalc(),
+    ScreenCalcPrice(),
+    ScreenCalcPriceMini(),
+    ScreenCalcPriceJumbo(),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -24,43 +31,35 @@ class _ScreenMainState extends State<ScreenMain> {
             ListTile(
               title: const Text('التخصيمات'),
               onTap: () {
-                setState(() {
-                  _currentScreen = const ScreenCalc();
-                });
+                setState(() => _currentIndex = 0);
                 Navigator.pop(context);
               },
             ),
             ListTile(
               title: const Text('التسعير'),
               onTap: () {
-                setState(() {
-                  _currentScreen = const ScreenCalcPrice();
-                });
+                setState(() => _currentIndex = 1);
                 Navigator.pop(context);
               },
             ),
             ListTile(
               title: const Text('التسعير ميني'),
               onTap: () {
-                setState(() {
-                  _currentScreen = const ScreenCalcPriceMini();
-                });
+                setState(() => _currentIndex = 2);
                 Navigator.pop(context);
               },
             ),
             ListTile(
               title: const Text('التسعير جامبو'),
               onTap: () {
-                setState(() {
-                  _currentScreen = const ScreenCalcPriceJumbo();
-                });
+                setState(() => _currentIndex = 3);
                 Navigator.pop(context);
               },
             ),
           ],
         ),
       ),
-      body: _currentScreen,
+      body: IndexedStack(index: _currentIndex, children: _screens),
     );
   }
 }

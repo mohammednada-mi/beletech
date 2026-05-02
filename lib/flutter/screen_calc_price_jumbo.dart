@@ -128,7 +128,7 @@ class _ScreenCalcPriceJumboState extends State<ScreenCalcPriceJumbo> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('بليسيه ميني')),
+      appBar: AppBar(title: const Text('تسعير قطاع الجامبو')),
       body: SafeArea(
         child: SingleChildScrollView(
           padding: EdgeInsets.all(16.0),
