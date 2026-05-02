@@ -107,12 +107,14 @@ class _ScreenMainState extends State<ScreenMain> {
                 Navigator.pop(context);
               },
             ),
+
             ListTile(
               leading: const Icon(Icons.chat, color: Colors.green),
               title: const Text('للتواصل عبر واتساب'),
               onTap: () async {
-                final phone = '01012025465'; // ← رقمك هنا بالكود الدولي بدون +
-                final url = Uri.parse('whatsapp://send?phone=$phone');
+                final phone = '201012025465';
+                final url = Uri.parse('https://wa.me/$phone');
+
                 if (await canLaunchUrl(url)) {
                   await launchUrl(url, mode: LaunchMode.externalApplication);
                 }
