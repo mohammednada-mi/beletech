@@ -14,12 +14,16 @@ class ScreenMain extends StatefulWidget {
 class _ScreenMainState extends State<ScreenMain> {
   int _currentIndex = 0;
   late final List<Widget?> _cachedScreens;
+  bool _showStartupSplash = true;
 
   @override
   void initState() {
     super.initState();
     _cachedScreens = List<Widget?>.filled(4, null);
     _cachedScreens[0] = const ScreenCalc();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _prepareStartup();
+    });
   }
 
   Widget _createScreen(int index) {
@@ -40,6 +44,30 @@ class _ScreenMainState extends State<ScreenMain> {
     setState(() {
       _currentIndex = index;
       _cachedScreens[index] ??= _createScreen(index);
+    });
+  }
+
+  void _preloadRemainingScreens() {
+    if (!mounted) return;
+    for (var index = 1; index < _cachedScreens.length; index++) {
+      _cachedScreens[index] ??= _createScreen(index);
+    }
+  }
+
+  Future<void> _prepareStartup() async {
+    final splashStart = DateTime.now();
+    _preloadRemainingScreens();
+
+    const minimumSplashDuration = Duration(milliseconds: 450);
+    final elapsed = DateTime.now().difference(splashStart);
+    final remaining = minimumSplashDuration - elapsed;
+    if (remaining > Duration.zero) {
+      await Future<void>.delayed(remaining);
+    }
+
+    if (!mounted) return;
+    setState(() {
+      _showStartupSplash = false;
     });
   }
 
@@ -81,12 +109,36 @@ class _ScreenMainState extends State<ScreenMain> {
           ],
         ),
       ),
-      body: IndexedStack(
-        index: _currentIndex,
-        children: List<Widget>.generate(
-          _cachedScreens.length,
-          (index) => _cachedScreens[index] ?? const SizedBox.shrink(),
+      body: Stack(
+        children: [
+          IndexedStack(
+            index: _currentIndex,
+            children: List<Widget>.generate(
+              _cachedScreens.length,
+              (index) => _cachedScreens[index] ?? const SizedBox.shrink(),
+            ),
         ),
+          if (_showStartupSplash)
+            ColoredBox(
+              color: Theme.of(context).scaffoldBackgroundColor,
+              child: const Center(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      'بليسيه',
+                      style: TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                    SizedBox(height: 12),
+                    CircularProgressIndicator(strokeWidth: 2.5),
+                  ],
+                ),
+              ),
+            ),
+        ],
       ),
     );
   }
