@@ -14,14 +14,12 @@ class ScreenActivation extends StatefulWidget {
 
 class _ScreenActivationState extends State<ScreenActivation> {
   String activationCode = '';
+  String clientName = '';
   String message = '';
   bool isLoading = false;
 
-  // جلب ID الجهاز
   Future<String> _getDeviceId() async {
     final prefs = await SharedPreferences.getInstance();
-
-    // Android و iOS - ID حقيقي من الجهاز
     if (Platform.isAndroid) {
       final info = await DeviceInfoPlugin().androidInfo;
       return info.id;
@@ -29,8 +27,6 @@ class _ScreenActivationState extends State<ScreenActivation> {
       final info = await DeviceInfoPlugin().iosInfo;
       return info.identifierForVendor ?? 'unknown';
     }
-
-    // Linux / Windows - ID محفوظ محلياً
     String? savedId = prefs.getString('device_unique_id');
     if (savedId != null) return savedId;
     final newId = DateTime.now().millisecondsSinceEpoch.toString();
@@ -38,10 +34,13 @@ class _ScreenActivationState extends State<ScreenActivation> {
     return newId;
   }
 
-  // التحقق من الكود
   Future<void> _checkCode() async {
+    if (clientName.trim().isEmpty) {
+      setState(() => message = '⚠️ من فضلك أدخل اسمك');
+      return;
+    }
     if (activationCode.trim().isEmpty) {
-      setState(() => message = '⚠️ من فضلك أدخل الكود');
+      setState(() => message = '⚠️ من فضلك أدخل كود التفعيل');
       return;
     }
 
@@ -57,7 +56,6 @@ class _ScreenActivationState extends State<ScreenActivation> {
           .doc(activationCode.trim())
           .get();
 
-      // الكود مش موجود
       if (!doc.exists) {
         setState(() => message = '❌ كود غير صحيح');
         return;
@@ -67,25 +65,27 @@ class _ScreenActivationState extends State<ScreenActivation> {
       final bool used = data['used'] ?? false;
       final String linkedDevice = data['device_id'] ?? '';
 
-      // الكود اتفعّل على جهاز تاني
       if (used && linkedDevice != deviceId) {
         setState(() => message = '⚠️ هذا الكود مستخدم على جهاز آخر');
         return;
       }
 
-      // أول مرة يتفعّل - اربطه بالجهاز
       if (!used) {
         await FirebaseFirestore.instance
             .collection('activation_codes')
             .doc(activationCode.trim())
-            .update({'used': true, 'device_id': deviceId});
+            .update({
+              'used': true,
+              'device_id': deviceId,
+              'owner_name': clientName.trim(), // ← حفظ الاسم في Firestore
+            });
       }
 
-      // احفظ التفعيل محلياً
+      // حفظ محلياً
       final prefs = await SharedPreferences.getInstance();
       await prefs.setBool('is_activated', true);
+      await prefs.setString('owner_name', clientName.trim());
 
-      // روح للشاشة الرئيسية
       if (mounted) {
         Navigator.pushReplacement(
           context,
@@ -108,6 +108,19 @@ class _ScreenActivationState extends State<ScreenActivation> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            // خانة الاسم
+            Center(
+              child: SizedBox(
+                width: 300,
+                child: TextField(
+                  textAlign: TextAlign.right,
+                  decoration: const InputDecoration(labelText: 'اسم العميل'),
+                  onChanged: (value) => clientName = value,
+                ),
+              ),
+            ),
+            const SizedBox(height: 16),
+            // خانة الكود
             Center(
               child: SizedBox(
                 width: 300,

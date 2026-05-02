@@ -3,6 +3,7 @@ import 'package:belesah/flutter/screen_calc.dart';
 import 'package:belesah/flutter/screen_calc_price.dart';
 import 'package:belesah/flutter/screen_calc_price_mini.dart';
 import 'package:belesah/flutter/screen_calc_price_jumbo.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ScreenMain extends StatefulWidget {
   const ScreenMain({super.key});
@@ -106,6 +107,17 @@ class _ScreenMainState extends State<ScreenMain> {
                 Navigator.pop(context);
               },
             ),
+            ListTile(
+              leading: const Icon(Icons.chat, color: Colors.green),
+              title: const Text('للتواصل عبر واتساب'),
+              onTap: () async {
+                final phone = '01012025465'; // ← رقمك هنا بالكود الدولي بدون +
+                final url = Uri.parse('whatsapp://send?phone=$phone');
+                if (await canLaunchUrl(url)) {
+                  await launchUrl(url, mode: LaunchMode.externalApplication);
+                }
+              },
+            ),
           ],
         ),
       ),
@@ -117,7 +129,7 @@ class _ScreenMainState extends State<ScreenMain> {
               _cachedScreens.length,
               (index) => _cachedScreens[index] ?? const SizedBox.shrink(),
             ),
-        ),
+          ),
           if (_showStartupSplash)
             ColoredBox(
               color: Theme.of(context).scaffoldBackgroundColor,

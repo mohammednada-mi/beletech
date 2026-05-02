@@ -340,7 +340,7 @@ class _ScreenCalcState extends State<ScreenCalc> {
                       style: ElevatedButton.styleFrom(
                         padding: const EdgeInsets.symmetric(
                           horizontal: 20,
-                          vertical: 30,
+                          vertical: 15,
                         ),
                       ),
                       onPressed: () {
@@ -458,7 +458,7 @@ class _ScreenCalcState extends State<ScreenCalc> {
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
                         padding: const EdgeInsets.symmetric(
-                          horizontal: 40,
+                          horizontal: 20,
                           vertical: 15,
                         ),
                       ),
@@ -473,7 +473,7 @@ class _ScreenCalcState extends State<ScreenCalc> {
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
                         padding: const EdgeInsets.symmetric(
-                          horizontal: 15,
+                          horizontal: 20,
                           vertical: 15,
                         ),
                       ),
