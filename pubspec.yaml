@@ -36,9 +36,6 @@ flutter:
 
   
   uses-material-design: true
-  assets:
-    - assets/fonts/Cairo-Regular.ttf
-    - assets/fonts/Cairo-Bold.ttf
 
   fonts:
     - family: Cairo

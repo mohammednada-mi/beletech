@@ -338,10 +338,8 @@ class _ScreenCalcPriceState extends State<ScreenCalcPrice> {
                       controller: maksebController,
                       decoration: InputDecoration(labelText: 'المكسب '),
                       onChanged: (value) {
-                        setState(() {
-                          makseb = double.tryParse(value) ?? 0;
-                          SaveFile.saveData('makseb', value);
-                        });
+                        makseb = double.tryParse(value) ?? 0;
+                        SaveFile.saveData('makseb', value);
                       },
                     ),
                   ),

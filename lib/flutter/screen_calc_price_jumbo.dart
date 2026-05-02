@@ -354,10 +354,8 @@ class _ScreenCalcPriceJumboState extends State<ScreenCalcPriceJumbo> {
                       controller: maksebControllerJumbo,
                       decoration: InputDecoration(labelText: 'المكسب '),
                       onChanged: (value) {
-                        setState(() {
-                          makseb = double.tryParse(value) ?? 0;
-                          SaveFile.saveData('maksebJumbo', value);
-                        });
+                        makseb = double.tryParse(value) ?? 0;
+                        SaveFile.saveData('maksebJumbo', value);
                       },
                     ),
                   ),

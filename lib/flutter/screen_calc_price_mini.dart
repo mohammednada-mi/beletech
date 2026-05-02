@@ -352,10 +352,8 @@ class _ScreenCalcPriceMiniState extends State<ScreenCalcPriceMini> {
                       controller: maksebControllerMini,
                       decoration: InputDecoration(labelText: 'المكسب '),
                       onChanged: (value) {
-                        setState(() {
-                          makseb = double.tryParse(value) ?? 0;
-                          SaveFile.saveData('maksebMini', value);
-                        });
+                        makseb = double.tryParse(value) ?? 0;
+                        SaveFile.saveData('maksebMini', value);
                       },
                     ),
                   ),
