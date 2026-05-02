@@ -13,13 +13,35 @@ class ScreenMain extends StatefulWidget {
 
 class _ScreenMainState extends State<ScreenMain> {
   int _currentIndex = 0;
+  late final List<Widget?> _cachedScreens;
 
-  final List<Widget> _screens = const [
-    ScreenCalc(),
-    ScreenCalcPrice(),
-    ScreenCalcPriceMini(),
-    ScreenCalcPriceJumbo(),
-  ];
+  @override
+  void initState() {
+    super.initState();
+    _cachedScreens = List<Widget?>.filled(4, null);
+    _cachedScreens[0] = const ScreenCalc();
+  }
+
+  Widget _createScreen(int index) {
+    switch (index) {
+      case 1:
+        return const ScreenCalcPrice();
+      case 2:
+        return const ScreenCalcPriceMini();
+      case 3:
+        return const ScreenCalcPriceJumbo();
+      case 0:
+      default:
+        return const ScreenCalc();
+    }
+  }
+
+  void _selectTab(int index) {
+    setState(() {
+      _currentIndex = index;
+      _cachedScreens[index] ??= _createScreen(index);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -31,35 +53,41 @@ class _ScreenMainState extends State<ScreenMain> {
             ListTile(
               title: const Text('التخصيمات'),
               onTap: () {
-                setState(() => _currentIndex = 0);
+                _selectTab(0);
                 Navigator.pop(context);
               },
             ),
             ListTile(
               title: const Text('التسعير'),
               onTap: () {
-                setState(() => _currentIndex = 1);
+                _selectTab(1);
                 Navigator.pop(context);
               },
             ),
             ListTile(
               title: const Text('التسعير ميني'),
               onTap: () {
-                setState(() => _currentIndex = 2);
+                _selectTab(2);
                 Navigator.pop(context);
               },
             ),
             ListTile(
               title: const Text('التسعير جامبو'),
               onTap: () {
-                setState(() => _currentIndex = 3);
+                _selectTab(3);
                 Navigator.pop(context);
               },
             ),
           ],
         ),
       ),
-      body: IndexedStack(index: _currentIndex, children: _screens),
+      body: IndexedStack(
+        index: _currentIndex,
+        children: List<Widget>.generate(
+          _cachedScreens.length,
+          (index) => _cachedScreens[index] ?? const SizedBox.shrink(),
+        ),
+      ),
     );
   }
 }
