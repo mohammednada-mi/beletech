@@ -335,144 +335,153 @@ class _ScreenCalcState extends State<ScreenCalc> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 40,
-                        vertical: 15,
+                  Expanded(
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 20,
+                          vertical: 30,
+                        ),
                       ),
-                    ),
-                    onPressed: () {
-                      PdfService.addRow(
-                        clientName: clientName,
-                        width: width,
-                        numWidth: numWidth!,
-                        height: height,
-                        numHeight: numHeight!,
-                        typeOfBelesah: selectedBelesah?.belesah ?? '',
-                        resultWidth: resultWidth ?? 0,
-                        resultHeight: resultHeight ?? 0,
-                        resultSash: resultSash ?? 0,
-                        numSash: resultCalcNumSash ?? 0,
-                        resultWire:
-                            selectedBelesah ==
-                                TypeOfBelesah.twoSashDoubleCurtainWithwire
-                            ? logic!.calcWire(
-                                width,
-                                selectedWire!,
-                                selectedBelesah!,
-                              )
-                            : selectedBelesah ==
-                                  TypeOfBelesah.twoSashwireCurtain
-                            ? logic!.calcWire(
-                                width,
-                                selectedWire!,
-                                selectedBelesah!,
-                              )
-                            : selectedBelesah == TypeOfBelesah.twoSashCurtain
-                            ? logic!.calcWire(
-                                width,
-                                selectedWire!,
-                                selectedBelesah!,
-                              )
-                            : selectedBelesah ==
-                                  TypeOfBelesah.twoSashDoubleCurtain
-                            ? logic!.calcWire(
-                                width,
-                                selectedWire!,
-                                selectedBelesah!,
-                              )
-                            : selectedBelesah ==
-                                  TypeOfBelesah.singleSashDoubleCurtain
-                            ? logic!.calcWire(
-                                width,
-                                selectedWire!,
-                                selectedBelesah!,
-                              )
-                            : selectedBelesah == TypeOfBelesah.singleSashCurtain
-                            ? logic!.calcWire(
-                                width,
-                                selectedWire!,
-                                selectedBelesah!,
-                              )
-                            : selectedBelesah == TypeOfBelesah.singleSashwire
-                            ? 0
-                            : selectedBelesah == TypeOfBelesah.twoSashwire
-                            ? 0
-                            : 0,
+                      onPressed: () {
+                        PdfService.addRow(
+                          clientName: clientName,
+                          width: width,
+                          numWidth: numWidth!,
+                          height: height,
+                          numHeight: numHeight!,
+                          typeOfBelesah: selectedBelesah?.belesah ?? '',
+                          resultWidth: resultWidth ?? 0,
+                          resultHeight: resultHeight ?? 0,
+                          resultSash: resultSash ?? 0,
+                          numSash: resultCalcNumSash ?? 0,
+                          resultWire:
+                              selectedBelesah ==
+                                  TypeOfBelesah.twoSashDoubleCurtainWithwire
+                              ? logic!.calcWire(
+                                  width,
+                                  selectedWire!,
+                                  selectedBelesah!,
+                                )
+                              : selectedBelesah ==
+                                    TypeOfBelesah.twoSashwireCurtain
+                              ? logic!.calcWire(
+                                  width,
+                                  selectedWire!,
+                                  selectedBelesah!,
+                                )
+                              : selectedBelesah == TypeOfBelesah.twoSashCurtain
+                              ? logic!.calcWire(
+                                  width,
+                                  selectedWire!,
+                                  selectedBelesah!,
+                                )
+                              : selectedBelesah ==
+                                    TypeOfBelesah.twoSashDoubleCurtain
+                              ? logic!.calcWire(
+                                  width,
+                                  selectedWire!,
+                                  selectedBelesah!,
+                                )
+                              : selectedBelesah ==
+                                    TypeOfBelesah.singleSashDoubleCurtain
+                              ? logic!.calcWire(
+                                  width,
+                                  selectedWire!,
+                                  selectedBelesah!,
+                                )
+                              : selectedBelesah ==
+                                    TypeOfBelesah.singleSashCurtain
+                              ? logic!.calcWire(
+                                  width,
+                                  selectedWire!,
+                                  selectedBelesah!,
+                                )
+                              : selectedBelesah == TypeOfBelesah.singleSashwire
+                              ? 0
+                              : selectedBelesah == TypeOfBelesah.twoSashwire
+                              ? 0
+                              : 0,
 
-                        numWire: resultCalcNumWire ?? 0,
-                        resultDoubleFace: resultDoubleFace ?? 0,
-                        numDoubleFace: resultCalcNumDoubleFace ?? 0,
-                        resultThread: resultThread ?? 0,
-                        numThread: resultCalcNumTHread ?? 0,
-                        resultThread2: resultThreadSmall ?? 0,
-                        numThread2: resultCalcNumThreadSmall ?? 0,
-                        resultWire2:
-                            selectedBelesah ==
-                                TypeOfBelesah.twoSashDoubleCurtainWithwire
-                            ? logic!.calcWire(
-                                width,
-                                selectedWire2!,
-                                selectedBelesah!,
-                              )
-                            : selectedBelesah ==
-                                  TypeOfBelesah.twoSashwireCurtain
-                            ? logic!.calcWire(
-                                width,
-                                selectedWire!,
-                                selectedBelesah!,
-                              )
-                            : selectedBelesah == TypeOfBelesah.twoSashCurtain
-                            ? 0
-                            : selectedBelesah ==
-                                  TypeOfBelesah.twoSashDoubleCurtain
-                            ? 0
-                            : selectedBelesah ==
-                                  TypeOfBelesah.singleSashDoubleCurtain
-                            ? 0
-                            : selectedBelesah == TypeOfBelesah.singleSashCurtain
-                            ? 0
-                            : selectedBelesah == TypeOfBelesah.singleSashwire
-                            ? logic!.calcWire(
-                                width,
-                                selectedWire!,
-                                selectedBelesah!,
-                              )
-                            : selectedBelesah == TypeOfBelesah.twoSashwire
-                            ? logic!.calcWire(
-                                width,
-                                selectedWire!,
-                                selectedBelesah!,
-                              )
-                            : 0,
-                      );
-                    },
-                    child: const Text('أضف للتقرير'),
-                  ),
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 40,
-                        vertical: 15,
-                      ),
+                          numWire: resultCalcNumWire ?? 0,
+                          resultDoubleFace: resultDoubleFace ?? 0,
+                          numDoubleFace: resultCalcNumDoubleFace ?? 0,
+                          resultThread: resultThread ?? 0,
+                          numThread: resultCalcNumTHread ?? 0,
+                          resultThread2: resultThreadSmall ?? 0,
+                          numThread2: resultCalcNumThreadSmall ?? 0,
+                          resultWire2:
+                              selectedBelesah ==
+                                  TypeOfBelesah.twoSashDoubleCurtainWithwire
+                              ? logic!.calcWire(
+                                  width,
+                                  selectedWire2!,
+                                  selectedBelesah!,
+                                )
+                              : selectedBelesah ==
+                                    TypeOfBelesah.twoSashwireCurtain
+                              ? logic!.calcWire(
+                                  width,
+                                  selectedWire!,
+                                  selectedBelesah!,
+                                )
+                              : selectedBelesah == TypeOfBelesah.twoSashCurtain
+                              ? 0
+                              : selectedBelesah ==
+                                    TypeOfBelesah.twoSashDoubleCurtain
+                              ? 0
+                              : selectedBelesah ==
+                                    TypeOfBelesah.singleSashDoubleCurtain
+                              ? 0
+                              : selectedBelesah ==
+                                    TypeOfBelesah.singleSashCurtain
+                              ? 0
+                              : selectedBelesah == TypeOfBelesah.singleSashwire
+                              ? logic!.calcWire(
+                                  width,
+                                  selectedWire!,
+                                  selectedBelesah!,
+                                )
+                              : selectedBelesah == TypeOfBelesah.twoSashwire
+                              ? logic!.calcWire(
+                                  width,
+                                  selectedWire!,
+                                  selectedBelesah!,
+                                )
+                              : 0,
+                        );
+                      },
+                      child: const Text('أضف للتقرير'),
                     ),
-                    onPressed: () {
-                      PdfService.generatePdf();
-                    },
-                    child: const Text('حفظ التقرير'),
                   ),
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 40,
-                        vertical: 15,
+                  Expanded(
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 40,
+                          vertical: 15,
+                        ),
                       ),
+                      onPressed: () {
+                        PdfService.generatePdf();
+                      },
+                      child: const Text('حفظ التقرير'),
                     ),
-                    onPressed: () {
-                      PdfService.clearRows();
-                    },
-                    child: const Text('مسح التقرير'),
+                  ),
+
+                  Expanded(
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 15,
+                          vertical: 15,
+                        ),
+                      ),
+                      onPressed: () {
+                        PdfService.clearRows();
+                      },
+                      child: const Text('مسح التقرير'),
+                    ),
                   ),
                 ],
               ),
