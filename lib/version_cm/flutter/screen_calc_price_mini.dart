@@ -1,0 +1,542 @@
+import 'package:belesah/version_cm/dart/enum/enum_beleash.dart';
+import 'package:belesah/version_cm/dart/logic/logic_price_mini.dart';
+import 'package:flutter/material.dart';
+import 'package:belesah/version_cm/dart/logic/save_file.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:belesah/version_cm/dart/screen/app_data.dart';
+
+class ScreenCalcPriceMini extends StatefulWidget {
+  const ScreenCalcPriceMini({super.key});
+
+  @override
+  State<ScreenCalcPriceMini> createState() => _ScreenCalcPriceMiniState();
+}
+
+class _ScreenCalcPriceMiniState extends State<ScreenCalcPriceMini> {
+  double factory = 0;
+  double elhalk = 0;
+  double totalThread = 0;
+  double curtainprice = 0;
+  double doubleCurtainPrice = 0;
+  double tapePrice = 0;
+  double assemblyKit = 0;
+  double forshPrice = 0;
+  double wightAlumColor = 0;
+  double frameWeight = 0;
+  double sashWeight = 0;
+  double magnetPrice = 0;
+  double wirePrice = 0;
+  double makseb = 0;
+  TypeOfBelesah? selectedBelesah = TypeOfBelesah.singleSashwire;
+  double? resultPrice;
+  List<Map<String, dynamic>> addedCards = [];
+  final TextEditingController factoryControllerMini = TextEditingController();
+  final TextEditingController elhalkControllerMini = TextEditingController();
+  final TextEditingController tapePriceControllerMini = TextEditingController();
+  final TextEditingController assemblyKitControllerMini =
+      TextEditingController();
+  final TextEditingController forshPriceControllerMini =
+      TextEditingController();
+  final TextEditingController wightAlumColorControllerMini =
+      TextEditingController();
+  final TextEditingController frameWeightControllerMini =
+      TextEditingController();
+  final TextEditingController sashWeightControllerMini =
+      TextEditingController();
+  final TextEditingController magnetPriceControllerMini =
+      TextEditingController();
+  final TextEditingController wirePriceControllerMini = TextEditingController();
+  final TextEditingController curtainPriceControllerMini =
+      TextEditingController();
+  final TextEditingController doubleCurtainPriceControllerMini =
+      TextEditingController();
+  final TextEditingController totalThreadControllerMini =
+      TextEditingController();
+  final TextEditingController maksebControllerMini = TextEditingController();
+  @override
+  void initState() {
+    super.initState();
+    _loadData();
+  }
+
+  Future<void> _loadData() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      factoryControllerMini.text = prefs.getString('factoryMini') ?? '0';
+      factory = double.tryParse(factoryControllerMini.text) ?? 0;
+      elhalkControllerMini.text = prefs.getString('elhalkMini') ?? '0';
+      elhalk = double.tryParse(elhalkControllerMini.text) ?? 0;
+      tapePriceControllerMini.text = prefs.getString('tapePriceMini') ?? '0';
+      tapePrice = double.tryParse(tapePriceControllerMini.text) ?? 0;
+      assemblyKitControllerMini.text =
+          prefs.getString('assemblyKitMini') ?? '0';
+      assemblyKit = double.tryParse(assemblyKitControllerMini.text) ?? 0;
+      forshPriceControllerMini.text = prefs.getString('forshPriceMini') ?? '0';
+      forshPrice = double.tryParse(forshPriceControllerMini.text) ?? 0;
+      wightAlumColorControllerMini.text =
+          prefs.getString('wightAlumColorMini') ?? '0';
+      wightAlumColor = double.tryParse(wightAlumColorControllerMini.text) ?? 0;
+      frameWeightControllerMini.text =
+          prefs.getString('frameWeightMini') ?? '0';
+      frameWeight = double.tryParse(frameWeightControllerMini.text) ?? 0;
+      sashWeightControllerMini.text = prefs.getString('sashWeightMini') ?? '0';
+      sashWeight = double.tryParse(sashWeightControllerMini.text) ?? 0;
+      magnetPriceControllerMini.text =
+          prefs.getString('magnetPriceMini') ?? '0';
+      magnetPrice = double.tryParse(magnetPriceControllerMini.text) ?? 0;
+      wirePriceControllerMini.text = prefs.getString('wirePriceMini') ?? '0';
+      wirePrice = double.tryParse(wirePriceControllerMini.text) ?? 0;
+
+      curtainPriceControllerMini.text =
+          prefs.getString('curtainpriceMini') ?? '0';
+      curtainprice = double.tryParse(curtainPriceControllerMini.text) ?? 0;
+      doubleCurtainPriceControllerMini.text =
+          prefs.getString('doubleCurtainPriceMini') ?? '0';
+      doubleCurtainPrice =
+          double.tryParse(doubleCurtainPriceControllerMini.text) ?? 0;
+      totalThreadControllerMini.text =
+          prefs.getString('totalThreadMini') ?? '0';
+      totalThread = double.tryParse(totalThreadControllerMini.text) ?? 0;
+      maksebControllerMini.text = prefs.getString('maksebMini') ?? '0';
+      makseb = double.tryParse(maksebControllerMini.text) ?? 0;
+    });
+  }
+
+  @override
+  void dispose() {
+    factoryControllerMini.dispose();
+    elhalkControllerMini.dispose();
+    tapePriceControllerMini.dispose();
+    assemblyKitControllerMini.dispose();
+    forshPriceControllerMini.dispose();
+    wightAlumColorControllerMini.dispose();
+    frameWeightControllerMini.dispose();
+    sashWeightControllerMini.dispose();
+    magnetPriceControllerMini.dispose();
+    wirePriceControllerMini.dispose();
+    curtainPriceControllerMini.dispose();
+    doubleCurtainPriceControllerMini.dispose();
+    totalThreadControllerMini.dispose();
+    maksebControllerMini.dispose();
+    super.dispose();
+  }
+
+  Map<String, double>? details;
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('القطاع 1.7')),
+      body: SafeArea(
+        child: SingleChildScrollView(
+          padding: EdgeInsets.all(16.0),
+          child: Column(
+            children: [
+              Row(
+                children: [
+                  Expanded(
+                    child: TextField(
+                      style: const TextStyle(fontSize: 20),
+                      keyboardType: TextInputType.number,
+                      decoration: const InputDecoration(
+                        labelText: 'الارتفاع (سم)',
+                      ),
+                      onChanged: (value) {
+                        AppData.height = double.tryParse(value) ?? 0;
+                      },
+                    ),
+                  ),
+                  const SizedBox(width: 16.0),
+                  Expanded(
+                    child: TextField(
+                      style: const TextStyle(fontSize: 20),
+                      keyboardType: TextInputType.number,
+                      decoration: const InputDecoration(
+                        labelText: 'العرض (سم)',
+                      ),
+                      onChanged: (value) {
+                        AppData.width = double.tryParse(value) ?? 0;
+                      },
+                    ),
+                  ),
+                ],
+              ),
+
+              Wrap(
+                spacing: 5.0,
+                runSpacing: 5.0,
+                children: [
+                  SizedBox(
+                    width: 100,
+                    child: TextField(
+                      controller: factoryControllerMini,
+                      style: const TextStyle(fontSize: 20),
+                      keyboardType: TextInputType.number,
+                      decoration: InputDecoration(labelText: 'سعر المصنعية'),
+                      onChanged: (value) {
+                        factory = double.tryParse(value) ?? 0;
+                        SaveFile.saveData('factoryMini', value);
+                      },
+                    ),
+                  ),
+                  SizedBox(
+                    width: 100,
+                    child: TextField(
+                      controller: elhalkControllerMini,
+                      style: const TextStyle(fontSize: 20),
+                      keyboardType: TextInputType.number,
+                      decoration: InputDecoration(labelText: 'نسبة الهالك'),
+                      onChanged: (value) {
+                        elhalk = double.tryParse(value) ?? 0;
+                        SaveFile.saveData('elhalkMini', value);
+                      },
+                    ),
+                  ),
+
+                  SizedBox(
+                    width: 100,
+                    child: TextField(
+                      style: const TextStyle(fontSize: 20),
+
+                      controller: wirePriceControllerMini,
+                      keyboardType: TextInputType.number,
+                      decoration: InputDecoration(labelText: 'سعر السلك'),
+                      onChanged: (value) {
+                        wirePrice = double.tryParse(value) ?? 0;
+                        SaveFile.saveData('wirePriceMini', value);
+                      },
+                    ),
+                  ),
+                  SizedBox(
+                    width: 100,
+                    child: TextField(
+                      style: const TextStyle(fontSize: 20),
+                      controller: magnetPriceControllerMini,
+
+                      keyboardType: TextInputType.number,
+                      decoration: InputDecoration(labelText: 'سعر المغناطيس'),
+                      onChanged: (value) {
+                        magnetPrice = double.tryParse(value) ?? 0;
+                        SaveFile.saveData('magnetPriceMini', value);
+                      },
+                    ),
+                  ),
+                  SizedBox(
+                    width: 100,
+                    child: TextField(
+                      style: const TextStyle(fontSize: 20),
+                      controller: tapePriceControllerMini,
+
+                      keyboardType: TextInputType.number,
+                      decoration: InputDecoration(labelText: 'سعر الدبل فيس'),
+                      onChanged: (value) {
+                        tapePrice = double.tryParse(value) ?? 0;
+                        SaveFile.saveData('tapePriceMini', value);
+                      },
+                    ),
+                  ),
+                  SizedBox(
+                    width: 100,
+                    child: TextField(
+                      style: const TextStyle(fontSize: 20),
+                      controller: assemblyKitControllerMini,
+
+                      keyboardType: TextInputType.number,
+                      decoration: InputDecoration(labelText: 'سعر طقم التجميع'),
+                      onChanged: (value) {
+                        assemblyKit = double.tryParse(value) ?? 0;
+                        SaveFile.saveData('assemblyKitMini', value);
+                      },
+                    ),
+                  ),
+                  SizedBox(
+                    width: 100,
+                    child: TextField(
+                      style: const TextStyle(fontSize: 20),
+                      controller: forshPriceControllerMini,
+
+                      keyboardType: TextInputType.number,
+                      decoration: InputDecoration(labelText: 'سعر الفورش'),
+                      onChanged: (value) {
+                        forshPrice = double.tryParse(value) ?? 0;
+                        SaveFile.saveData('forshPriceMini', value);
+                      },
+                    ),
+                  ),
+                  SizedBox(
+                    width: 100,
+                    child: TextField(
+                      style: const TextStyle(fontSize: 20),
+                      controller: wightAlumColorControllerMini,
+
+                      keyboardType: TextInputType.number,
+                      decoration: InputDecoration(
+                        labelText: 'سعر كيلو الألومنيوم المدهون',
+                      ),
+                      onChanged: (value) {
+                        wightAlumColor = double.tryParse(value) ?? 0;
+                        SaveFile.saveData('wightAlumColorMini', value);
+                      },
+                    ),
+                  ),
+                  SizedBox(
+                    width: 100,
+                    child: TextField(
+                      style: const TextStyle(fontSize: 20),
+                      controller: frameWeightControllerMini,
+
+                      keyboardType: TextInputType.number,
+                      decoration: InputDecoration(labelText: 'وزن الحلق'),
+                      onChanged: (value) {
+                        frameWeight = double.tryParse(value) ?? 0;
+                        SaveFile.saveData('frameWeightMini', value);
+                      },
+                    ),
+                  ),
+                  SizedBox(
+                    width: 100,
+                    child: TextField(
+                      style: const TextStyle(fontSize: 20),
+                      controller: sashWeightControllerMini,
+
+                      keyboardType: TextInputType.number,
+                      decoration: InputDecoration(labelText: 'وزن الضلفة'),
+                      onChanged: (value) {
+                        sashWeight = double.tryParse(value) ?? 0;
+                        SaveFile.saveData('sashWeightMini', value);
+                      },
+                    ),
+                  ),
+                  SizedBox(
+                    width: 100,
+                    child: TextField(
+                      style: const TextStyle(fontSize: 20),
+                      controller: curtainPriceControllerMini,
+                      keyboardType: TextInputType.number,
+                      decoration: InputDecoration(labelText: 'سعر الستارة'),
+                      onChanged: (value) {
+                        curtainprice = double.tryParse(value) ?? 0;
+                        SaveFile.saveData('curtainpriceMini', value);
+                      },
+                    ),
+                  ),
+                  SizedBox(
+                    width: 100,
+                    child: TextField(
+                      style: const TextStyle(fontSize: 20),
+                      controller: doubleCurtainPriceControllerMini,
+                      keyboardType: TextInputType.number,
+                      decoration: InputDecoration(
+                        labelText: 'سعر الستارة الدبل',
+                      ),
+                      onChanged: (value) {
+                        doubleCurtainPrice = double.tryParse(value) ?? 0;
+                        SaveFile.saveData('doubleCurtainPriceMini', value);
+                      },
+                    ),
+                  ),
+                  SizedBox(
+                    width: 100,
+                    child: TextField(
+                      style: const TextStyle(fontSize: 20),
+                      controller: totalThreadControllerMini,
+                      keyboardType: TextInputType.number,
+                      decoration: InputDecoration(labelText: 'سعر الخيط'),
+                      onChanged: (value) {
+                        totalThread = double.tryParse(value) ?? 0;
+                        SaveFile.saveData('totalThreadMini', value);
+                      },
+                    ),
+                  ),
+                  SizedBox(
+                    width: 100,
+                    child: TextField(
+                      style: const TextStyle(fontSize: 20),
+                      keyboardType: TextInputType.number,
+                      controller: maksebControllerMini,
+                      decoration: InputDecoration(labelText: 'نسبة المكسب'),
+                      onChanged: (value) {
+                        makseb = double.tryParse(value) ?? 0;
+                        SaveFile.saveData('maksebMini', value);
+                      },
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 16.0),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Text(
+                    'نوع الشباك',
+                    style: TextStyle(
+                      fontSize: 20.0,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
+              ),
+              Row(
+                children: [
+                  DropdownButton<TypeOfBelesah>(
+                    style: const TextStyle(fontSize: 18, color: Colors.black),
+                    value: selectedBelesah,
+                    hint: const Text('اختر نوع الشباك'),
+                    items: TypeOfBelesah.values.map((TypeOfBelesah type) {
+                      return DropdownMenuItem<TypeOfBelesah>(
+                        value: type,
+                        child: Text(type.belesah),
+                      );
+                    }).toList(),
+                    onChanged: (TypeOfBelesah? newValue) {
+                      setState(() {
+                        selectedBelesah = newValue;
+                      });
+                    },
+                  ),
+                ],
+              ),
+              //Test
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 40,
+                    vertical: 15,
+                  ),
+                ),
+                onPressed: () {
+                  setState(() {
+                    details = LogicPrice().calcPriceDetails(
+                      AppData.width,
+                      AppData.height,
+                      factory,
+                      elhalk,
+                      totalThread,
+                      curtainprice,
+                      doubleCurtainPrice,
+                      tapePrice,
+                      assemblyKit,
+                      forshPrice,
+                      wightAlumColor,
+                      frameWeight,
+                      sashWeight,
+                      magnetPrice,
+                      wirePrice,
+                      makseb,
+                      selectedBelesah!,
+                    );
+                    resultPrice = details!['selectedTotal']!;
+                    final price = double.parse(
+                      ((resultPrice! * (elhalk / 100) + resultPrice!) *
+                                  (makseb / 100) +
+                              (resultPrice! * (elhalk / 100) + resultPrice!))
+                          .toStringAsFixed(2),
+                    );
+                    addedCards.add({
+                      'width': AppData.width,
+                      'height': AppData.height,
+                      'price': price,
+                    });
+                  });
+                },
+                child: const Text('احسب', style: TextStyle(fontSize: 20)),
+              ),
+              if (addedCards.isNotEmpty)
+                SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    children: addedCards.asMap().entries.map((entry) {
+                      final i = entry.key;
+                      final card = entry.value;
+                      return Card(
+                        margin: const EdgeInsets.symmetric(vertical: 8),
+                        child: Stack(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.fromLTRB(
+                                30,
+                                30,
+                                30,
+                                30,
+                              ), // ← 30 فوق عشان الإكس
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text('شباك: ${i + 1}'),
+                                  Text('العرض: ${card['width']} سم'),
+                                  Text('الارتفاع: ${card['height']} سم'),
+                                  Text(
+                                    'السعر: ${card['price'].toStringAsFixed(3)}',
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.w900,
+                                      color: Colors.black87,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+
+                            Positioned(
+                              top: 0,
+                              right: 0,
+                              child: IconButton(
+                                icon: const Icon(
+                                  Icons.close,
+                                  color: Colors.red,
+                                ),
+                                onPressed: () {
+                                  setState(() {
+                                    addedCards.removeAt(i);
+                                    // تحديث الـ index بعد الحذف
+                                  });
+                                },
+                              ),
+                            ),
+                          ],
+                        ),
+                      );
+                    }).toList(),
+                  ),
+                ),
+              if (resultPrice != null)
+                Card(
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'السعر الخامات فقط : ${resultPrice!.toStringAsFixed(2)}',
+                          style: const TextStyle(fontSize: 20),
+                        ),
+                        Text(
+                          'السعر شامل الهالك : ${(resultPrice! * (elhalk / 100) + resultPrice!).toStringAsFixed(2)}',
+                          style: const TextStyle(fontSize: 20),
+                        ),
+                        Text(
+                          'السعر شامل المكسب : ${((resultPrice! * (elhalk / 100) + resultPrice!) * (makseb / 100) + (resultPrice! * (elhalk / 100) + resultPrice!)).toStringAsFixed(2)}',
+                          style: const TextStyle(fontSize: 20),
+                        ),
+                        if (selectedBelesah == TypeOfBelesah.twoSashwireCurtain)
+                          Text(
+                            'سعر بدون مغناطيس : ${((resultPrice!) - details!['totalPriceMagnet']!).toStringAsFixed(2)} ',
+                            style: const TextStyle(fontSize: 20),
+                          ),
+                        Text(
+                          'الاجمالي: ${addedCards.fold<double>(0, (sum, card) => sum + (card['price'] as double)).toStringAsFixed(2)}',
+                          style: const TextStyle(
+                            fontSize: 22,
+                            fontWeight: FontWeight.w900,
+                            color: Colors.black87,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "receiptId": "37e64132-9917-4513-858a-c430fc2c4382",
+  "status": "current",
+  "command": "deliver",
+  "type": "architecture",
+  "input": "/home/mohammednada/programming/belesah/.archify/architecture-belesah-20261027-203500/candidate.json",
+  "output": "/home/mohammednada/programming/belesah/.archify/architecture-belesah-20261027-203500/belesah.html",
+  "specification": {
+    "sha256": "8b91785a269ac2109de11a64dc42ec4c7b6ce6519be961208e060be8929bb46d",
+    "bytes": 10146
+  },
+  "artifact": {
+    "sha256": "9a2f3c3b8f83256f42463a64dc462307069ceaf74253ea1b67fd3aef25d3e47c",
+    "bytes": 870951
+  }
+}

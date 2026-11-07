@@ -1,0 +1,381 @@
+{
+  "schemaVersion": 1,
+  "ok": false,
+  "command": "finalize",
+  "status": "fail",
+  "type": "architecture",
+  "quality": "showcase",
+  "startedAt": "2026-10-27T17:37:42.197Z",
+  "specification": {
+    "path": "/home/mohammednada/programming/belesah/.archify/architecture-belesah-20261027-203500/candidate.json",
+    "sha256": "8b91785a269ac2109de11a64dc42ec4c7b6ce6519be961208e060be8929bb46d",
+    "bytes": 10146
+  },
+  "artifact": {
+    "path": "/home/mohammednada/programming/belesah/.archify/architecture-belesah-20261027-203500/belesah.html",
+    "sha256": "9a2f3c3b8f83256f42463a64dc462307069ceaf74253ea1b67fd3aef25d3e47c",
+    "bytes": 870951
+  },
+  "stages": {
+    "validate": {
+      "status": "pass",
+      "exitCode": 0,
+      "durationMs": null,
+      "execution": "embedded-in-deliver",
+      "command": [
+        "/usr/bin/node",
+        "/home/mohammednada/.agents/skills/archify/bin/archify.mjs",
+        "deliver",
+        "architecture",
+        "/home/mohammednada/programming/belesah/.archify/architecture-belesah-20261027-203500/candidate.json",
+        "/home/mohammednada/programming/belesah/.archify/architecture-belesah-20261027-203500/belesah.html",
+        "--quality",
+        "showcase",
+        "--repo-root",
+        "/home/mohammednada/programming/belesah",
+        "--json"
+      ],
+      "receipt": {
+        "schemaVersion": 1,
+        "ok": true,
+        "command": "validate",
+        "specification": {
+          "sha256": "8b91785a269ac2109de11a64dc42ec4c7b6ce6519be961208e060be8929bb46d",
+          "bytes": 10146
+        },
+        "validation": {
+          "checksPassed": 9,
+          "checkCount": 9,
+          "compositionProfile": "showcase",
+          "compositionStatus": "pass",
+          "errors": 0,
+          "warnings": 0
+        }
+      }
+    },
+    "deliver": {
+      "status": "pass",
+      "exitCode": 0,
+      "durationMs": 800,
+      "command": [
+        "/usr/bin/node",
+        "/home/mohammednada/.agents/skills/archify/bin/archify.mjs",
+        "deliver",
+        "architecture",
+        "/home/mohammednada/programming/belesah/.archify/architecture-belesah-20261027-203500/candidate.json",
+        "/home/mohammednada/programming/belesah/.archify/architecture-belesah-20261027-203500/belesah.html",
+        "--quality",
+        "showcase",
+        "--repo-root",
+        "/home/mohammednada/programming/belesah",
+        "--json"
+      ],
+      "receipt": {
+        "schemaVersion": 1,
+        "receiptId": "5d351a2a-2656-46ec-9cc2-c08be06ff917",
+        "ok": true,
+        "command": "deliver",
+        "type": "architecture",
+        "input": "/home/mohammednada/programming/belesah/.archify/architecture-belesah-20261027-203500/candidate.json",
+        "output": "/home/mohammednada/programming/belesah/.archify/architecture-belesah-20261027-203500/belesah.html",
+        "specification": {
+          "sha256": "8b91785a269ac2109de11a64dc42ec4c7b6ce6519be961208e060be8929bb46d",
+          "bytes": 10146
+        },
+        "artifact": {
+          "sha256": "9a2f3c3b8f83256f42463a64dc462307069ceaf74253ea1b67fd3aef25d3e47c",
+          "bytes": 870951
+        },
+        "validation": {
+          "checksPassed": 9,
+          "checkCount": 9,
+          "compositionProfile": "showcase",
+          "compositionStatus": "pass",
+          "errors": 0,
+          "warnings": 0
+        },
+        "evidence": {
+          "verified": true,
+          "repository": "https://github.com/mohammednada-mi/beletech",
+          "revision": "fabe625fc2214b7bd64ad14e4194033630b90f96",
+          "references": 31
+        },
+        "update": {
+          "status": "unavailable",
+          "installedVersion": null,
+          "availableVersion": null,
+          "releaseNotes": null,
+          "checkedAt": null,
+          "source": null,
+          "noticeRequired": false,
+          "noticeText": null,
+          "reason": "disabled"
+        }
+      }
+    },
+    "check": {
+      "status": "pass",
+      "exitCode": 0,
+      "durationMs": 286,
+      "command": [
+        "/usr/bin/node",
+        "/home/mohammednada/.agents/skills/archify/bin/archify.mjs",
+        "check",
+        "/home/mohammednada/programming/belesah/.archify/architecture-belesah-20261027-203500/belesah.html",
+        "--require-provenance"
+      ],
+      "receipt": {
+        "ok": true,
+        "file": "/home/mohammednada/programming/belesah/.archify/architecture-belesah-20261027-203500/belesah.html",
+        "artifact": {
+          "sha256": "9a2f3c3b8f83256f42463a64dc462307069ceaf74253ea1b67fd3aef25d3e47c",
+          "bytes": 870951
+        },
+        "checks": [
+          {
+            "name": "single_svg",
+            "ok": true,
+            "details": [
+              "found 1 <svg> block(s)"
+            ]
+          },
+          {
+            "name": "finite_svg",
+            "ok": true,
+            "details": []
+          },
+          {
+            "name": "orthogonal_arrows",
+            "ok": true,
+            "details": []
+          },
+          {
+            "name": "label_route_clearance",
+            "ok": true,
+            "details": []
+          },
+          {
+            "name": "relationship_crossings",
+            "ok": true,
+            "details": []
+          },
+          {
+            "name": "relationship_corridors",
+            "ok": true,
+            "details": []
+          },
+          {
+            "name": "container_border_runs",
+            "ok": true,
+            "details": []
+          },
+          {
+            "name": "route_rhythm",
+            "ok": true,
+            "details": []
+          },
+          {
+            "name": "legend_clearance",
+            "ok": true,
+            "details": []
+          }
+        ],
+        "composition": {
+          "schemaVersion": 1,
+          "profile": "showcase",
+          "status": "pass",
+          "summary": {
+            "errors": 0,
+            "warnings": 0
+          },
+          "metrics": {
+            "properCrossings": 0,
+            "resolvedCrossovers": 0,
+            "ambiguousCorridors": 0,
+            "arrowheadCollisions": 0,
+            "containerBorderRuns": 0,
+            "labelRouteClearanceIssues": 0,
+            "labelCanvasOverflowIssues": 0,
+            "minLabelRouteClearance": 13.2,
+            "desktopReadabilityIssues": 0,
+            "viewportHeightIssues": 0,
+            "minProjectedNodeTextPx": 6.305084745762712,
+            "maxBends": 2,
+            "routesOverSuggestedBends": 0,
+            "maxStretch": 1.15,
+            "routesOverSuggestedStretch": 0,
+            "minSegmentPx": 24,
+            "minInteriorSegmentPx": 173,
+            "shortSegmentCount": 0,
+            "shortEndpointSegmentCount": 0,
+            "shortInteriorSegmentCount": 0,
+            "microSegmentCount": 0
+          },
+          "suggestedLimits": {
+            "bendsPerRelationship": 2,
+            "stretch": 1.35,
+            "segmentPx": 16,
+            "microSegmentPx": 8
+          },
+          "routeReview": {
+            "crossings": [],
+            "detours": []
+          },
+          "leadingSpace": {
+            "measured": true,
+            "emptyTopPx": 40,
+            "emptyTopRatio": 0.048,
+            "occupiedTop": 40,
+            "viewBoxTop": 0,
+            "canvasHeight": 832,
+            "typicalNodeHeight": 64,
+            "reviewSuggested": false
+          },
+          "desktopReadability": {
+            "budgetBasis": "legacy-930",
+            "readerContract": "declared-wide-v1",
+            "availableDiagramWidth": 930,
+            "actualBudgetPx": 930,
+            "limit": "legacy",
+            "requestedTargetPx": 7.5,
+            "requestedTargetMet": false,
+            "hardFloorPx": 6,
+            "hardFloorMet": true,
+            "minimumOwner": {
+              "kind": "edge",
+              "id": "open-app",
+              "from": "installer",
+              "to": "app"
+            },
+            "minimumSourceTextPx": 8,
+            "minimumProjectedTextPx": 6.305084745762712,
+            "semanticTextCount": 49
+          },
+          "issues": []
+        },
+        "provenance": "current",
+        "deliveryReceiptId": "5d351a2a-2656-46ec-9cc2-c08be06ff917"
+      }
+    },
+    "browser-check": {
+      "status": "fail",
+      "exitCode": 1,
+      "durationMs": 937,
+      "command": [
+        "/usr/bin/node",
+        "/home/mohammednada/.agents/skills/archify/bin/archify.mjs",
+        "browser-check",
+        "/home/mohammednada/programming/belesah/.archify/architecture-belesah-20261027-203500/belesah.html",
+        "--json",
+        "--require-provenance"
+      ],
+      "execution": "in-process",
+      "receipt": {
+        "schemaVersion": 1,
+        "ok": false,
+        "command": "browser-check",
+        "evidenceKind": "automated-browser",
+        "status": "fail",
+        "visualReview": "not-requested",
+        "provenance": "current",
+        "deliveryReceiptId": "5d351a2a-2656-46ec-9cc2-c08be06ff917",
+        "artifact": {
+          "path": "/home/mohammednada/programming/belesah/.archify/architecture-belesah-20261027-203500/belesah.html",
+          "sha256": "9a2f3c3b8f83256f42463a64dc462307069ceaf74253ea1b67fd3aef25d3e47c",
+          "bytes": 870951
+        },
+        "state": {
+          "detail": "read",
+          "motion": "still"
+        },
+        "chrome": {
+          "status": "available",
+          "executable": "/usr/bin/google-chrome"
+        },
+        "diagnostics": [
+          {
+            "code": "viewer/browser-check-runtime",
+            "severity": "error",
+            "message": "browser-check could not complete its Chrome inspection.",
+            "subject": {
+              "artifact": "/home/mohammednada/programming/belesah/.archify/architecture-belesah-20261027-203500/belesah.html"
+            },
+            "evidence": {
+              "reason": "Chrome DevTools read pipe failed: stream ended\nChrome process: still running.\nChrome stderr:\n[48885:48885:1027/203743.517058:ERROR:third_party/crashpad/crashpad/util/file/file_io_posix.cc:208] open /home/mohammednada/.config/BraveSoftware/Brave-Browser/Crash Reports/settings.dat: Permission denied (13)\n[48885:48885:1027/203743.517200:ERROR:third_party/crashpad/crashpad/util/file/file_io_posix.cc:208] open /home/mohammednada/.config/BraveSoftware/Brave-Browser/Crash Reports/settings.dat: Permission denied (13)\n[48885:48885:1027/203743.519131:FATAL:sandbox/linux/suid/client/setuid_sandbox_host.cc:166] The SUID sandbox helper binary was found, but is not configured correctly. Rather than run without sandboxing I'm aborting now. You need to make sure that /opt/brave-bin/chrome-sandbox is owned by root and has mode 4755.\n[1027/203743.526606:ERROR:third_party/crashpad/crashpad/util/file/file_io_posix.cc:208] open /home/mohammednada/.config/BraveSoftware/Brave-Browser/Crash Reports/settings.dat: Permission denied (13)\n[1027/203743.526747:ERROR:third_party/crashpad/crashpad/util/file/file_io_posix.cc:153] open /home/mohammednada/.config/BraveSoftware/Brave-Browser/Crash Reports/new/dfbdb56e-0024-4594-b4d8-c1b7cbcf8eab.dmp: Permission denied (13)\n[1027/203743.526762:ERROR:third_party/crashpad/crashpad/handler/linux/crash_report_exception_handler.cc:209] PrepareNewCrashReport failed\nChrome transport: Node v26.8.1, libuv 1.52.1, linux; pid=48885, exitCode=null, signalCode=null.\nChrome read pipe: readable=false, ended=true, destroyed=false, receivedBytes=0, messages=0, bufferedBytes=0.\nChrome write pipe: writable=true, ended=false, destroyed=false, completedWrites=1, writtenBytes=50, bufferedBytes=0."
+            },
+            "supportedFixes": [
+              "resolve the reported Chrome inspection error, then rerun browser-check"
+            ]
+          }
+        ],
+        "containment": {
+          "status": "fail",
+          "policy": "fit-or-reader-declared-readable-vertical-scroll",
+          "viewports": []
+        },
+        "themeStates": {
+          "status": "fail",
+          "viewports": []
+        },
+        "readability": {
+          "status": "fail",
+          "minimumProjectedNodeTextPx": 6,
+          "viewports": []
+        },
+        "viewerChrome": {
+          "status": "fail",
+          "viewports": []
+        },
+        "captures": {
+          "status": "not-requested",
+          "screenshots": [],
+          "contactSheet": null
+        },
+        "sidecars": {
+          "receipt": "belesah.browser-check.json",
+          "files": []
+        },
+        "error": "Chrome DevTools read pipe failed: stream ended\nChrome process: still running.\nChrome stderr:\n[48885:48885:1027/203743.517058:ERROR:third_party/crashpad/crashpad/util/file/file_io_posix.cc:208] open /home/mohammednada/.config/BraveSoftware/Brave-Browser/Crash Reports/settings.dat: Permission denied (13)\n[48885:48885:1027/203743.517200:ERROR:third_party/crashpad/crashpad/util/file/file_io_posix.cc:208] open /home/mohammednada/.config/BraveSoftware/Brave-Browser/Crash Reports/settings.dat: Permission denied (13)\n[48885:48885:1027/203743.519131:FATAL:sandbox/linux/suid/client/setuid_sandbox_host.cc:166] The SUID sandbox helper binary was found, but is not configured correctly. Rather than run without sandboxing I'm aborting now. You need to make sure that /opt/brave-bin/chrome-sandbox is owned by root and has mode 4755.\n[1027/203743.526606:ERROR:third_party/crashpad/crashpad/util/file/file_io_posix.cc:208] open /home/mohammednada/.config/BraveSoftware/Brave-Browser/Crash Reports/settings.dat: Permission denied (13)\n[1027/203743.526747:ERROR:third_party/crashpad/crashpad/util/file/file_io_posix.cc:153] open /home/mohammednada/.config/BraveSoftware/Brave-Browser/Crash Reports/new/dfbdb56e-0024-4594-b4d8-c1b7cbcf8eab.dmp: Permission denied (13)\n[1027/203743.526762:ERROR:third_party/crashpad/crashpad/handler/linux/crash_report_exception_handler.cc:209] PrepareNewCrashReport failed\nChrome transport: Node v26.8.1, libuv 1.52.1, linux; pid=48885, exitCode=null, signalCode=null.\nChrome read pipe: readable=false, ended=true, destroyed=false, receivedBytes=0, messages=0, bufferedBytes=0.\nChrome write pipe: writable=true, ended=false, destroyed=false, completedWrites=1, writtenBytes=50, bufferedBytes=0."
+      }
+    }
+  },
+  "browserCheck": {
+    "requested": true,
+    "ran": false
+  },
+  "diagnostics": [
+    {
+      "code": "viewer/browser-check-runtime",
+      "severity": "error",
+      "message": "browser-check could not complete its Chrome inspection.",
+      "subject": {
+        "artifact": "/home/mohammednada/programming/belesah/.archify/architecture-belesah-20261027-203500/belesah.html"
+      },
+      "evidence": {
+        "reason": "Chrome DevTools read pipe failed: stream ended\nChrome process: still running.\nChrome stderr:\n[48885:48885:1027/203743.517058:ERROR:third_party/crashpad/crashpad/util/file/file_io_posix.cc:208] open /home/mohammednada/.config/BraveSoftware/Brave-Browser/Crash Reports/settings.dat: Permission denied (13)\n[48885:48885:1027/203743.517200:ERROR:third_party/crashpad/crashpad/util/file/file_io_posix.cc:208] open /home/mohammednada/.config/BraveSoftware/Brave-Browser/Crash Reports/settings.dat: Permission denied (13)\n[48885:48885:1027/203743.519131:FATAL:sandbox/linux/suid/client/setuid_sandbox_host.cc:166] The SUID sandbox helper binary was found, but is not configured correctly. Rather than run without sandboxing I'm aborting now. You need to make sure that /opt/brave-bin/chrome-sandbox is owned by root and has mode 4755.\n[1027/203743.526606:ERROR:third_party/crashpad/crashpad/util/file/file_io_posix.cc:208] open /home/mohammednada/.config/BraveSoftware/Brave-Browser/Crash Reports/settings.dat: Permission denied (13)\n[1027/203743.526747:ERROR:third_party/crashpad/crashpad/util/file/file_io_posix.cc:153] open /home/mohammednada/.config/BraveSoftware/Brave-Browser/Crash Reports/new/dfbdb56e-0024-4594-b4d8-c1b7cbcf8eab.dmp: Permission denied (13)\n[1027/203743.526762:ERROR:third_party/crashpad/crashpad/handler/linux/crash_report_exception_handler.cc:209] PrepareNewCrashReport failed\nChrome transport: Node v26.8.1, libuv 1.52.1, linux; pid=48885, exitCode=null, signalCode=null.\nChrome read pipe: readable=false, ended=true, destroyed=false, receivedBytes=0, messages=0, bufferedBytes=0.\nChrome write pipe: writable=true, ended=false, destroyed=false, completedWrites=1, writtenBytes=50, bufferedBytes=0."
+      },
+      "supportedFixes": [
+        "resolve the reported Chrome inspection error, then rerun browser-check"
+      ]
+    }
+  ],
+  "evidence": {
+    "receipt": "/home/mohammednada/programming/belesah/.archify/architecture-belesah-20261027-203500/belesah.finalize.json",
+    "summaryReceipt": "/home/mohammednada/programming/belesah/.archify/architecture-belesah-20261027-203500/belesah.finalize-summary.json",
+    "browserCheckReceipt": "/home/mohammednada/programming/belesah/.archify/architecture-belesah-20261027-203500/belesah.browser-check.json"
+  },
+  "visualReview": "not-requested",
+  "failedStage": "browser-check",
+  "finishedAt": "2026-10-27T17:37:44.397Z",
+  "durationMs": 2200,
+  "update": {
+    "status": "current",
+    "installedVersion": "3.2.0",
+    "availableVersion": "3.2.0",
+    "releaseNotes": null,
+    "checkedAt": "2026-10-27T17:15:59.849Z",
+    "source": "cache",
+    "noticeRequired": false,
+    "noticeText": null
+  }
+}

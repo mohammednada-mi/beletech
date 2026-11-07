@@ -1,0 +1,33 @@
+{
+  "flutter": {
+    "platforms": {
+      "android": {
+        "default": {
+          "projectId": "beletech",
+          "appId": "1:66196741130:android:6abcbafcf0f6d7781ed3f3",
+          "fileOutput": "android/app/google-services.json"
+        }
+      },
+      "dart": {
+        "lib/firebase_options.dart": {
+          "projectId": "beletech",
+          "configurations": {
+            "android": "1:66196741130:android:6abcbafcf0f6d7781ed3f3",
+            "ios": "1:66196741130:ios:b6f42dc3332197891ed3f3",
+            "macos": "1:66196741130:ios:b6f42dc3332197891ed3f3",
+            "web": "1:66196741130:web:cb79eb2de1084c3c1ed3f3",
+            "windows": "1:66196741130:web:b0f7556e9fdf994e1ed3f3"
+          }
+        }
+      }
+    }
+  },
+  "hosting": {
+    "public": "public",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ]
+  }
+}

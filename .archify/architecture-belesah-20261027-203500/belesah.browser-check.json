@@ -1,0 +1,67 @@
+{
+  "schemaVersion": 1,
+  "ok": false,
+  "command": "browser-check",
+  "evidenceKind": "automated-browser",
+  "status": "fail",
+  "visualReview": "not-requested",
+  "provenance": "current",
+  "deliveryReceiptId": "5d351a2a-2656-46ec-9cc2-c08be06ff917",
+  "artifact": {
+    "path": "/home/mohammednada/programming/belesah/.archify/architecture-belesah-20261027-203500/belesah.html",
+    "sha256": "9a2f3c3b8f83256f42463a64dc462307069ceaf74253ea1b67fd3aef25d3e47c",
+    "bytes": 870951
+  },
+  "state": {
+    "detail": "read",
+    "motion": "still"
+  },
+  "chrome": {
+    "status": "available",
+    "executable": "/usr/bin/google-chrome"
+  },
+  "diagnostics": [
+    {
+      "code": "viewer/browser-check-runtime",
+      "severity": "error",
+      "message": "browser-check could not complete its Chrome inspection.",
+      "subject": {
+        "artifact": "/home/mohammednada/programming/belesah/.archify/architecture-belesah-20261027-203500/belesah.html"
+      },
+      "evidence": {
+        "reason": "Chrome DevTools read pipe failed: stream ended\nChrome process: still running.\nChrome stderr:\n[48885:48885:1027/203743.517058:ERROR:third_party/crashpad/crashpad/util/file/file_io_posix.cc:208] open /home/mohammednada/.config/BraveSoftware/Brave-Browser/Crash Reports/settings.dat: Permission denied (13)\n[48885:48885:1027/203743.517200:ERROR:third_party/crashpad/crashpad/util/file/file_io_posix.cc:208] open /home/mohammednada/.config/BraveSoftware/Brave-Browser/Crash Reports/settings.dat: Permission denied (13)\n[48885:48885:1027/203743.519131:FATAL:sandbox/linux/suid/client/setuid_sandbox_host.cc:166] The SUID sandbox helper binary was found, but is not configured correctly. Rather than run without sandboxing I'm aborting now. You need to make sure that /opt/brave-bin/chrome-sandbox is owned by root and has mode 4755.\n[1027/203743.526606:ERROR:third_party/crashpad/crashpad/util/file/file_io_posix.cc:208] open /home/mohammednada/.config/BraveSoftware/Brave-Browser/Crash Reports/settings.dat: Permission denied (13)\n[1027/203743.526747:ERROR:third_party/crashpad/crashpad/util/file/file_io_posix.cc:153] open /home/mohammednada/.config/BraveSoftware/Brave-Browser/Crash Reports/new/dfbdb56e-0024-4594-b4d8-c1b7cbcf8eab.dmp: Permission denied (13)\n[1027/203743.526762:ERROR:third_party/crashpad/crashpad/handler/linux/crash_report_exception_handler.cc:209] PrepareNewCrashReport failed\nChrome transport: Node v26.8.1, libuv 1.52.1, linux; pid=48885, exitCode=null, signalCode=null.\nChrome read pipe: readable=false, ended=true, destroyed=false, receivedBytes=0, messages=0, bufferedBytes=0.\nChrome write pipe: writable=true, ended=false, destroyed=false, completedWrites=1, writtenBytes=50, bufferedBytes=0."
+      },
+      "supportedFixes": [
+        "resolve the reported Chrome inspection error, then rerun browser-check"
+      ]
+    }
+  ],
+  "containment": {
+    "status": "fail",
+    "policy": "fit-or-reader-declared-readable-vertical-scroll",
+    "viewports": []
+  },
+  "themeStates": {
+    "status": "fail",
+    "viewports": []
+  },
+  "readability": {
+    "status": "fail",
+    "minimumProjectedNodeTextPx": 6,
+    "viewports": []
+  },
+  "viewerChrome": {
+    "status": "fail",
+    "viewports": []
+  },
+  "captures": {
+    "status": "not-requested",
+    "screenshots": [],
+    "contactSheet": null
+  },
+  "sidecars": {
+    "receipt": "belesah.browser-check.json",
+    "files": []
+  },
+  "error": "Chrome DevTools read pipe failed: stream ended\nChrome process: still running.\nChrome stderr:\n[48885:48885:1027/203743.517058:ERROR:third_party/crashpad/crashpad/util/file/file_io_posix.cc:208] open /home/mohammednada/.config/BraveSoftware/Brave-Browser/Crash Reports/settings.dat: Permission denied (13)\n[48885:48885:1027/203743.517200:ERROR:third_party/crashpad/crashpad/util/file/file_io_posix.cc:208] open /home/mohammednada/.config/BraveSoftware/Brave-Browser/Crash Reports/settings.dat: Permission denied (13)\n[48885:48885:1027/203743.519131:FATAL:sandbox/linux/suid/client/setuid_sandbox_host.cc:166] The SUID sandbox helper binary was found, but is not configured correctly. Rather than run without sandboxing I'm aborting now. You need to make sure that /opt/brave-bin/chrome-sandbox is owned by root and has mode 4755.\n[1027/203743.526606:ERROR:third_party/crashpad/crashpad/util/file/file_io_posix.cc:208] open /home/mohammednada/.config/BraveSoftware/Brave-Browser/Crash Reports/settings.dat: Permission denied (13)\n[1027/203743.526747:ERROR:third_party/crashpad/crashpad/util/file/file_io_posix.cc:153] open /home/mohammednada/.config/BraveSoftware/Brave-Browser/Crash Reports/new/dfbdb56e-0024-4594-b4d8-c1b7cbcf8eab.dmp: Permission denied (13)\n[1027/203743.526762:ERROR:third_party/crashpad/crashpad/handler/linux/crash_report_exception_handler.cc:209] PrepareNewCrashReport failed\nChrome transport: Node v26.8.1, libuv 1.52.1, linux; pid=48885, exitCode=null, signalCode=null.\nChrome read pipe: readable=false, ended=true, destroyed=false, receivedBytes=0, messages=0, bufferedBytes=0.\nChrome write pipe: writable=true, ended=false, destroyed=false, completedWrites=1, writtenBytes=50, bufferedBytes=0."
+}
